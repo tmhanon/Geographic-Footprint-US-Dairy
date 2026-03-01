@@ -1,0 +1,143 @@
+# README
+Tristan M. Hanon, Pierre Mérel
+2026-03-01
+
+## Description of Package Content
+
+### Raw Data
+
+- `MilkAndMilkPooledByState2017.xlsx`
+  - Source: USDA Agricultural Marketing Service
+  - Format: `.xlsx`
+  - Notes:
+  - Provided: Yes
+- California Pooling Data 2017
+  - Source: California Department of Food and Agriculture, California
+    Dairy Statistics Annual 2017
+  - Original URL:
+    https://www.evidenceexplained.com/quicktips/citing-wayback-machine
+  - Archived URL:
+    https://web.archive.org/web/20181130220414/https://www.cdfa.ca.gov/dairy/pdf/Annual/2017/2017_Statistics_Annual.pdf
+  - Format: PDF and `.csv`
+  - Provided: Yes
+- `State_Region_Match_Table.csv`
+  - Source: Created by the Authors
+  - Format: `.csv`
+  - Provided: Yes
+  - Notes: Federal Milk Marketing Order regions were assigned to each
+    state based primarily on geography and the quantity of milk pooled.
+    In most cases, a given state is clearly geographically aligned with
+    a FMMO marketing area. In cases where a state is either split
+    between to FMMO marketing areas or is partially covered by a
+    marketing area and partially unregulated, a determination was made
+    about which region to assign. The rationale is described below:
+    - Idaho: A handful of Idaho counties are included in the Pacific
+      Northwest marketing area, but milk production in Idaho
+      predominantly takes place in the portions of the state that are
+      not covered by an FMMO marketing area.
+    - Kentucky and Tennessee: Counties in Kentucky are split between
+      three different FMMO marketing areas and Tennessee is split
+      between two marketing areas. In 2017, the majority of the milk
+      produced in Tennessee was pooled on the Appalachian order (59
+      percent), suggesting the state should be aligned with the
+      Appalachian order. Approximately equal shares of milk produced in
+      Kentucky were pooled on the Appalachian and Southeast orders in
+      2017 (about 49 percent each), but though slightly more milk was
+      pooled on the Southeast order, Kentucky was assigned to the
+      Appalachian order to produce a more geographically consistent
+      region.
+    - Missouri: Similar to Kentucky, more milk produced in Missouri was
+      pooled on the Southeast order in 2017 (55 percent), but since
+      Kansas City, Missouri, serves as the principal pricing point for
+      the Central order and Missouri is in the geographic center of the
+      Central order, Missouri was assigned to the Central order for
+      consistency.
+    - North Dakota: A portion of the easternmost counties in North
+      Dakota are included in the Upper Midwest marketing area and 56
+      percent of milk produced in North Dakota in 2017 was pooled on the
+      Upper Midwest order. Therefore, North Dakota was assigned to the
+      Upper Midwest region.
+    - Pennsylvania: The westernmost counties in Pennsylvania are
+      included in the Mideast Marketing Area, the easternmost in the
+      Northeast marketing area, and a large portion of the central part
+      of the state is not covered by any marketing area. However, 81
+      percent of Pennsylvania milk produced in 2017 was pooled on the
+      Northeast order, compared to 10 percent pooled on the Mideast
+      order (with 94 percent of total production pooled on any Federal
+      Order). Therefore, Pennsylvania was assigned to the Northeast
+      region.
+    - South Dakota: The western portion of South Dakota is not covered
+      by any FMMO marketing area while the easternmost counties are
+      split between the Upper Midwest and Central marketing areas. While
+      a larger share of milk production was pooled on the Upper Midwest
+      in 2017 (25 percent compared to 17 percent in the Central order),
+      a larger number of counties and the major population centers are
+      in the Central marketing area. Therefore, South Dakota was
+      assigned to the Central region.
+    - Alaska and Hawaii: Not assigned to a region as our analysis
+      focused on milk movements within the continental United States.
+
+## Data Availability Statement
+
+### Commodity Flow Survey and Freight Analysis Framework Data
+
+### Federal Milk Marketing Order Data
+
+#### Milk Pooled by State
+
+`MilkAndMilkPooledByState2017.xlsx`
+
+The data source for milk shipments between regions, $M_{ij}$, is the
+*Producer Milk Pooled by State of Origin* report for 2017. The report
+breaks down the total quantity of milk pooled in each FMMO by the state
+where the milk was originally produced. We aggregate these quantities to
+the FMMO level to generate a table of $M_{ij}$ values. These values are
+then used to construct the $\mu_{ij}$ parameters.
+
+Since our model assumes unidirectional milk trade flows, we calculate
+net flows in cases where bidirectional shipments between regions are
+observed. In addition, we reallocate milk shipments whenever some volume
+of milk is shipped back indirectly to a source region through a sequence
+of trades (loops, which are a generalization of bidirectional trade).
+Loops are broken by eliminating the smallest trade flow and reallocating
+shipments so that for each region, (i) the total volume of milk produced
+and (ii) the total volume of milk used remain the same as in the raw
+data.
+
+Additionally, milk that is produce in a region but not pooled on any
+Federal Order is added back to the quantity shipped from the region to
+itself. This is to account for the difference between *unregulated
+milk*, i.e., milk not pooled, and milk produced and utilized in the
+*unregulated region*. Since we have refer to the unregulated portions of
+the Western United States as the Unregulated region, we cannot assume
+all milk not pooled in other regions is also utilized in the Unregulated
+region. It is more reasonable to assume the milk not pooled was actually
+utilized in the origin region.
+
+California was still regulated by a state milk marketing order in 2017.
+As a result, the *Producer Milk Pooled by State of Origin* report did
+not include information on milk pooled in California from other regions.
+We approximated these quantities using the the 2019 *Producer Milk
+Pooled by State of Origin* report, which covers the first full year in
+which the California Federal Milk Marketing Order was in place. We
+calculate the share of each state’s total milk production that was
+pooled in California in 2019, then multiply that share by the state’s
+2017 milk production to approximate the quantity pooled in California.
+For the quantity of milk from California that was pooled in California,
+we simply take the difference between total milk production in
+California and milk shipped to other regions (which only included
+Arizona in 2017). The California state marketing order had a mandatory
+pooling provision, meaning all milk utilized in California was required
+to be pooled.
+
+## Code Execution Instructions
+
+## Computational Requirements
+
+R
+
+GAMS
+
+## List of Tables and Figures
+
+## Data Citations
