@@ -1,6 +1,10 @@
 # README
 Tristan M. Hanon, Pierre Mérel
-2026-03-01
+2026-07-19
+
+Install R 4.5
+
+Install RTools 4.5
 
 ## Description of Package Content
 
@@ -19,6 +23,14 @@ Tristan M. Hanon, Pierre Mérel
   - Archived URL:
     https://web.archive.org/web/20181130220414/https://www.cdfa.ca.gov/dairy/pdf/Annual/2017/2017_Statistics_Annual.pdf
   - Format: PDF and `.csv`
+  - Provided: Yes
+- Western New York Milk Marketing Area Annual Statistical Report 2017
+  - Source: New York Department of Agriculture and Markets
+  - Original URL:
+    https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017.pdf
+  - Format: PDF and `.csv`
+    - PDF: `Western_New_York_Statistics_Annual_2017.pdf`
+    - CSV: `Western_New_York_Utilization_2017.csv`
   - Provided: Yes
 - `State_Region_Match_Table.csv`
   - Source: Created by the Authors

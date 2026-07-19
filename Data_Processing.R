@@ -1,6 +1,7 @@
 ##### Setup #####
 
 library(readxl)
+library(mktnewsie)
 library(tidyverse)
 
 
@@ -16,7 +17,8 @@ milk_by_state_2019 <- read_excel("data/raw/MilkAndMilkPooledByState2019.xlsx")
 state_region_match <- read_csv("data/raw/State_Region_Match_Table.csv")
 
 
-
+# Milk Utilization by Class 2017
+  # They want everything in flat files, not API pulls
 
 
 
@@ -112,7 +114,11 @@ milk_by_state_processed <- milk_by_state_raw %>%
 # Accounting for Net Flows and Loops in 2017 Milk Movement Data
 milk_by_state_processed %>%
   select(Origin_Region = Region, Northeast:Not_Pooled) %>%
-  pivot_longer(Northeast:Arizona, names_to = "Destination_Region", values_to = "Milk_Flow") %>%
+  pivot_longer(
+    Northeast:Arizona, 
+    names_to = "Destination_Region", 
+    values_to = "Milk_Flow"
+  ) %>%
   mutate(
     Milk_Flow = case_when(
       Origin_Region == Destination_Region ~ Milk_Flow + Not_Pooled,
@@ -122,4 +128,7 @@ milk_by_state_processed %>%
       Origin_Region == "Unregulated" ~ Not_Pooled,
       .default = 0
     )
-  )
+  ) 
+
+
+
