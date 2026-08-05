@@ -19,7 +19,6 @@ format: gfm
 
 Install R 4.5
 
-Install RTools 4.5
 
 
 ## Description of Package Content
@@ -47,6 +46,9 @@ Install RTools 4.5
     - PDF: `Western_New_York_Statistics_Annual_2017.pdf`
     - CSV: `Western_New_York_Utilization_2017.csv`
   - Provided: Yes
+  
+
+### Lookup Tables
   
 - `State_Region_Match_Table.csv`
   - Source: Created by the Authors
@@ -83,6 +85,22 @@ Additionally, milk that is produce in a region but not pooled on any Federal Ord
 
 California was still regulated by a state milk marketing order in 2017. As a result, the *Producer Milk Pooled by State of Origin* report did not include information on milk pooled in California from other regions. We approximated these quantities using the the 2019 *Producer Milk Pooled by State of Origin* report, which covers the first full year in which the California Federal Milk Marketing Order was in place. We calculate the share of each state's total milk production that was pooled in California in 2019, then multiply that share by the state's 2017 milk production to approximate the quantity pooled in California. For the quantity of milk from California that was pooled in California, we simply take the difference between total milk production in California and milk shipped to other regions (which only included Arizona in 2017). The California state marketing order had a mandatory pooling provision, meaning all milk utilized in California was required to be pooled. 
 
+Net Flows:
+Appalachian -> Northeast
+Mideast -> Northeast
+Southeast -> Appalachian
+Appalachian -> Florida
+Florida -> Southeast
+Appalachian -> Upper-Midwest
+Southeast -> Upper-Midwest
+Appalachian -> Central
+Southeast -> Central
+Upper-Midwest -> Central
+Mideast -> Central
+Appalachian -> Mideast
+Upper-Midwest -> Mideast
+Central -> Southwest
+Southwest -> Arizona
 
 
 ## Code Execution Instructions
