@@ -9,7 +9,6 @@
 # Identify Project Root
 here::i_am("R/2_Process_Milk_Shipments.R")
 
-
 # Load Packages
 library(here)
 library(tidyverse)
@@ -53,13 +52,12 @@ collapse_cycle <- function(data, cycle) {
 # Clean 2019 Milk Movement Data (Used to calculate California shipments):
 ca_share_2019 <- milk_by_state_2019 %>%
   # Drop the first three rows:
-  slice(4:n()) %>%
+  slice(5:(n() - 1)) %>%
   # Calculate each state's share of total milk production pooled In California:
   mutate(CA_Share = `51` / `NASS Milk Marketings`) %>%
   # Drop unnecessary variables:
   select(
     State = `2019            State`,
-    FIPS = `...4`,
     CA_Share
   )
 
@@ -68,7 +66,6 @@ milk_by_state_processed <- milk_by_state_raw %>%
   # Keep only useful variables and assign more appropriate names:
   select(
     State,
-    FIPS = `...4`,
     Milk_Prod = `NASS Milk Marketings`,
     Milk_Pooled = `Milk Pooled Pounds`,
     Northeast = `1`,
@@ -87,7 +84,7 @@ milk_by_state_processed <- milk_by_state_raw %>%
   # Join 2019 California Shares:
   left_join(
     ca_share_2019,
-    by = c("State", "FIPS")
+    by = "State"
   ) %>%
   # Calculate new variables:
   mutate(
@@ -110,10 +107,10 @@ milk_by_state_processed <- milk_by_state_raw %>%
   # Join State-Region Match Table:
   left_join(
     state_region_match,
-    by = c("State", "FIPS")
+    by = "State"
   ) %>%
-  # Drop rows without a Region (only Alaska and Hawaii):
-  filter(!is.na(Region)) %>%
+  # Filter out Alaska and Hawaii:
+  filter_out(Region == "Drop") %>%
   # Group by Region and sum to the regional level:
   group_by(Region) %>%
   summarize(
@@ -201,7 +198,7 @@ milk_shipments <- reduce(
 
 # Save milk shipments matrix as CSV file in GAMS folder:
 milk_shipments %>%
-  write.csv(here("GAMS", "CSV DATA FILES", "Milk_Shipments_Jul2026.csv"))
+  write_csv(here("GAMS", "CSV DATA FILES", "Milk_Shipments.csv"))
 
 # Calculate Total Milk Utilization by Region:
 milk_shipments %>%

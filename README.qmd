@@ -62,6 +62,17 @@ Install R 4.5
     - Pennsylvania: The westernmost counties in Pennsylvania are included in the Mideast Marketing Area, the easternmost in the Northeast marketing area, and a large portion of the central part of the state is not covered by any marketing area. However, 81 percent of Pennsylvania milk produced in 2017 was pooled on the Northeast order, compared to 10 percent pooled on the Mideast order (with 94 percent of total production pooled on any Federal Order). Therefore, Pennsylvania was assigned to the Northeast region. 
     - South Dakota: The western portion of South Dakota is not covered by any FMMO marketing area while the easternmost counties are split between the Upper Midwest and Central marketing areas. While a larger share of milk production was pooled on the Upper Midwest in 2017 (25 percent compared to 17 percent in the Central order), a larger number of counties and the major population centers are in the Central marketing area. Therefore, South Dakota was assigned to the Central region. 
     - Alaska and Hawaii: Not assigned to a region as our analysis focused on milk movements within the continental United States.
+    
+    
+    
+### R Scripts
+
+1. `1_Data_Import.R`
+
+2. `2_Process_Milk_Shipments.R`
+  - Output: `Milk_Shipments.csv`, `Milk_Utilization.csv`, and `Milk_Production.csv`.
+  
+3. `3_Process_CFS_Data.R`
 
 
 
