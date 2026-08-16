@@ -7,7 +7,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/2_Process_Milk_Shipments.R")
+here::i_am("R CODE/Data-Processing/2_Process_Milk_Shipments.R")
 
 # Load Packages
 library(here)
@@ -207,9 +207,9 @@ milk_shipments <- reduce(
 
 ##### Save Output ##############################################################
 
-# Save milk shipments matrix as CSV file in GAMS folder:
+# Save milk shipments matrix as CSV file in GAMS CODE folder:
 milk_shipments %>%
-  write_csv(here("GAMS", "CSV DATA FILES", "Milk_Shipments.csv"))
+  write_csv(here("GAMS CODE", "CSV DATA FILES", "Milk_Shipments.csv"))
 
 # Calculate Total Milk Utilization by Region:
 milk_utilization <- milk_shipments %>%

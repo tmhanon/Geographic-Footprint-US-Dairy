@@ -7,7 +7,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/3_Process_Component_Values_Volumes.R")
+here::i_am("R CODE/Data-Processing/3_Process_Component_Values_Volumes.R")
 
 # Load Packages
 library(here)
@@ -847,7 +847,7 @@ comp_volumes_values_total <- bind_rows(
 comp_volumes_values_total %>%
   select(-Value) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "Comp_Quantity_for_GAMS.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "Comp_Quantity_for_GAMS.csv"),
     col_names = F
   )
 
@@ -855,6 +855,6 @@ comp_volumes_values_total %>%
 comp_volumes_values_total %>%
   select(-Pounds) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "Comp_Value_for_GAMS.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "Comp_Value_for_GAMS.csv"),
     col_names = F
   )

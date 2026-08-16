@@ -10,7 +10,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/4_Process_CFS_Data.R")
+here::i_am("R CODE/Data-Processing/4_Process_CFS_Data.R")
 
 # Load Packages
 library(tidyverse)
@@ -929,6 +929,6 @@ cfs_dairy_flow_processed %>%
   arrange(Origin_Region, Dest_Region, Comm_Group) %>%
   bind_rows(census_dairy_imports_exports) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "CFS_Dairy_for_GAMS_Gravity.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "CFS_Dairy_for_GAMS_Gravity.csv"),
     col_names = F
   )

@@ -8,7 +8,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/7_Process_NASS_Crops_Data.R")
+here::i_am("R CODE/Data-Processing/7_Process_NASS_Crops_Data.R")
 
 # Load Packages
 library(here)
@@ -253,7 +253,7 @@ crop_acres_adjusted <- crop_acreage_aggregate %>%
   ) %>%
   select(Region, Crop, Acres) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "Crop_Areas.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "Crop_Areas.csv"),
     col_names = FALSE
   )
 
@@ -282,7 +282,7 @@ crop_value_adjusted <- crop_value_aggregate %>%
   ) %>%
   select(Region, Crop, Value) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "Crop_Prod_Values.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "Crop_Prod_Values.csv"),
     col_names = FALSE
   )
 
@@ -336,6 +336,6 @@ dairy_crop_consumption <- expand_grid(
   ) %>%
   arrange(Region, Crop_Type) %>%
   write_csv(
-    here("GAMS", "CSV DATA FILES", "Dairy_Crop_Cons_Value.csv"),
+    here("GAMS CODE", "CSV DATA FILES", "Dairy_Crop_Cons_Value.csv"),
     col_names = F
   )
