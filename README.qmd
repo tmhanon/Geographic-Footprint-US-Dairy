@@ -28,7 +28,7 @@ Install R 4.5
 
 - `MilkAndMilkPooledByState2017.xlsx`
   - Source: USDA Agricultural Marketing Service
-  - Format: `.xlsx`
+  - Format: `.csv`
   - Notes: 
   - Provided: Yes
   
@@ -43,9 +43,24 @@ Install R 4.5
   - Source: New York Department of Agriculture and Markets
   - Original URL: https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017.pdf
   - Format: PDF and `.csv`
-    - PDF: `Western_New_York_Statistics_Annual_2017.pdf`
-    - CSV: `Western_New_York_Utilization_2017.csv`
+    - PDF: `Western_New_York_Annual_Statistical_Report_2017.pdf`
+    - CSV: `Western_New_York_Data_2017.csv`
   - Provided: Yes
+  
+
+- Advanced Prices
+  - Source: USDA Agricultural Marketing Service, Datamart
+  - URL: https://mpr.datamart.ams.usda.gov/
+  - Format: `.csv`
+  - Provided: Yes
+  - Notes: Downloaded through Datamart online tool. From main page select "Dairy" from the Commodity menu. Click "All Dairy" and "(DY_AD101) National Dairy Product Prices - Advanced". Under Report Year, switch the dropdown menu from "All" to "Equal To" and enter 2017 in the box that appears. Click "Continue". Uncheck all fields on the next screen and select "Base Class 1 Price", "Base Skim Milk Class 1 Price", and "Advanced Butterfat Factor". Select CSV as the file format and click "Generate Report". 
+  
+- Class Prices
+  - Source: USDA Agricultural Marketing Service, Datamart
+  - URL: https://mpr.datamart.ams.usda.gov/
+  - Format: `.csv`
+  - Provided: Yes
+  - Notes: Downloaded through Datamart online tool. From main page select "Dairy" from the Commodity menu. Click "All Dairy" and "(DY_CL102) National Dairy Product Prices - Monthly". Under Report Year, switch the dropdown menu from "All" to "Equal To" and enter 2017 in the box that appears. Click "Continue". Uncheck all fields on the next screen and select "Class 2 Price", "Class 2 Butterfat Price", "Class 3 Price", "Class 3 Skim Milk Price", "Class 4 Price", "Class 4 Skim Milk Price", "Butterfat Price", "Nonfat Solids Price", "Protein Price", and "Other Solids Price". Select CSV as the file format and click "Generate Report". 
   
 
 ### Lookup Tables
@@ -112,6 +127,54 @@ Appalachian -> Mideast
 Upper-Midwest -> Mideast
 Central -> Southwest
 Southwest -> Arizona
+
+
+### National Agricultural Statistics Service Data
+
+#### Livestock Inventories
+
+`NASS_Livestock_Census_2017.csv`
+
+Data on state livestock inventories were downloaded via NASS Quick Stats. Most of the inventory data come from the 2017 Census of Agriculture. To download these data from Quick Stats, select "CENSUS" from the Program box; select "ANIMALS & PRODUCTS" from the Sector box; select "LIVESTOCK", "POULTRY", and "SPECIALTY" from the Group box; select "CATTLE", "CHICKENS", "EQUINE", "GOATS", "HOGS", "SHEEP", and "TURKEYS" from the Commodity box; select "INVENTORY" from the Category box; select all of the following from the Data Item box:
+
+- CATTLE, COWS, MILK - INVENTORY
+- CATTLE, INCL CALVES - INVENTORY
+- CATTLE, ON FEED - INVENTORY
+- CHICKENS, BROILERS - INVENTORY
+- CHICKENS, LAYERS - INVENTORY
+- EQUINE, HORSE & PONIES - INVENTORY
+- GOATS - INVENTORY
+- HOGS - INVENTORY
+- SHEEP, INCL LAMBS - INVENTORY
+- TURKEYS - INVENTORY
+
+Select "TOTAL" from the Domain box; select "STATE" from the Geographic Level box; select 2017 from the Year box.
+
+`NASS_Heifers_Survey_2017.csv`
+
+We include dairy replacement heifers in the total number of dairy cattle. The inventory of replacement heifers is only available through the NASS Cattle report. To download these data from Quick Stats, select "SURVEY" from the Program box; select "ANIMALS & PRODUCTS" from the Sector box; select "LIVESTOCK" from the Group box; select "CATTLE" from the Commodity box; select "INVENTORY" from the Category box; select "CATTLE, HEIFERS, GE 500 LBS, MILK REPLACEMENT - INVENTORY" from the Data Item box; select "STATE" from the Geographic Level box; select 2017 from the Year box.
+
+`NASS_Livestock_Data_1519.csv`
+
+Data on state livestock inventories were downloaded via NASS Quick Stats. The data come from both the 2017 Census of Agriculture and the NASS Cattle report. Livestock inventory data are used in multiple data processing scripts. 
+
+The survey data from the Cattle report cover 2015 through 2019 and are used in the `4_Silage_Regression.R` script. 
+
+To download these data from Quick Stats, *do not* make a selection from the Program box; select "ANIMALS & PRODUCTS" from the Sector box; select "LIVESTOCK", "POULTRY", and "SPECIALTY" from the Group box; select "CATTLE", "CHICKENS", "EQUINE", "GOATS", "HOGS", "SHEEP", and "TURKEYS" from the Commodity box; select "INVENTORY" from the Category box; select all of the following from the Data Item box:
+
+- CATTLE, COWS, MILK - INVENTORY
+- CATTLE, HEIFERS, GE 500 LBS, MILK REPLACEMENT - INVENTORY
+- CATTLE, INCL CALVES - INVENTORY
+- CATTLE, ON FEED - INVENTORY
+- CHICKENS, BROILERS - INVENTORY
+- CHICKENS, LAYERS - INVENTORY
+- EQUINE, HORSE & PONIES - INVENTORY
+- GOATS - INVENTORY
+- HOGS - INVENTORY
+- SHEEP, INCL LAMBS - INVENTORY
+- TURKEYS - INVENTORY
+
+Select "TOTAL" from the Domain box; select "STATE" from the Geographic Level box; select 2015 through 2019 from the Year box; select "POINT IN TIME" from the Period Type box; and select "FIRST OF JAN" and "END OF DEC" from the Period box. 
 
 
 ## Code Execution Instructions

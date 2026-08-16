@@ -1,5 +1,5 @@
 # Title: The Geographic Footprint of U.S. Dairy Policy
-# Script: 5_Process_NASS_Crops_Data.R
+# Script: 7_Process_NASS_Crops_Data.R
 # Authors: Tristan Hanon
 # Date: July 2026
 #
@@ -8,7 +8,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/5_Process_NASS_Crops_Data.R")
+here::i_am("R/7_Process_NASS_Crops_Data.R")
 
 # Load Packages
 library(here)
@@ -87,8 +87,8 @@ crop_sales_processed <- crop_sales_raw %>%
       recode_values(from = crop_groups$Commodity, to = crop_groups$Comm_Group)
   ) %>%
   filter_out(Comm_Group == "Other-Crops") %>%
-  summarise(Value = sum(Value), .by = c(Region, Comm_Group)) %>%
-  arrange(Region, Comm_Group)
+  summarise(Value = sum(Value), .by = c(State, Region, Comm_Group)) %>%
+  arrange(State, Comm_Group)
 
 
 # Silage and Haylage Values
@@ -156,13 +156,20 @@ other_sales_processed <- crop_sales_processed %>%
   #   since the total sales data come from the 2017 Census of Agriculture and
   #   the hay production value data are survey data.
   filter_out(Comm_Group == "Hay") %>%
-  summarise(Sum_Sales = sum(Value), .by = Region) %>%
+  summarize(Value = sum(Value), .by = c(Region, Comm_Group)) %>%
+  summarize(Sum_Sales = sum(Value), .by = Region) %>%
   left_join(total_sales_processed, by = "Region") %>%
   mutate(
     Other_Crops = Total_Sales - Sum_Sales,
     Comm_Group = "Other-Crops"
   ) %>%
   select(Region, Comm_Group, Value = Other_Crops)
+
+# Feed Crop Exports
+feed_crop_exports_processed <- crop_exports_raw %>%
+  select(HS_Code = `HS Code`, Product, `2017`) %>%
+  left_join(hscode_crops, by = "HS_Code") %>%
+  summarize(Exports = sum(`2017`), .by = Comm_Group)
 
 
 ##### Aggregate Data ###########################################################
@@ -189,16 +196,17 @@ crop_acreage_aggregate <- feed_crops_processed %>%
         c("Soybeans", "Other-Oilseeds") ~ "Oilseeds"
       )
   ) %>%
-  summarise(Acres = sum(Acres), .by = c(Region, Crop)) %>%
+  summarize(Acres = sum(Acres), .by = c(Region, Crop)) %>%
   arrange(Region, Crop)
 
 # Value of Crop Production:
-crop_value_aggregate <- bind_rows(
-  crop_sales_processed,
-  silage_value_processed,
-  haylage_value_processed,
-  other_sales_processed
-) %>%
+crop_value_aggregate <- crop_sales_processed %>%
+  summarize(Value = sum(Value), .by = c(Region, Comm_Group)) %>%
+  bind_rows(
+    silage_value_processed,
+    haylage_value_processed,
+    other_sales_processed
+  ) %>%
   mutate(
     Crop = Comm_Group %>%
       replace_values(
@@ -214,8 +222,8 @@ crop_value_aggregate <- bind_rows(
 
 # Load Dairy Silage Shares
 # NOTE: This intermediate file was created by the script 4_Silage_Regressions.R
-#   If that script was recently run, the data may already be available, but
-#   this step ensures it will be loaded.
+#   If that script was recently run, the data may already be available in
+#   memory, but this step ensures it will be loaded.
 dairy_silage_share <- read_csv(
   here("Data", "Processed", "Dairy_Silage_Share.csv")
 )
@@ -276,4 +284,58 @@ crop_value_adjusted <- crop_value_aggregate %>%
   write_csv(
     here("GAMS", "CSV DATA FILES", "Crop_Prod_Values.csv"),
     col_names = FALSE
+  )
+
+
+##### Calculate Dairy Feed Crop Consumption Value ##############################
+
+# Load State-Level FCAUs and Shares
+# NOTE: This intermediate file was created by the script
+#   5_Process_Feed_Use_Data.R. If that script was recently run, the data may
+#   already be available in memory, but this step ensures it will be loaded.
+state_fcaus <- read_csv(
+  here("Data", "Processed", "State_FCAUs.csv")
+)
+
+# Load Crop Feed Use Shares
+# NOTE: This intermediate file was created by the script
+#   5_Process_Feed_Use_Data.R. If that script was recently run, the data may
+#   already be available in memory, but this step ensures it will be loaded.
+crop_feed_shares <- read_csv(
+  here("Data", "Processed", "Crop_Feed_Shares.csv")
+)
+
+# Calculate Dairy Feed Crop Consumption
+dairy_crop_consumption <- expand_grid(
+  State = continental_states[-length(continental_states)],
+  Comm_Group = c("Corn", "Other-Grains", "Soybeans", "Other-Oilseeds", "Hay")
+) %>%
+  left_join(select(state_region_match, -FIPS), by = "State") %>%
+  left_join(crop_sales_processed, by = c("State", "Region", "Comm_Group")) %>%
+  left_join(feed_crop_exports_processed, by = "Comm_Group") %>%
+  left_join(crop_feed_shares, by = "Comm_Group") %>%
+  mutate(
+    Total_Production = sum(Value, na.rm = T),
+    Domestic_Use = Total_Production - Exports,
+    Feed_Use = Domestic_Use * Dom_Share_Feed,
+    Crop_Type = Comm_Group %>%
+      replace_values(
+        c("Corn", "Other-Grains") ~ "Grains",
+        c("Soybeans", "Other-Oilseeds") ~ "Oilseeds",
+      ),
+    .by = Comm_Group
+  ) %>%
+  left_join(state_fcau_shares, by = c("State", "Crop_Type")) %>%
+  mutate(
+    Consumption = Feed_Use * Share_FCAU,
+    Dairy_Consumption = Consumption * Dairy_Share
+  ) %>%
+  summarize(
+    Dairy_Consumption = sum(Dairy_Consumption),
+    .by = c("Region", "Crop_Type")
+  ) %>%
+  arrange(Region, Crop_Type) %>%
+  write_csv(
+    here("GAMS", "CSV DATA FILES", "Dairy_Crop_Cons_Value.csv"),
+    col_names = F
   )

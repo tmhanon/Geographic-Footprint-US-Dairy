@@ -1,5 +1,5 @@
 # Title: The Geographic Footprint of U.S. Dairy Policy
-# Script: 3_Process_CFS_Data.R
+# Script: 4_Process_CFS_Data.R
 # Authors: Tristan Hanon
 # Date: July 2026
 #
@@ -10,7 +10,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/3_Process_CFS_Data.R")
+here::i_am("R/4_Process_CFS_Data.R")
 
 # Load Packages
 library(tidyverse)

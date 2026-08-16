@@ -47,7 +47,16 @@ collapse_cycle <- function(data, cycle) {
 }
 
 
-##### Process Data #############################################################
+##### Process California Data ##################################################
+
+# California Grade A Milk Production
+# NOTE: This is a single value that will be used as the quantity of milk from
+#   California pooled in the California Order. The California State Order had
+#   a mandatory pooling provision for all Grade A milk.
+ca_grade_a_prod <- ca_data_raw %>%
+  filter(is.na(CA_Class)) %>%
+  pluck("Value")
+
 
 # Clean 2019 Milk Movement Data (Used to calculate California shipments):
 ca_share_2019 <- milk_by_state_2019 %>%
@@ -60,6 +69,9 @@ ca_share_2019 <- milk_by_state_2019 %>%
     State = `2019            State`,
     CA_Share
   )
+
+
+##### Process Milk Movement Data ###############################################
 
 # Clean 2017 Milk Movement Data
 milk_by_state_processed <- milk_by_state_raw %>%
@@ -90,7 +102,7 @@ milk_by_state_processed <- milk_by_state_raw %>%
   mutate(
     # Quantity of milk pooled in California (See README for more information):
     California = case_when(
-      State == "California" ~ Milk_Prod - Milk_Pooled,
+      State == "California" ~ ca_grade_a_prod,
       .default = Milk_Prod * CA_Share
     )
   ) %>%
@@ -99,7 +111,6 @@ milk_by_state_processed <- milk_by_state_raw %>%
     Milk_Pooled = rowSums(across(Northeast:California), na.rm = T),
     # Quantity of milk not pooled in any FMMO region:
     Not_Pooled = case_when(
-      State == "California" ~ 0, # Due to mandatory pooling provision.
       Milk_Prod - Milk_Pooled >= 0 ~ Milk_Prod - Milk_Pooled,
       .default = 0
     )
@@ -201,16 +212,21 @@ milk_shipments %>%
   write_csv(here("GAMS", "CSV DATA FILES", "Milk_Shipments.csv"))
 
 # Calculate Total Milk Utilization by Region:
-milk_shipments %>%
+milk_utilization <- milk_shipments %>%
   as_tibble(rownames = "Region") %>%
   summarize(across(Northeast:Unregulated, sum)) %>%
   pivot_longer(everything(), names_to = "Region", values_to = "Utilization") %>%
-  write_csv(here("data", "processed", "Milk_Utilization.csv"))
+  write_csv(here("Data", "Processed", "Milk_Utilization.csv"))
 
 # Calculated Total Milk Production by Region:
-milk_shipments %>%
+milk_production <- milk_shipments %>%
   as_tibble(rownames = "Region") %>%
   rowwise() %>%
   mutate(Production = sum(c_across(Northeast:Unregulated))) %>%
   select(Region, Production) %>%
-  write_csv(here("data", "processed", "Milk_Production.csv"))
+  write_csv(here("Data", "Processed", "Milk_Production.csv"))
+
+# Save Milk Not Pooled by Region:
+milk_not_pooled <- milk_by_state_processed %>%
+  select(Region, Not_Pooled) %>%
+  write_csv(here("Data", "Processed", "Milk_Not_Pooled.csv"))

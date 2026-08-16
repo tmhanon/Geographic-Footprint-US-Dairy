@@ -1,5 +1,5 @@
 # Title: The Geographic Footprint of U.S. Dairy Policy
-# Script: 4_Silage_Regressions.R
+# Script: 5_Silage_Regressions.R
 # Authors: Tristan Hanon
 # Date: July 2026
 #
@@ -8,7 +8,7 @@
 ##### Setup ####################################################################
 
 # Identify Project Root
-here::i_am("R/4_Silage_Regressions.R")
+here::i_am("R/5_Silage_Regressions.R")
 
 # Load Packages
 library(here)
@@ -80,7 +80,7 @@ haylage_data_processed <- haylage_data_1519 %>%
 
 
 # Livestock Data
-livestock_processed <- nass_livestock_1519_raw %>%
+livestock_1519_processed <- nass_livestock_data_raw %>%
   filter(
     State %in% str_to_upper(continental_states),
     Program == "SURVEY",
@@ -90,12 +90,8 @@ livestock_processed <- nass_livestock_1519_raw %>%
     State = str_to_title(State),
     Category = `Data Item` %>%
       recode_values(
-        c(
-          "CATTLE, COWS, MILK - INVENTORY",
-          "CATTLE, HEIFERS, GE 500 LBS, MILK REPLACEMENT - INVENTORY"
-        ) ~ "Dairy",
-        "CATTLE, ON FEED - INVENTORY" ~ "CattleFeed",
-        "CATTLE, INCL CALVES - INVENTORY" ~ "TotalCattle"
+        from = livestock_groups$NASS_Data_Item,
+        to = livestock_groups$Category
       ),
     Value = parse_number(Value, na = c("(D)", "(NA)"))
   ) %>%
@@ -121,7 +117,7 @@ silage_livestock_data <- left_join(
   ) %>%
   select(-c(Value, HAYLAGE)) %>%
   left_join(
-    livestock_processed,
+    livestock_1519_processed,
     by = c("Year", "State")
   )
 
