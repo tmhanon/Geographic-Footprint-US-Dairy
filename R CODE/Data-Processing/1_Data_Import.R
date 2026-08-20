@@ -245,18 +245,6 @@ haylage_data_1519 <- read_csv(
   here("Data", "Raw", "NASS_Haylage_Data_1519.csv")
 )
 
-nass_livestock_1519_raw <- read_csv(
-  here("Data", "Raw", "NASS_Livestock_Raw_1519.csv")
-)
-
-nass_livestock_census_raw <- read_csv(
-  here("Data", "Raw", "NASS_Livestock_Census_2017.csv")
-)
-
-nass_heifers_survey_raw <- read_csv(
-  here("Data", "Raw", "NASS_heifers_survey_2017.csv")
-)
-
 nass_livestock_data_raw <- read_csv(
   here("Data", "Raw", "NASS_Livestock_Data_1519.csv")
 )

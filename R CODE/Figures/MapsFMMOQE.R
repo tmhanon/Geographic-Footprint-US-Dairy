@@ -246,7 +246,8 @@ fmmoregions<-ggplot(data = pregionsFMMOreorder) +
   scale_fill_discrete(name="Region",
     labels = function(breaks) {breaks<- newnames},
     na.value = "gray50") +
-  geom_sf(data=pstates, fill=NA,color="black")
+  geom_sf(data=pstates, fill=NA,color="black") +
+  theme_void()
 
 if (!dir.exists("../../MANUSCRIPT FIGURES/Figure A.1")) {
   dir.create("../../MANUSCRIPT FIGURES/Figure A.1")
@@ -298,7 +299,8 @@ fmmoapproximations<-ggplot(data = pregionsapproxreorder) +
     name="Region",
     labels = function(breaks) {breaks <- newnames},
     na.value = "gray50") +
-  geom_sf(data=pstates, fill=NA,color="black")
+  geom_sf(data=pstates, fill=NA,color="black") +
+  theme_void()
 
 ggsave(filename = "../../MANUSCRIPT FIGURES/Figure A.1/fmmoapproximations.png",plot = fmmoapproximations)
 

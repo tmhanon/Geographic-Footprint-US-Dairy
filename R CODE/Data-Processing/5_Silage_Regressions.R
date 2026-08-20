@@ -155,15 +155,16 @@ regUnre <- filter(silage_models, Merged_Region == "Unregulated")$model[[1]]
 
 # Produce LaTeX table using {stargazer} and save as .txt file:
 # NOTE: Run each line in order, i.e., sink(...), stargazer(...), sink().
-sink(here("MANUSCRIPT TABLES", "Supplemental Material", "Table_C5.txt"))
+sink(here("MANUSCRIPT TABLES", "Table_C5.txt"))
 stargazer(
+  type = "text",
   regNEAP,
   regSEFL,
   regUMME,
   regCESW,
   regWest,
   regUnre,
-  dep.var.caption = "Silage Quantity",
+  dep.var.caption = "Silage produced in",
   dep.var.labels.include = FALSE,
   column.labels = c(
     "Northeast-Appalachian",
@@ -174,7 +175,8 @@ stargazer(
     "Unregulated"
   ),
   column.separate = c(1, 1, 1, 1, 1, 1),
-  covariate.labels = c("Dairy Cattle", "Cattle on Feed")
+  covariate.labels = c("Dairy Cattle", "Cattle on Feed"),
+  keep.stat = c("n", "rsq", "f")
 )
 sink()
 
@@ -217,7 +219,7 @@ dairy_silage_share <- silage_models %>%
 
 # Save Table C.6 as .txt file:
 # NOTE: Run each line in order, i.e., sink(...), dairy_silage_share..., sink().
-sink(here("MANUSCRIPT TABLES", "Supplemental Material", "Table_C6.txt"))
+sink(here("MANUSCRIPT TABLES", "Table_C6.txt"))
 dairy_silage_share %>%
   mutate(
     Region = str_replace(Region, "-", " ") %>%

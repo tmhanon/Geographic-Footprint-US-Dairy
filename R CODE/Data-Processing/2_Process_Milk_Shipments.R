@@ -207,9 +207,16 @@ milk_shipments <- reduce(
 
 ##### Save Output ##############################################################
 
+# Adjust scientific notation option to avoid numbers being saved as text:
+scipen_current <- getOption("scipen")
+options(scipen = 999)
+
 # Save milk shipments matrix as CSV file in GAMS CODE folder:
 milk_shipments %>%
-  write_csv(here("GAMS CODE", "CSV DATA FILES", "Milk_Shipments.csv"))
+  write.csv(here("GAMS CODE", "CSV DATA FILES", "Milk_Shipments.csv"))
+
+# Reset option:
+options(scipen = scipen_current)
 
 # Calculate Total Milk Utilization by Region:
 milk_utilization <- milk_shipments %>%

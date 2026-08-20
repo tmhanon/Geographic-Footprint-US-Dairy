@@ -596,31 +596,31 @@ dairyexportquota<-format(round(dairyexportquota[1,1]*100,digits=3),nsmall=3)
 dairyexporteffects<-as.table(matrix(c(dairyexportwedge,"",dairyexportquota,""),ncol=4))
 
 csdomwedge<-read.csv("Table 7/csdomwedge.csv")
-csdomwedge<-round(csdomwedge[1,1]*100,digits=3)
+csdomwedge<-format(round(csdomwedge[1,1]*100,digits=3),nsmall=3)
 csdomvalwedge<-read.csv("Table 7/csdomvalwedge.csv")
 csdomvalwedge<-round(csdomvalwedge[1,1]/1E06,digits=0)
 
 csdomquota<-read.csv("Table 7/csdomquota.csv")
-csdomquota<-round(csdomquota[1,1]*100,digits=3)
+csdomquota<-format(round(csdomquota[1,1]*100,digits=3),nsmall=3)
 csdomvalquota<-read.csv("Table 7/csdomvalquota.csv")
 csdomvalquota<-round(csdomvalquota[1,1]/1E06,digits=0)
 
 domwelfeffects<-as.table(matrix(c(csdomwedge,paste0("[",csdomvalwedge,"]"),csdomquota,paste0("[",csdomvalquota,"]")),ncol=4))
 
 csforwedge<-read.csv("Table 7/csforwedge.csv")
-csforwedge<-round(csforwedge[1,1]*100,digits=3)
+csforwedge<-format(round(csforwedge[1,1]*100,digits=3),nsmall=3)
 csforvalwedge<-read.csv("Table 7/csforvalwedge.csv")
 csforvalwedge<-round(csforvalwedge[1,1]/1E06,digits=0)
 
 csforquota<-read.csv("Table 7/csforquota.csv")
-csforquota<-round(csforquota[1,1]*100,digits=3)
+csforquota<-format(round(csforquota[1,1]*100,digits=3),nsmall=3)
 csforvalquota<-read.csv("Table 7/csforvalquota.csv")
 csforvalquota<-round(csforvalquota[1,1]/1E06,digits=0)
 
 forwelfeffects<-as.table(matrix(c(csforwedge,paste0("[",csforvalwedge,"]"),csforquota,paste0("[",csforvalquota,"]")),ncol=4))
 
 cstotwedge<-read.csv("Table 7/cstotwedge.csv")
-cstotwedge<-round(cstotwedge[1,1]*100,digits=3)
+cstotwedge<-format(round(cstotwedge[1,1]*100,digits=3),nsmall=3)
 cstotvalwedge<-read.csv("Table 7/cstotvalwedge.csv")
 cstotvalwedge<-round(cstotvalwedge[1,1]/1E06,digits=0)
 

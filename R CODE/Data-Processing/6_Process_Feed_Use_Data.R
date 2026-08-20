@@ -307,7 +307,7 @@ crop_feed_shares <- bind_rows(
 
 ##### Output Table C.3 #########################################################
 
-sink(here("MANUSCRIPT TABLES", "Supplemental Material", "Table_C3.txt"))
+sink(here("MANUSCRIPT TABLES", "Table_C3.txt"))
 crop_feed_shares %>%
   mutate(
     Dom_Share_Feed = format(round(Dom_Share_Feed, 3), nsmall = 3),
@@ -325,7 +325,7 @@ sink()
 
 ##### Output Table C.4 #########################################################
 
-sink(here("MANUSCRIPT TABLES", "Supplemental Material", "Table_C4.txt"))
+sink(here("MANUSCRIPT TABLES", "Table_C4.txt"))
 total_fcaus %>%
   mutate(
     `Feed type` = Crop_Type %>%

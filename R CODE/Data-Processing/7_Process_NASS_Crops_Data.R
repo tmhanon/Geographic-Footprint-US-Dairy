@@ -325,7 +325,7 @@ dairy_crop_consumption <- expand_grid(
       ),
     .by = Comm_Group
   ) %>%
-  left_join(state_fcau_shares, by = c("State", "Crop_Type")) %>%
+  left_join(state_fcaus, by = c("State", "Crop_Type")) %>%
   mutate(
     Consumption = Feed_Use * Share_FCAU,
     Dairy_Consumption = Consumption * Dairy_Share

@@ -1,18 +1,18 @@
 $title GAMS CODE FOR "THE GEOGRAPHIC FOOTPRINT OF U.S. DAIRY POLICY," QUANTITATIVE ECONOMICS
-*THIS FILE RUNS SEVERAL COUNTERFACTUAL MODELS:
+*THIS FILE RUNS SEVERAL COUNTERFACTUAL MODELS DEFINED IN SEPARATE SECTIONS:
+*(0) PARAMETER CALCULATIONS OR MODEL EQUATIONS ARE USED TO DERIVE KEY MODEL ELASTICITIES AS REPORTED IN SECTION 5 AND SUPPLEMENTAL APPENDIX D
 *(1) REMOVAL OF FMMO PRICE DISTORTIONS (MODEL FMMO)
 *(2) IDEAL COMPONENT WEDGES THAT MAXIMIZE DOMESTIC CONSUMER SURPLUS WHILE PRESERVING REGIONAL LAND RENTS (MODEL BETTERWEDGESREG)
 *(3) REGIONAL MILK QUOTAS THAT MAXIMIZE DOMESTIC CONSUMER SURPLUS WHILE PRESERVING REGIONAL LAND + QUOTA RENTS (MODEL QUOTAREG)
 *(4) INCREASE OF FARM MILK TRADE COSTS UNTIL FARM MILK TRADE VANISHES (MODEL MILKTRADECOST)
 *(5) COMPONENT WEDGES RESHUFFLING TO INCREASE DOMESTIC LAND RENT TRANSFERS WITHOUT HURTING DOMESTIC CONSUMERS (MODEL BETTERSUPPORT)
 *(6) COMPARISON BETWEEN OPTIMAL WEDGES AND QUOTA WHEN EPSILON0 IS MADE EQUAL TO 100 (VERY ELASTIC FOREIGN DEMAND)
-*(7) REGIONAL MILK QUOTAS THAT MAXIMIZE DOMESTIC CONSUMER SURPLUS WHILE PRESERVING REGIONAL LAND + QUOTA RENTS BUT KEEPING
-*THE FULL ARBITRAGE REGARDING FARM MILK TRADE (MODEL QUOTAREG2)
+*(7) REGIONAL MILK QUOTAS THAT MAXIMIZE DOMESTIC CONSUMER SURPLUS WHILE PRESERVING REGIONAL LAND + QUOTA RENTS BUT KEEPING THE FULL ARBITRAGE ON FARM MILK TRADE (MODEL QUOTAREGALT)
 *(8) SIMULTANEOUS CHANGES IN COMPONENT PRICES TO DERIVE AGGREGATE COMPONENT DEMAND ELASTICITIES FOR BEVERAGE AND OTHER PRODUCTS (MODEL COMPDEMAND) SUPPORTING CLAIMS MADE IN APPENDIX G
-*(0) IN ADDITION, PARAMETER CALCULATIONS OR MODEL EQUATIONS ARE USED TO DERIVE KEY MODEL ELASTICITIES AS REPORTED IN SECTION 5 AND SUPPLEMENTAL APPENDIX D
 
-*THIS FILE HAS MANY SECTIONS. THE FILE SHOULD BE RUN SEPARATELY FOR EACH SECTION. THE USER SHOULD UNCOMMENT THE CODE LOCATED BETWEEN EACH PAIR ($ONTEXT, $OFFTEXT),
-*ONE PAIR AT A TIME.
+*THE CODE ALSO EXPORTS KEY METRICS THAT ARE USED TO SUBSTANTIATE STANDALONE CLAIMS MADE IN THE MANUSCRIPT. A STANDALONE CLAIM IS ONE BASED
+*ON MODEL RESULTS THAT ARE NOT ACTUALLY REPORTED IN MANUSCRIPT OR APPENDIX TABLES.
+
 
 *THIS CODE WAS TESTED USING GAMS STUDIO 1.25.5 ON A 14-INCH 2021 APPLE MACBOOKPRO WITH APPLE M1 CHIP and 32GB OF MEMORY, RUNNING MACOS SONOMA 14.7
 
@@ -88,14 +88,14 @@ $offdelim
 parameter   VALCOMPUSE(DOMI, N, K)  "value of component K used in product N in region I"
 /
 $ondelim
-$include "CSV DATA FILES/Comp_Value_for_GAMS_May2025.csv"
+$include "CSV DATA FILES/Comp_Value_for_GAMS.csv"
 $offdelim
 /;
 
 parameter   QTYCOMPUSE(DOMI, N, K)  "quantity of component K used in product N in region I"
 /
 $ondelim
-$include "CSV DATA FILES/Comp_Quantity_for_GAMS_May2025.csv"
+$include "CSV DATA FILES/Comp_Quantity_for_GAMS.csv"
 $offdelim
 /;
 
@@ -132,10 +132,9 @@ $offdelim
 parameter   CROPLANDRENT(DOMI)        "Rent of cropland in region I in $/acre"
 /
 $ondelim
-$include "CSV DATA FILES/Cropland_Rent_Jul2026.csv"
+$include "CSV DATA FILES/Cropland_Rent.csv"
 $offdelim
 / ;
-
 
 ** SUM UP SOME DATA
 
@@ -224,7 +223,7 @@ parameters  B1(J)                   "expenditure share of region J in total dair
             RHO0                    "share of non-feed crop in value of total crop production"
             PHI1(DOMI)              "feed crop share of the milk dollar in region DOMI"
             VARPHI2(DOMI,L)         "land share of the crop dollar for crop L in region DOMI"
-            DELTA(DOMI, N, K)       "policy distortion parameter"
+            DELTA(DOMI, N, K)       "component price wedge relative to butter-powder"
             ;
             
 B1(J) = A0 * sum(DOMI, A1(DOMI) * sum(N, A2(DOMI, N) * A3(DOMI, J, N))) + (1 - A0) * sum(N, A2("ROW", N) * A3("ROW", J, N)) ;
@@ -262,11 +261,12 @@ DELTA(DOMI, N, K) = THETA3(DOMI, N, K) / THETA3(DOMI, "Butter-Powder", K) * CHI(
 **EXOGENOUS CHANGES FOR COUNTERFACTUAL MODELS
 
 parameters  DELTAHAT(DOMI, N, K)      "hat value of policy distortion parameter (for MODEL FMMO)" 
-            TAU(DOMI, DOMJ)           "relative change in farm milk trade cost (for MODEL MILKTRADECOST)" 
-            VINDEXEX(DOMI,N)          "exogenous relative change in price index for components used in product N in region DOMI"
+            TAU(DOMI, DOMJ)           "relative change in farm milk trade cost (for MODEL MILKTRADECOST)"
+            MPRICEEX(DOMI)            "exogenous change in farm milk price (for MODEL MILKSUPELAS)"            
+            VINDEXEX(DOMI,N)          "exogenous change in price index for components used in product N in region DOMI (for MODEL COMPDEMAND)"
             ; 
 
-**VARIABLES AND POSITIVE VARIABLES
+**VARIABLES
 
 variables   C(I, DOMJ, N)             "relative change in region DOMJ demand for product N from origin I"
             C0(DOMI, N)               "relative change in foreign demand for product N from origin DOMI"
@@ -282,15 +282,15 @@ variables   C(I, DOMJ, N)             "relative change in region DOMJ demand for
             MQUANT(DOMI)              "relative change in milk production in region DOMI"
             MSHIP(DOMI, DOMJ)         "relative change in quantity of milk used in region DOMJ that comes from region DOMI"
             MPRICE(DOMI)              "relative change in milk price in region DOMI"
-            MMPRICE(DOMI)             "relative change in processor milk price in region DOMI (for MODEL QUOTAREG)"      
+            MMPRICE(DOMI)             "relative change in processor milk price in region DOMI (for MODELS QUOTAREG AND QUOTAREGALT)"      
             WINDEX1(DOMI)             "relative change in feed crop price index in region DOMI"
             R(DOMI, L)                "relative change in land rent for crop L in region DOMI"
             W(DOMI, L)                "relative change in producer price of crop L in region DOMI"
             Y(DOMI, L)                "relative change in production of crop L in region DOMI"
             OBJ                       "constant objective variable for optimization algorithm"
             DELTAHATOPT(DOMI, N, K)   "wedges as choice variables"
-            DOMCONSSURP               "domestic consumer surplus (for MODELS BETTERWEDGESREG and QUOTAREG)"  
-            TRANSFER        
+            DOMCONSSURP               "domestic consumer surplus (for MODELS BETTERWEDGESREG, QUOTAREG, AND QUOTAREGALT)"  
+            TRANSFER                  "aggregate land rent transfer (for MODEL BETTERSUPPORT)"      
             ;                    
 
 **EQUATIONS
@@ -313,23 +313,24 @@ equations   EQ1(I, DOMJ, N)         "domestic consumer demand in region DOMJ for
             EQ12(DOMI, K)           "component market clearing"
             EQ13(DOMI)              "milk value and component value relationship"
             EQ13OPT(DOMI)           "EQ13 with endogenous deltahat (for for MODELS BETTERWEDGESREG and BETTERSUPPORT)" 
-            EQ13QU(DOMI)            "milk processing value and component value relationship for MODELS QUOTAREG and QUOTAREG2"   
+            EQ13QU(DOMI)            "milk processing value and component value relationship for MODELS QUOTAREG and QUOTAREGALT"   
             EQ14A(DOMJ, DOMI)       "milk price co-movements between trading regions"
             EQ14B(DOMJ, DOMI)       "milk price co-movements between trading regions"
-            EQ14AQU(DOMJ, DOMI)     "EQ14A for MODELS QUOTAREG and QUOTAREG2"
-            EQ14BQU(DOMJ, DOMI)     "EQ14B for MODEL QUOTAREG2"            
+            EQ14AQU(DOMJ, DOMI)     "EQ14A for MODELS QUOTAREG and QUOTAREGALT"
+            EQ14BQU(DOMJ, DOMI)     "EQ14B for MODEL QUOTAREGALT"            
             EQ14ATRC(DOMJ, DOMI)    "EQ14A for MODEL MILKTRADECOST"
             EQ14BTRC(DOMJ, DOMI)    "EQ14B for MODEL MILKTRADECOST"            
             EQ15(DOMI)              "milk price and crop price relationship"
+            EQ15MILKSUPPLY(DOMI)    "EQ15 for MODEL MILKSUPELAS"
             EQ16(DOMI)              "demand for silage"
             EQ17(DOMI)              "definition of feed crop price index"
             EQ18(DOMI, L)           "crop price and land rent relationship"
             EQ19(DOMI, SUBSUBL)     "feed crop price change equal to one for SUBSUBL crops"
             EQ20(DOMI, L)           "crop supply"
             EQ21                    "objective function"           
-            EQ22                    "domestic consumer surplus (objective for MODELS BETTERWEDGESREG and QUOTAREG/QUOTAREG2)"
+            EQ22                    "domestic consumer surplus (objective for MODELS BETTERWEDGESREG and QUOTAREG/QUOTAREGALT)"
             EQ23(DOMI)              "regional land rents preserved"             
-            EQ24(DOMI)              "sum of regional land rents and regional quota value unchanged (for MODEL QUOTAREG/QUOTAREG2)" 
+            EQ24(DOMI)              "sum of regional land rents and regional quota value unchanged (for MODEL QUOTAREG/QUOTAREGALT)" 
             EQ25                    "aggregate land rent transfer (objective for MODEL BETTERSUPPORT)"     
             EQ26                    "domestic consumer surplus preserved"
             ;
@@ -369,6 +370,8 @@ EQ9OPT(DOMI, N)..       VINDEX(DOMI, N)     =E= sum(K, C3(DOMI, N, K) * (DELTAHA
 EQ13OPT(DOMI)..         MPRICE(DOMI) * sum(DOMJ, MU2(DOMJ, DOMI) * MSHIP(DOMJ, DOMI))  =E= sum(K, THETA2(DOMI, K) * V(DOMI, K) * sum(N, THETA3(DOMI, N, K) * DELTAHATOPT(DOMI, N, K) * Z(DOMI, N, K))) ;
 
 EQ15(DOMI)..            MPRICE(DOMI)        =E= PHI1(DOMI) * WINDEX1(DOMI) + 1 - PHI1(DOMI) ;
+
+EQ15MILKSUPPLY(DOMI)..  MPRICEEX(DOMI)      =E= PHI1(DOMI) * WINDEX1(DOMI) + 1 - PHI1(DOMI) ;
 
 EQ16(DOMI)..            Y(DOMI, "SILAGE")   =E= MQUANT(DOMI) * WINDEX1(DOMI) ** RHO * W(DOMI, "SILAGE") ** (- RHO) ;
 
@@ -495,13 +498,7 @@ $label skip_section1
 
 $if not set run_table1 $goto skip_table1
 
-parameter MPRICEEX(DOMI) ;
-
 MPRICEEX(DOMI) = 1.0001 ;
-
-equation    EQ15MILKSUPPLY(DOMI) ;  
-
-EQ15MILKSUPPLY(DOMI)..    MPRICEEX(DOMI)  =E= PHI1(DOMI) * WINDEX1(DOMI) + 1 - PHI1(DOMI) ;
 
 MODEL MILKSUPELAS /EQ15MILKSUPPLY,EQ16,EQ17,EQ18,EQ19,EQ20,EQ21/ ;
 
@@ -595,6 +592,18 @@ $call mkdir -p "../MANUSCRIPT TABLES/Table D.3"
 execute_unload "../MANUSCRIPT TABLES/Table D.3/output_ex.gdx", ELASCROP ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.3/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.3/elascrop.csv" symb=ELASCROP' ;
 
+parameter OILSEEDAREASHARE(DOMI)    "regional cropland share of oilseeds"
+          ELASCROPAREA(DOMI, L)     "regional crop acreage elasticity"
+          ;
+          
+OILSEEDAREASHARE(DOMI)  = PI(DOMI, "Oilseeds") ;
+ELASCROPAREA(DOMI, L)$(VARPHI2(DOMI, L) > 0) = THETA * (1 - PI(DOMI, L)) / VARPHI2(DOMI, L) ;
+
+$call mkdir -p "../MANUSCRIPT CLAIMS/Section 5.6"
+execute_unload "../MANUSCRIPT CLAIMS/Section 5.6/output_ex.gdx", OILSEEDAREASHARE, ELASCROPAREA ;
+execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.6/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.6/oilseedareashare.csv" symb=OILSEEDAREASHARE' ;
+execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.6/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.6/elascroparea.csv" symb=ELASCROPAREA' ;
+
 $label skip_tablesd1_d3
 
 **************************************************************
@@ -630,6 +639,17 @@ display  ELASCOMPDEMAND ;
 $call mkdir -p "../MANUSCRIPT TABLES/Table D.4"
 execute_unload "../MANUSCRIPT TABLES/Table D.4/output_ex.gdx", ELASCOMPDEMAND ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.4/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.4/elascompdemand.csv" symb=ELASCOMPDEMAND' ;
+
+parameter  COMPBUTPOWCOSTSHARE(DOMI)    "regional share of milk components in butter-powder products"
+           ;
+           
+COMPBUTPOWCOSTSHARE(DOMI) =  PSI2(DOMI, "Butter-powder")  ;       
+
+display COMPBUTPOWCOSTSHARE ;
+
+$call mkdir -p "../MANUSCRIPT CLAIMS/Section 5.8"
+execute_unload "../MANUSCRIPT CLAIMS/Section 5.8/output_ex.gdx", COMPBUTPOWCOSTSHARE ;
+execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.8/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.8/compbutpowcostshare.csv" symb=COMPBUTPOWCOSTSHARE' ;
 
 $label skip_tabled4
 
@@ -739,15 +759,18 @@ execute 'gdxdump "../MANUSCRIPT TABLES/Table 3/output_ex" format=csv output="../
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 3/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 3/milkuseshareship.csv" symb=MILKUSESHARESHIP' ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 3/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 3/deltamilkuseshareship.csv" symb=DELTAMILKUSESHARESHIP' ;
 
-**ADDTIONAL CLAIMS MADE IN SECTION 6.1 REGARDING REGIONAL CHANGES IN FEED CROP USE
-parameter DELTAFEEDCROPUSE(DOMI, SUBL)  "change in the use of feed crop SUBL in region DOMI"
-          ;
+**ADDTIONAL CLAIMS MADE IN SECTION 6.1 
+parameter     MILKSHIP(DOMI, DOMJ)             "change in milk shipments"
+              DELTAFEEDCROPUSE(DOMI, SUBL)     "change in the use of feed crop SUBL in region DOMI"
+              ;
 
+MILKSHIP(DOMI, DOMJ) = MSHIP.L(DOMI, DOMJ) - 1 ;
 DELTAFEEDCROPUSE(DOMI, SUBL) = MQUANT.L(DOMI) * WINDEX1.L(DOMI)**RHO * W.L(DOMI, SUBL)**(-RHO) -1 ;
-display DELTAFEEDCROPUSE ;
+display A, MILKSHIP, DELTAFEEDCROPUSE ;
 
 $call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
-execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex.gdx", DELTAFEEDCROPUSE ;
+execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex.gdx", MILKSHIP, DELTAFEEDCROPUSE ;
+execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/milkship.csv" symb=MILKSHIP' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/deltafeedcropuse.csv" symb=DELTAFEEDCROPUSE' ;
 
 
@@ -760,7 +783,6 @@ parameters     COMPPRICE(DOMI,K)         "regional change in component price in 
                
 COMPPRICE(DOMI,K) = V.L(DOMI, K) - 1 ;
 COMPCOSTINDEX(DOMI, N) = VINDEX.L(DOMI, N) - 1 ;
-
 
 display COMPPRICE, COMPCOSTINDEX ;
 
@@ -854,7 +876,7 @@ execute 'gdxdump "../MANUSCRIPT TABLES/Table 6/output_ex" format=csv output="../
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 6/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 6/welfdomval.csv" symb=WELFDOMVAL' ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 6/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 6/welftotval.csv" symb=WELFTOTVAL' ;
 
-**ADDITIONAL CLAIMS MADE IN SECTION 6.4 (FOOTNOTES) REGARDING PRICE EFFECTS
+**ADDITIONAL CLAIMS MADE IN SECTION 6.4 
 display P.L, PINDEX2.L, PINDEX20.L ;
 
 parameter PRODUCERPRICES(DOMI, N)   "regional producer prices of dairy products"
@@ -863,6 +885,7 @@ parameter PRODUCERPRICES(DOMI, N)   "regional producer prices of dairy products"
           CALIFBUTTPOWEXPSHARE      "expenditure share on butter-powder products in California"
           CALIFBEVLOCEXPSHARE       "expenditure share on local beverages in California"
           CALIFBEVPRINDEX           "change in the beverage price index in California"
+          
           SILAGEPR(DOMI)            "change in the regional silage price"
           SILAGEAREASHARE(DOMI)     "baseline cropland share of silage"
           ;
@@ -1165,6 +1188,7 @@ $label skip_wedgecounterfactual
 MODEL QUOTAREG /EQ1, EQ2, EQ3, EQ4, EQ5, EQ6, EQ7, EQ8, EQ9, EQ10, EQ11, EQ12, EQ13QU, EQ14AQU, EQ15, EQ16, EQ17, EQ18, EQ19, EQ20, EQ22, EQ24 / ;
 *THIS MODEL USES A DAIRY QUOTA TO SUSTAIN THE SUM OF LAND RENTS AND DAIRY QUOTA RENTS AT REGIONAL LEVEL
 
+$if not set run_quotacounterfactual $goto skip_quotacounterfactual
 
 * Starting Values
 P.L(DOMI, N) = 1 ;
@@ -1188,16 +1212,11 @@ Y.L(DOMI, L) = 1 ;
 
 MMPRICE.L(DOMI) = 1 ;
 
-$if not set run_quotacounterfactual $goto skip_quotacounterfactual
-
 DELTAHAT(DOMI, N, K) = 1 / DELTA(DOMI, N, K) ;
-
 
 SOLVE QUOTAREG USING NLP MAXIMIZING  DOMCONSSURP ;
 
 display MMPRICE.L ;
-
-
 
 parameters    DELTAMILKVALQUOTA(DOMI)
               DELTAMILKVALTOTQUOTA
@@ -1284,7 +1303,7 @@ $label skip_quotacounterfactual
 
 MODEL MILKTRADECOST /EQ1, EQ2, EQ3, EQ4, EQ5, EQ6, EQ7, EQ8, EQ9, EQ10, EQ11TRC, EQ12, EQ13, EQ14ATRC, EQ14BTRC, EQ15, EQ16, EQ17, EQ18, EQ19, EQ20, EQ21/ ;
 *THIS MODEL INCREASES MILK TRADE COSTS UNIFORMLY UNTIL ALL TRADE IN FARM MILK DISAPPEARS
-*THE FOLLOWING ITERATIONS OF THE MODEL DEMONSTRATE THAT A SMALL MILK TRADE FLOW EXISTS AT TAU(DOMI, DOMJ) = 1.75 YET DISAPPEARS AT TAU(DOMI, DOMJ) = 1.76 
+*THE FOLLOWING ITERATIONS OF THE MODEL DEMONSTRATE THAT A SMALL MILK TRADE FLOW EXISTS AT TAU(DOMI, DOMJ) = 1.61 YET DISAPPEARS AT TAU(DOMI, DOMJ) = 1.62 
 *TRADE IS ASSUMED TO DISAPPEAR IF THE PARAMETER DELTAMILKPRODSHARESHIPTOT IS EQUAL TO THE NEGATIVE OF MILKPRODSHARESHIPTOT (ITS BASELINE VALUE)
 
 $if not set run_milktradecost $goto skip_milktradecost
@@ -1292,7 +1311,7 @@ $if not set run_milktradecost $goto skip_milktradecost
 *SET DELTAHAT TO 1 TO MAINTAIN BASELINE COMPONENT PRICE DISTORTIONS WHILE COMPUTING COUNTERFACTUAL INCREASE IN MILK TRADE COSTS
 DELTAHAT(DOMI, N, K) = 1 ;
 
-scalar TAU1 /1.75/ ;
+scalar TAU1 /1.61/ ;
 
 TAU(DOMI, DOMJ) = TAU1 ;
 TAU(DOMI, DOMI) = 1 ;
@@ -1332,7 +1351,7 @@ execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex" format=csv output
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/milkprodshareshiptot.csv" symb=MILKPRODSHARESHIPTOT' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/deltamilkprodshareshiptot1.csv" symb=DELTAMILKPRODSHARESHIPTOT' ;
 
-scalar TAU2 /1.76/ ;
+scalar TAU2 /1.62/ ;
 
 TAU(DOMI, DOMJ) =  TAU2 ;
 TAU(DOMI, DOMI) = 1 ;
@@ -1344,7 +1363,7 @@ MILKPRODSHARESHIPPRIME(DOMI) = sum(DOMJ$(ORD(DOMJ) NE ORD(DOMI)), A(DOMI, DOMJ) 
 MILKPRODSHARESHIPTOTPRIME = sum(DOMI$(MILKPRODSHARESHIPPRIME(DOMI) > 0), MU1(DOMI) * MPRICE.L(DOMI) * MQUANT.L(DOMI) * MILKPRODSHARESHIPPRIME(DOMI)) / sum(DOMI, MU1(DOMI) * MPRICE.L(DOMI) * MQUANT.L(DOMI)) ;
 DELTAMILKPRODSHARESHIPTOT = MILKPRODSHARESHIPTOTPRIME - MILKPRODSHARESHIPTOT ;
 
-display DELTAMILKPRODSHARESHIPTOT ;
+display MILKPRODSHARESHIPTOT, DELTAMILKPRODSHARESHIPTOT ;
 
 $call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output3_ex.gdx", TAU2, DELTAMILKPRODSHARESHIPTOT ;

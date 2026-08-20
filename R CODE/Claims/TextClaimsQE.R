@@ -35,6 +35,56 @@ sink()
 
 
 #############################################
+##SECTION 5.6
+#############################################
+
+claimoilseedshare<-"Claim: For example, oilseed crops occupy a very small 
+share of cropland in the Pacific Northwest and  Unregulated regions 
+(less than 1%)..."
+
+oilseedareashare<-read.csv("Section 5.6/oilseedareashare.csv") %>%
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  rename("Region"=DOMI) %>%
+  rename("Oilseed cropland share"=Val) %>%
+  mutate_if(is.numeric, round, digits = 3) %>%
+  mutate(across(where(is.numeric), ~ format(.x,,drop0Trailing = F,trim= T))) 
+
+if (!dir.exists("Section 5.6/txt file")) {
+  dir.create("Section 5.6/txt file")
+}
+
+sink(file.path("Section 5.6/txt file","claim1.txt"))
+cat(claimoilseedshare, "\n\n")
+cat(rep("-",60), sep="", "\n\n")
+print(oilseedareashare,row.names = F)
+sink()
+
+claimareaelas<-"Claim: As expected, acreage elasticities are much larger
+in magnitude than the output supply elasticities..."
+
+elascroparea<-read.csv("Section 5.6/elascroparea.csv") 
+elascroparea<-reshape(elascroparea,idvar="DOMI",timevar="L",direction="wide") %>%
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  mutate_if(is.numeric, round, digits = 2) 
+colnames(elascroparea)<- c("Region","Grains","Oilseeds","Hay","Silage","Other Crops")
+
+elascrop<-read.csv("../MANUSCRIPT TABLES/Table D.3/elascrop.csv") 
+elascrop<-reshape(elascrop,idvar="DOMI",timevar="L",direction="wide") %>%
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  mutate_if(is.numeric, round, digits = 2) 
+colnames(elascrop)<- c("Region","Grains","Oilseeds","Hay","Silage","Other Crops")
+
+sink(file.path("Section 5.6/txt file","claim2.txt"))
+cat(claimareaelas, "\n\n")
+cat(rep("-",60), sep="", "\n\n")
+cat("Crop area elasticities","\n\n")
+print(elascroparea,row.names = F)
+cat("Crop output elasticities","\n\n")
+print(elascrop,row.names = F)
+sink()
+
+
+#############################################
 ##SECTION 5.7
 #############################################
 
@@ -44,8 +94,8 @@ crop share of the milk dollar and the largest silage share
 of dairy feed expenditure. The Southwest region, which has
 the largest milk supply elasticity, has the lowest feed 
 crop share of the milk dollar, the lowest silage share of
-dairy feed expenditure, and the lowest land share of the 
-silage crop dollar. "
+dairy feed expenditure, and the lowest land share of silage
+revenue. "
 
 milksupply<-read.csv("Section 5.7/milksupply.csv") %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
@@ -80,11 +130,36 @@ if (!dir.exists("Section 5.7/txt file")) {
   dir.create("Section 5.7/txt file")
 }
 
-
 sink(file.path("Section 5.7/txt file","claim.txt"))
 cat(claimmilkelas, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(milksupplyclaim3,row.names = F)
+sink()
+
+
+#############################################
+##SECTION 5.8
+#############################################
+
+claimcompdembutpow<-"Claim: The one exception is the Appalachian region, 
+where the inelastic derived demand for milk components in
+butter-powder products can be traced to a particularly low 
+cost share of milk components relative to other inputs."
+
+compbutpowcostshare<-read.csv("Section 5.8/compbutpowcostshare.csv") %>%
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  rename("Region" = DOMI) %>%
+  rename("Milk component cost share in butter-powder products"=Val) %>%
+  mutate_if(is.numeric, round, digits = 3) 
+
+if (!dir.exists("Section 5.8/txt file")) {
+  dir.create("Section 5.8/txt file")
+}
+
+sink(file.path("Section 5.8/txt file","claim.txt"))
+cat(claimcompdembutpow, "\n\n")
+cat(rep("-",60), sep="", "\n\n")
+print(compbutpowcostshare,row.names = F)
 sink()
 
 
@@ -123,13 +198,48 @@ sink()
 ##SECTION 6.1
 #############################################
 
+claim1a<-"Claim: milk shipments from the Unregulated region towards its 
+non-Western destination regions are eliminated,..."
 
-claim1<-"Claim: Reductions in regional milk output translate
+milkship<-read.csv("Section 6.1/milkship.csv") %>%
+  mutate(Val=format(round(Val*100, digits=2),nsmall=2))  %>%
+  mutate(Val=paste0(Val,"%")) %>%
+  filter(DOMI %in% c("Unregulated","California","Pacific-Northwest","Arizona")) %>%
+  filter(!DOMJ %in% c("Unregulated","California","Pacific-Northwest","Arizona")) %>%
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  mutate(DOMJ=gsub("-"," ",DOMJ)) 
+
+colnames(milkship) <- c("Origin region","Destination region", "Change in milk shipments")
+
+note1<-"This table displays changes in shipments of farm milk from Western regions
+(namely California, Pacific Northwest, Arizona, and Unregulated) towards 
+non-Western regions. Changes in bilateral trade flows need to be interpreted
+with caution as our milk shipment data includes shipments via competing 
+routes, which implies that bilateral shipment changes cannot always be 
+interpreted in isolation. Baseline shipments from Western regions towards 
+non-Western regions include, in addition to shipments from Unregulated, 
+relatively modest shipments from both Arizona and Pacific Northwest. These
+shipments also go to zero in the counterfactual, so that the milk market 
+becomes segmented between Western and non-Western states."
+
+if (!dir.exists("Section 6.1/txt file")) {
+  dir.create("Section 6.1/txt file")
+}
+
+sink(file.path("Section 6.1/txt file","claim1.txt"))
+cat(claim1a, "\n\n")
+cat(rep("-",60), sep="", "\n\n")
+print(milkship,row.names = F)
+cat("\n\n")
+cat(note1)
+sink()
+
+claim1b<-"Claim: Reductions in regional milk output translate
 into reductions in regional dairy silage production. These 
 reductions, which are not reported here, are modest, typically 
 less than 1%, except in the Southwest where silage production 
-decreases by 5.1%. The use of other dairy feed crops also 
-decreases markedly in the Southwest, by 6.9%."
+decreases by 5.9%. The use of other dairy feed crops also 
+decreases markedly in the Southwest, by 7.3%."
 
 deltafeedcrop<-read.csv("Section 6.1/deltafeedcropuse.csv") 
 deltafeedcrop<-reshape(deltafeedcrop,idvar="DOMI",timevar="SUBL",direction="wide") %>%
@@ -138,39 +248,38 @@ deltafeedcrop<-reshape(deltafeedcrop,idvar="DOMI",timevar="SUBL",direction="wide
 
 colnames(deltafeedcrop)<-c("Region","Grains","Oilseeds","Hay","Silage")
 
-note1<-"Note: This table reports changes in regional feed crop use.
+note2<-"Note: This table reports changes in regional feed crop use.
 Regional use and production of silage are identical since 
 this crop is not traded."
 
-if (!dir.exists("Section 6.1/txt file")) {
-  dir.create("Section 6.1/txt file")
-}
-
-sink(file.path("Section 6.1/txt file","claim1.txt"))
-cat(claim1, "\n\n")
+sink(file.path("Section 6.1/txt file","claim2.txt"))
+cat(claim1b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(deltafeedcrop,row.names = F)
 cat("\n\n")
-cat(note1)
+cat(note2)
 sink()
 
 claim2<-"Claim: We find that an increase in transportation 
-cost by 76% or more would cause all farm milk shipments to
+cost by 62% or more would cause all farm milk shipments to
 disappear. (This claim is also stated in Section 1.)"
 
-milkprodshareship<-read.csv("Section 6.1/milkprodshareshiptot.csv")
-rownames(milkprodshareship)<-"Initial share of milk production shipped out"
+milkprodshareship<-read.csv("Section 6.1/milkprodshareshiptot.csv") %>%
+  mutate(Val=format(round(Val, digits=8),nsmall=8)) 
+rownames(milkprodshareship)<-"Initial share of milk production shipped out:"
 colnames(milkprodshareship)<-NULL
 tau1<-(read.csv("Section 6.1/tau1.csv")[1,1]-1)*100
-deltamilkprodshareship1<-read.csv("Section 6.1/deltamilkprodshareshiptot1.csv")
-rownames(deltamilkprodshareship1)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau1,"%")
+deltamilkprodshareship1<-read.csv("Section 6.1/deltamilkprodshareshiptot1.csv") %>%
+  mutate(Val=format(round(Val, digits=8),nsmall=8)) 
+rownames(deltamilkprodshareship1)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau1,"%:")
 colnames(deltamilkprodshareship1)<-NULL
 tau2<-(read.csv("Section 6.1/tau2.csv")[1,1]-1)*100
-deltamilkprodshareship2<-read.csv("Section 6.1/deltamilkprodshareshiptot2.csv")
-rownames(deltamilkprodshareship2)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau2,"%")
+deltamilkprodshareship2<-read.csv("Section 6.1/deltamilkprodshareshiptot2.csv") %>%
+  mutate(Val=format(round(Val, digits=8),nsmall=8)) 
+rownames(deltamilkprodshareship2)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau2,"%:")
 colnames(deltamilkprodshareship2)<-NULL
 
-sink(file.path("Section 6.1/txt file","claim2.txt"))
+sink(file.path("Section 6.1/txt file","claim3.txt"))
 cat(claim2, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(milkprodshareship)
@@ -214,25 +323,45 @@ sink()
 ##SECTION 6.3
 #############################################
 
-claim3<-"Claim: For example, the large increase in beverage
-production in the Southeast (+5.0%) coincides with more
-shipments of beverage products to Florida (+7.2%), the
-Pacific Northwest (+7.3%), and the Unregulated region (+8.5%)."
+claim3a<-"Claim: Thus, the price of beverage products falls in all
+FMMO regions while softs, cheese, and butter-powder products 
+generally become more expensive."
 
-southeastdeltabevship<-read.csv("Section 6.3/deltabevship.csv") %>% 
+producerprices<-read.csv("Section 6.4/producerprices.csv") %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
-  mutate_if(is.numeric, round, digits = 3) %>%
-  mutate(Val=100*Val) %>%
-  mutate(Val=paste0(Val,"%")) %>%
-  filter(DOMI %in% c("Florida","Pacific Northwest","Unregulated")) 
-colnames(southeastdeltabevship) <- c("Region","Change in dairy beverage shipment from Southeast")
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
+  mutate(Val=paste0(Val,"%"))
+
+producerprices<-reshape(producerprices,idvar="DOMI",timevar="N",direction="wide") 
+colnames(producerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
+
 
 if (!dir.exists("Section 6.3/txt file")) {
   dir.create("Section 6.3/txt file")
 }
 
-sink(file.path("Section 6.3/txt file","claim.txt"))
-cat(claim3, "\n\n")
+sink(file.path("Section 6.3/txt file","claim1.txt"))
+cat(claim3a, "\n\n")
+cat(rep("-",60), sep="", "\n\n")
+cat("Changes in regional producer prices of dairy products","\n\n")
+print(producerprices,row.names = F)
+sink()
+
+
+claim3b<-"Claim: For example, the large increase in beverage
+production in the Southeast (+5.4%) coincides with more
+shipments of beverage products to Florida (+7.6%), the
+Pacific Northwest (+7.9%), and the Unregulated region (+9.0%)."
+
+southeastdeltabevship<-read.csv("Section 6.3/deltabevship.csv") %>% 
+  mutate(DOMI=gsub("-"," ",DOMI)) %>%
+  mutate(Val=format(round(Val*100, digits=2),nsmall=2)) %>%
+  mutate(Val=paste0(Val,"%")) %>%
+  filter(DOMI %in% c("Florida","Pacific Northwest","Unregulated")) 
+colnames(southeastdeltabevship) <- c("Region","Change in dairy beverage shipment from Southeast")
+
+sink(file.path("Section 6.3/txt file","claim2.txt"))
+cat(claim3b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(southeastdeltabevship,row.names = F)
 sink()
@@ -257,8 +386,7 @@ which rises by 1.8%."
 
 producerprices<-read.csv("Section 6.4/producerprices.csv") %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
-  mutate_if(is.numeric, round, digits = 4) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 
 producerprices<-reshape(producerprices,idvar="DOMI",timevar="N",direction="wide") 
@@ -266,16 +394,14 @@ colnames(producerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powde
 
 consumerprices<-read.csv("Section 6.4/prindex.csv") %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 
 consumerprices<-reshape(consumerprices,idvar="DOMI",timevar="N",direction="wide") 
 colnames(consumerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
 
 forconsumerprices<-read.csv("Section 6.4/prindexfor.csv") %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 forconsumerprices<-t(forconsumerprices)
 forconsumerprices<-matrix(forconsumerprices[2,],nrow=1)
@@ -288,8 +414,7 @@ colnames(forconsumerprices) <- colnames(consumerprices)
 consumerprices<-rbind(consumerprices,forconsumerprices)
 
 calbuttpowexpshare<-read.csv("Section 6.4/califbuttpowexpshare.csv") %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(calbuttpowexpshare) <-"Expenditure share on butter-powder products in California:"
 colnames(calbuttpowexpshare) <- NULL
@@ -337,11 +462,12 @@ cat("\n")
 print(calbevprindex,row.names = T)
 sink()
 
-claim5a<-"Claim: the Southwest experiences the largest decrease
-in the price of dairy silage (9.0%), while the effect in
-the Northeast is due to an unusually large share of cropland
-dedicated to dairy silage (22.4% as opposed to less than 10%,
-and often less than 5%, in other regions)."
+claim5a<-"Claim: Land rents fall across all domestic regions along with
+farm milk and silage prices [...] the Southwest experiences the
+largest decrease in the price of dairy silage (7.4%), while the 
+effect in the Northeast is due to an unusually large share of 
+cropland dedicated to dairy silage (22.4% as opposed to less 
+than 10%, and often less than 5%, in other regions)."
 
 silagepr<-read.csv("Section 6.4/silagepr.csv") %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
@@ -422,6 +548,7 @@ cat(claim5b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(deltamilkvaltotcomp,row.names = T)
 cat("\n\n")
+cat("Share of dairy product in regional component value:","\n\n")
 print(dairyprodcompvalshare,row.names = F)
 sink()
 
@@ -432,20 +559,18 @@ sink()
 
 claim6<-"Claim: Relative to baseline, regional consumer prices of beverage
 products fall by 2.6–6.2% and those of butter-powder rise
-by 3.6–7.4%. As a result, the foreign dairy price index rises
+by 3.6–7.3%. As a result, the foreign dairy price index rises
 by 2.8%. In contrast, under the milk quotas domestic beverage
-prices only fall by 0.6–3.0% and the foreign price index rises
-by 0.9%."
+prices only fall by 0.6–3.1% and the foreign price index rises
+by 1.0%."
 
 priceminwed<-read.csv("Section 6.6/pricechangeminwed.csv") %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(N %in% c("Beverage","Butter-Powder"))
 
 pricemaxwed<-read.csv("Section 6.6/pricechangemaxwed.csv") %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(N %in% c("Beverage","Butter-Powder"))
 
@@ -505,10 +630,9 @@ relative to the status quo, yet they are higher
 than in competitive equilibrium."
 
 bevpricediff<-read.csv("Section 6.6/bevpricediff.csv") %>%
-  mutate_if(is.numeric, round, digits = 5) %>%
-  mutate(Val=100*Val) %>%
+  mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) 
-colnames(bevpricediff)<-c("Region","Difference between beverage price under milk quotas and under competition")
+colnames(bevpricediff)<-c("Region","Difference btw bev price under milk quotas and competition")
 
 sink(file.path("Section 6.6/txt file","claim2.txt"))
 cat(claim7, "\n\n")
@@ -565,7 +689,7 @@ sink()
 
 claim10<-"Claim: Indeed, our model implies that component 
 wedges could further be adjusted to increase
-the aggregate land rent by only up to 0.33% relative
+the aggregate land rent by only up to 0.35% relative
 to its baseline level without reducing domestic consumer
 surplus (and without reducing land rents in any region)."
 
@@ -705,7 +829,7 @@ sink()
 #############################################
 
 claim12<-"Claim: our data imply that the component value
-share of beverage products is 19.4%."
+share of beverage products is 19.7%."
 
 compsharebev<-read.csv("Appendix G/sharebev.csv") %>%
   mutate_if(is.numeric, round, digits = 5) %>%
@@ -751,7 +875,7 @@ sink()
 
 claim14<-"Claim: if we set epsilon_0 = 100, the calculated
 derived demand elasticity for manufacturing milk 
-reaches only 1.65, which, other things equal, is 
+reaches only 1.64, which, other things equal, is 
 not enough to make component pricing more efficient 
 than the quota. The reason why the derived demand
 elasticity for manufacturing milk does not rise 
@@ -760,7 +884,7 @@ represents 3.6% of the consumption value of manufactured
 dairy products (softs, cheese, and butter-powder) 
 at baseline. Making component pricing more efficient
 than the quota would require, in addition to setting
-epsilon_2 = 1.65, that eta be made less than one, for
+epsilon_2 = 1.64, that eta be made less than one, for
 instance."
 
 elascompuseother100<-read.csv("Appendix G/elascompusemantot100.csv") %>%
@@ -770,7 +894,7 @@ colnames(elascompuseother100) <- NULL
 
 equationg4<-read.csv("Appendix G/result_eta3.csv", header=F) %>%
   mutate_if(is.numeric, round, digits = 6) 
-rownames(equationg4) <-"Value of LHS of Equation (G.4) with epsilon_2=1.65 and eta=3:"
+rownames(equationg4) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=3:"
 colnames(equationg4) <- NULL
 
 sharemanfor<-read.csv("Appendix G/sharemanfor.csv") %>%
@@ -782,12 +906,12 @@ colnames(sharemanfor) <- NULL
 
 equationg4eta1<-read.csv("Appendix G/result_eta1.csv", header=F) %>%
   mutate_if(is.numeric, round, digits = 6) 
-rownames(equationg4eta1) <-"Value of LHS of Equation (G.4) with epsilon_2=1.65 and eta=1:"
+rownames(equationg4eta1) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=1:"
 colnames(equationg4eta1) <- NULL
 
 equationg4eta05<-read.csv("Appendix G/result_eta0.5.csv", header=F) %>%
   mutate_if(is.numeric, round, digits = 5) 
-rownames(equationg4eta05) <-"Value of LHS of Equation (G.4) with epsilon_2=1.65 and eta=0.5:"
+rownames(equationg4eta05) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=0.5:"
 colnames(equationg4eta05) <- NULL
 
 sink(file.path("Appendix G/txt file","claim3.txt"))

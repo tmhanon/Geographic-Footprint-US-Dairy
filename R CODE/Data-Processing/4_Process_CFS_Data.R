@@ -298,10 +298,6 @@ ras_fix <- function(tab, row, col, tolerance = .Machine$double.eps) {
     stop("sum(u) must be equal to sum(v)")
   }
 
-  if (any(tab == 0)) {
-    warning("convergence is not guaranteed when some cells are equal to 0")
-  }
-
   if (any(tab < 0)) {
     stop("elements of tab must all be >= 0")
   }

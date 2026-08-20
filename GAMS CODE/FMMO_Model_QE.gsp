@@ -14,15 +14,8 @@
         {
             "codecMib": 106,
             "encoding": "UTF-8",
-            "file": "CSV DATA FILES/Comp_Quantity_for_GAMS_May2025.csv",
-            "name": "Comp_Quantity_for_GAMS_May2025.csv",
-            "type": ""
-        },
-        {
-            "codecMib": 106,
-            "encoding": "UTF-8",
-            "file": "CSV DATA FILES/Comp_Value_for_GAMS_May2025.csv",
-            "name": "Comp_Value_for_GAMS_May2025.csv",
+            "file": "CSV DATA FILES/Milk_Shipments.csv",
+            "name": "Milk_Shipments.csv",
             "type": ""
         },
         {
@@ -47,6 +40,6 @@
     "path": ".",
     "pf": "",
     "projectType": 1,
-    "timestamp": "2026-08-11T16:50:15.302",
+    "timestamp": "2026-08-17T15:52:58.624",
     "workDir": "."
 }

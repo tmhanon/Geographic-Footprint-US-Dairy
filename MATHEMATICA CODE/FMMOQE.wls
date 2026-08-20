@@ -31,6 +31,11 @@ figure1 =
          3.1325735645567816`}, {0.2847794149600383`, 
          3.1325735645567816`}}}]}}]]
 
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure 1"],
+   CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure 1"}], 
+ CreateIntermediateDirectories -> True]
+]
 
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure 1", "figure1.png"}], figure1, "PNG"]
@@ -80,6 +85,12 @@ figureg1 =
          0.4982359230052799`}, {2.3071612847865164`, 
          0.4982359230052799`}}}]}}]]
 
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure G.1"],
+     CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure G.1"}], 
+ CreateIntermediateDirectories -> True]
+]
+
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure G.1", "figureg1.png"}], figureg1, "PNG"]
 
@@ -118,10 +129,16 @@ TemplateBox[{"M", "c"},
 "Superscript"]}]],
 DisplayForm]\), Medium]}, ViewPoint -> {1.3`, -2.4`, 2.`}], 
   Graphics3D[{{PointSize[.03], Blue, 
-     Point[{.1, .3,DWLwedge[1.003, .2, .1, .3, 3]}]}, {Dashed, Thick, Red, 
-     Line[{{0, 0, -.005}, {1, 1, -.005}}]}}], 
+     Point[{.1, .3, DWLwedge[1.003, .2, .1, .3, 3]}]}, {Dashed, Thick,
+      Red, Line[{{0, 0, -.005}, {1, 1, -.005}}]}}], 
   ViewPoint -> {-1.9662642483969808`, -2.306915774739927, 
     1.5039762344305603`}]
+
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure G.2"],
+   CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure G.2"}], 
+ CreateIntermediateDirectories -> True]
+]
 
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure G.2", "figureg2a.png"}], figureg2a, "PNG"]
@@ -207,6 +224,12 @@ figureg3 =
          0.4982359230052799`}, {2.3071612847865164`, 
          0.4982359230052799`}}}]}}]]
 
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure G.3"],
+   CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure G.3"}], 
+ CreateIntermediateDirectories -> True]
+]
+
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure G.3", "figureg3.png"}], figureg3, "PNG"]
 
@@ -233,17 +256,22 @@ figureg4 =
   Graphics3D[{{Red, Thick, Dashed, 
      Line[{{0, 0, 0}, {1, 1, 0}}]}, {PointSize[.03], Blue, 
      Point[{0.1, .3, 3}]}, {PointSize[.03], Green, 
-     Point[{0.05, 1.3, .8}]}}], 
-  ViewPoint -> {-2.1, -2.4, .85}]
+     Point[{0.05, 1.3, .8}]}}], ViewPoint -> {-2.1, -2.4, .85}]
+]
+
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure G.4"],
+   CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure G.4"}], 
+ CreateIntermediateDirectories -> True]
 ]
 
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure G.4", "figureg4.png"}], figureg4, "PNG"]
 
 ExportFunction[eta_] := 
- Module[{r, file}, r = QuotaDominates[1.003, .2, .1, 1.65, eta];
-  file = FileNameJoin[{myDir, "..", "MANUSCRIPT CLAIMS", "Appendix G", 
-     "result_eta" <> ToString[eta] <> ".csv"}];
+ Module[{r, file}, r = QuotaDominates[1.003, .2, .1, 1.64, eta];
+  file = FileNameJoin[{myDir, "..", "MANUSCRIPT CLAIMS",
+      "Appendix G", "result_eta" <> ToString[eta] <> ".csv"}];
   Export[file, {{r}}, "CSV"]]
 
 ExportFunction[3]
@@ -305,6 +333,12 @@ DisplayForm]\), Medium]},
      "Efficient transfer"}, {.7, .8}], 
   PlotStyle -> {{Thick, Black}, {Thick, Black, Dashed}, {Gray, 
      Dotted}}]
+
+If[!DirectoryQ["../MANUSCRIPT FIGURES/Figure G.5"],
+  CreateDirectory[FileNameJoin[{myDir, 
+   "../MANUSCRIPT FIGURES/Figure G.5"}], 
+ CreateIntermediateDirectories -> True]
+]
 
 Export[FileNameJoin[{myDir, "..", "MANUSCRIPT FIGURES", 
    "Figure G.5", "figureg5a.png"}], figureg5a, "PNG"]

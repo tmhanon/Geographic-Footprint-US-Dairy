@@ -94,7 +94,7 @@ LandRentRegion <- merge(LandRentMerge, LandAcresMerge, by = "STATEFP") %>%
 
 write.table(
   LandRentRegion,
-  file = "../GAMS CODE/CSV DATA FILES/Cropland_Rent_Jul2026.csv",
+  file = here("GAMS CODE", "CSV DATA FILES", "Cropland_Rent_Jul2026.csv"),
   sep = ",",
   row.names = FALSE,
   col.names = FALSE

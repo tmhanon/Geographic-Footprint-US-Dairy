@@ -54,6 +54,50 @@ util_data_merged <- tibble(
   mutate(Region = str_replace(Region, " ", "-"))
 
 
+##### Calculate Milk Utilization Volumes by Class ##############################
+
+# Process California Utilization Data
+ca_util_processed <- ca_data_raw %>%
+  filter(Measure == "Utilization") %>%
+  mutate(
+    Region = "California",
+    Class = CA_Class %>%
+      recode_values(
+        "1" ~ "Beverage",
+        c("2", "3") ~ "Softs",
+        "4b" ~ "Cheese",
+        "4a" ~ "Butter-Powder"
+      )
+  ) %>%
+  summarize(Util_Share = sum(Value), .by = c(Region, Class))
+
+# Utilization Volumes by Region and Class
+util_volumes_processed <- util_data_merged %>%
+  select(-(Jan:Dec), Util_Share = YTD) %>%
+  bind_rows(ca_util_processed) %>%
+  mutate(Region = str_replace(Region, " ", "-")) %>%
+  left_join(milk_utilization, by = "Region") %>%
+  left_join(milk_not_pooled, by = "Region") %>%
+  mutate(
+    Total_Pooled = Utilization - Not_Pooled,
+    Class_Volume = Total_Pooled * (Util_Share / 100)
+  ) %>%
+  bind_rows(wny_data_raw) %>%
+  mutate(
+    Region = Region %>%
+      replace_values("Western-New-York" ~ "Northeast")
+  ) %>%
+  summarize(
+    Utilization = sum(Utilization, na.rm = TRUE),
+    Class_Volume = sum(Class_Volume),
+    .by = c(Region, Class)
+  ) %>%
+  mutate(
+    Not_Pooled = Utilization - sum(Class_Volume),
+    .by = Region
+  )
+
+
 ##### Clean and Merge Component Test Data ######################################
 
 # California Component Volumes
@@ -399,7 +443,7 @@ nonpool_utilization <- util_data_merged %>%
   select(Region, Class, Est_NonPool_Util)
 
 # Output Table C.2
-sink(here("MANUSCRIPT TABLES", "Supplemental Material", "Table_C2.txt"))
+sink(here("MANUSCRIPT TABLES", "Table_C2.txt"))
 nonpool_utilization %>%
   bind_rows(
     tibble(
@@ -419,50 +463,6 @@ nonpool_utilization %>%
   as.data.frame() %>%
   print(row.names = FALSE)
 sink()
-
-
-##### Calculate Milk Utilization Volumes by Class ##############################
-
-# Process California Utilization Data
-ca_util_processed <- ca_data_raw %>%
-  filter(Measure == "Utilization") %>%
-  mutate(
-    Region = "California",
-    Class = CA_Class %>%
-      recode_values(
-        "1" ~ "Beverage",
-        c("2", "3") ~ "Softs",
-        "4b" ~ "Cheese",
-        "4a" ~ "Butter-Powder"
-      )
-  ) %>%
-  summarize(Util_Share = sum(Value), .by = c(Region, Class))
-
-# Utilization Volumes by Region and Class
-util_volumes_processed <- util_data_merged %>%
-  select(-(Jan:Dec), Util_Share = YTD) %>%
-  bind_rows(ca_util_processed) %>%
-  mutate(Region = str_replace(Region, " ", "-")) %>%
-  left_join(milk_utilization, by = "Region") %>%
-  left_join(milk_not_pooled, by = "Region") %>%
-  mutate(
-    Total_Pooled = Utilization - Not_Pooled,
-    Class_Volume = Total_Pooled * (Util_Share / 100)
-  ) %>%
-  bind_rows(wny_data_raw) %>%
-  mutate(
-    Region = Region %>%
-      replace_values("Western-New-York" ~ "Northeast")
-  ) %>%
-  summarize(
-    Utilization = sum(Utilization, na.rm = TRUE),
-    Class_Volume = sum(Class_Volume),
-    .by = c(Region, Class)
-  ) %>%
-  mutate(
-    Not_Pooled = Utilization - sum(Class_Volume),
-    .by = Region
-  )
 
 
 ##### Calculate Component Volumes and Values for Pooled Milk ###################
