@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # ==================================
 # MASTER REPLICATION SCRIPT
 # ==================================
@@ -18,9 +18,7 @@ echo "=== Creating GAMS Data Files ==="
 # R CODE TO CREATE CSV FILES FOR GAMS FROM RAW DATA
 #----------------------------------------------------
 
-cd "R CODE/Data-Processing"
-Rscript 0_Data_Processing_Run_All.R
-cd ../..
+Rscript "R CODE/Data-Processing/0_Data_Processing_Run_All.R"
 
 
 echo "=== Starting Analysis ==="
