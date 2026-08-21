@@ -251,9 +251,6 @@ fmmoregions<-ggplot(data = pregionsFMMOreorder) +
   geom_sf(data=pstates, fill=NA,color="black") +
   theme_void()
 
-if (!dir.exists("../../MANUSCRIPT FIGURES/Figure A.1")) {
-  dir.create("../../MANUSCRIPT FIGURES/Figure A.1")
-}
 fs::dir_create(here::here("MANUSCRIPT FIGURES", "Figure A.1"))
 
 ggsave(filename = here::here("MANUSCRIPT FIGURES", "Figure A.1", "fmmoregions.png"), plot = fmmoregions)

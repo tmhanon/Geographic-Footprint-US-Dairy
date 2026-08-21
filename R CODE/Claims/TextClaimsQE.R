@@ -7,7 +7,7 @@ options(dplyr.summarise.inform= FALSE)
 suppressPackageStartupMessages({library(plyr)
                                 library(tidyverse)})
 
-setwd("../../MANUSCRIPT CLAIMS")
+here::i_am("R CODE/Claims/TextClaimsQE.R")
 
 #############################################
 ##SECTION 1
@@ -15,7 +15,7 @@ setwd("../../MANUSCRIPT CLAIMS")
 
 claimintro<-"Claim: The modest share of farm milk in domestic dairy product value (18%)..."
 
-milkshare<-read.csv("Section 1/milkshareofdairydollar.csv") %>%
+milkshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 1", "milkshareofdairydollar.csv")) %>%
   mutate_if(is.numeric, round, digits = 3) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
@@ -23,11 +23,9 @@ milkshare<-read.csv("Section 1/milkshareofdairydollar.csv") %>%
 colnames(milkshare)<-NULL
 rownames(milkshare)<-"Share of farm milk in total value of U.S. dairy production:"
 
-if (!dir.exists("Section 1/txt file")) {
-  dir.create("Section 1/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 1", "txt file"))
 
-sink(file.path("Section 1/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 1", "txt file", "claim.txt"))
 cat(claimintro, "\n\n")
 cat(rep("-",80), sep="", "\n\n")
 print(milkshare,row.names = T)
@@ -42,18 +40,16 @@ claimoilseedshare<-"Claim: For example, oilseed crops occupy a very small
 share of cropland in the Pacific Northwest and  Unregulated regions 
 (less than 1%)..."
 
-oilseedareashare<-read.csv("Section 5.6/oilseedareashare.csv") %>%
+oilseedareashare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.6", "oilseedareashare.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Region"=DOMI) %>%
   rename("Oilseed cropland share"=Val) %>%
   mutate_if(is.numeric, round, digits = 3) %>%
   mutate(across(where(is.numeric), ~ format(.x,,drop0Trailing = F,trim= T))) 
 
-if (!dir.exists("Section 5.6/txt file")) {
-  dir.create("Section 5.6/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 5.6", "txt file"))
 
-sink(file.path("Section 5.6/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 5.6", "txt file", "claim1.txt"))
 cat(claimoilseedshare, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(oilseedareashare,row.names = F)
@@ -62,19 +58,19 @@ sink()
 claimareaelas<-"Claim: As expected, acreage elasticities are much larger
 in magnitude than the output supply elasticities..."
 
-elascroparea<-read.csv("Section 5.6/elascroparea.csv") 
+elascroparea<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.6", "elascroparea.csv")) 
 elascroparea<-reshape(elascroparea,idvar="DOMI",timevar="L",direction="wide") %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 2) 
 colnames(elascroparea)<- c("Region","Grains","Oilseeds","Hay","Silage","Other Crops")
 
-elascrop<-read.csv("../MANUSCRIPT TABLES/Table D.3/elascrop.csv") 
+elascrop<-read.csv(here::here("MANUSCRIPT TABLES", "Table D.3", "elascrop.csv")) 
 elascrop<-reshape(elascrop,idvar="DOMI",timevar="L",direction="wide") %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 2) 
 colnames(elascrop)<- c("Region","Grains","Oilseeds","Hay","Silage","Other Crops")
 
-sink(file.path("Section 5.6/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 5.6", "txt file", "claim2.txt"))
 cat(claimareaelas, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Crop area elasticities","\n\n")
@@ -97,25 +93,25 @@ crop share of the milk dollar, the lowest silage share of
 dairy feed expenditure, and the lowest land share of silage
 revenue. "
 
-milksupply<-read.csv("Section 5.7/milksupply.csv") %>%
+milksupply<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "milksupply.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Milk supply elasticity"=Val) %>%
   mutate_if(is.numeric, round, digits = 2) %>%
   mutate(across(where(is.numeric), ~ format(.x,,drop0Trailing = F,trim= T))) 
 
-feedsharemilkrev<-read.csv("Section 5.7/feedsharemilkrev.csv") %>%
+feedsharemilkrev<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "feedsharemilkrev.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Feed crop share of milk revenue"=Val) %>%
   mutate_if(is.numeric, round, digits = 3) %>%
   mutate(across(where(is.numeric), ~ format(.x,,drop0Trailing = F,trim= T))) 
 
-silfeedshare<-read.csv("Section 5.7/silfeedshare.csv") %>%
+silfeedshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "silfeedshare.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Silage share of feed expenditure"=Val) %>%
   mutate_if(is.numeric, round, digits = 3) %>%
   mutate(across(where(is.numeric), ~ format(.x,,drop0Trailing = F,trim= T))) 
 
-landsharesilrev<-read.csv("Section 5.7/landsharesilrev.csv") %>%
+landsharesilrev<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "landsharesilrev.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Land share of silage revenue"=Val) %>%
   mutate_if(is.numeric, round, digits = 4) %>%
@@ -126,11 +122,9 @@ milksupplyclaim2<-merge(milksupplyclaim1,landsharesilrev,by="DOMI",sort=F)
 milksupplyclaim3<-merge(milksupplyclaim2,milksupply,by="DOMI",sort=F) %>%
   rename(Region=DOMI)
 
-if (!dir.exists("Section 5.7/txt file")) {
-  dir.create("Section 5.7/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "txt file"))
 
-sink(file.path("Section 5.7/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 5.7", "txt file", "claim.txt"))
 cat(claimmilkelas, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(milksupplyclaim3,row.names = F)
@@ -146,17 +140,15 @@ where the inelastic derived demand for milk components in
 butter-powder products can be traced to a particularly low 
 cost share of milk components relative to other inputs."
 
-compbutpowcostshare<-read.csv("Section 5.8/compbutpowcostshare.csv") %>%
+compbutpowcostshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 5.8", "compbutpowcostshare.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   rename("Region" = DOMI) %>%
   rename("Milk component cost share in butter-powder products"=Val) %>%
   mutate_if(is.numeric, round, digits = 3) 
 
-if (!dir.exists("Section 5.8/txt file")) {
-  dir.create("Section 5.8/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 5.8", "txt file"))
 
-sink(file.path("Section 5.8/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 5.8", "txt file", "claim.txt"))
 cat(claimcompdembutpow, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(compbutpowcostshare,row.names = F)
@@ -171,7 +163,7 @@ claim0<-"Claim: Wedges for the butterfat component are
 extremely close to one for all product categories
 and all regions."
 
-fatwedges<-read.csv("../MANUSCRIPT TABLES/Table 2/delta.csv") %>%
+fatwedges<-read.csv(here::here("MANUSCRIPT TABLES", "Table 2", "delta.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   dplyr::filter(!DOMI=="Unregulated") %>%
   dplyr::filter(K == "Fat") %>%
@@ -182,11 +174,9 @@ fatwedges<-read.csv("../MANUSCRIPT TABLES/Table 2/delta.csv") %>%
 
 colnames(fatwedges)<-c("Region","Product","Butterfat Wedge")
 
-if (!dir.exists("Section 6 intro/txt file")) {
-  dir.create("Section 6 intro/txt file",recursive=T)
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6 intro", "txt file"))
 
-sink(file.path("Section 6 intro/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6 intro", "txt file", "claim.txt"))
 cat(claim0, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Regional Wedges for Butterfat Component","\n\n")
@@ -201,7 +191,7 @@ sink()
 claim1a<-"Claim: milk shipments from the Unregulated region towards its 
 non-Western destination regions are eliminated,..."
 
-milkship<-read.csv("Section 6.1/milkship.csv") %>%
+milkship<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "milkship.csv")) %>%
   mutate(Val=format(round(Val*100, digits=2),nsmall=2))  %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(DOMI %in% c("Unregulated","California","Pacific-Northwest","Arizona")) %>%
@@ -222,11 +212,9 @@ relatively modest shipments from both Arizona and Pacific Northwest. These
 shipments also go to zero in the counterfactual, so that the milk market 
 becomes segmented between Western and non-Western states."
 
-if (!dir.exists("Section 6.1/txt file")) {
-  dir.create("Section 6.1/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "txt file"))
 
-sink(file.path("Section 6.1/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "txt file", "claim1.txt"))
 cat(claim1a, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(milkship,row.names = F)
@@ -241,7 +229,7 @@ less than 1%, except in the Southwest where silage production
 decreases by 5.9%. The use of other dairy feed crops also 
 decreases markedly in the Southwest, by 7.3%."
 
-deltafeedcrop<-read.csv("Section 6.1/deltafeedcropuse.csv") 
+deltafeedcrop<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "deltafeedcropuse.csv")) 
 deltafeedcrop<-reshape(deltafeedcrop,idvar="DOMI",timevar="SUBL",direction="wide") %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 3) 
@@ -252,7 +240,7 @@ note2<-"Note: This table reports changes in regional feed crop use.
 Regional use and production of silage are identical since 
 this crop is not traded."
 
-sink(file.path("Section 6.1/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "txt file", "claim2.txt"))
 cat(claim1b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(deltafeedcrop,row.names = F)
@@ -264,22 +252,24 @@ claim2<-"Claim: We find that an increase in transportation
 cost by 62% or more would cause all farm milk shipments to
 disappear. (This claim is also stated in Section 1.)"
 
-milkprodshareship<-read.csv("Section 6.1/milkprodshareshiptot.csv") %>%
+milkprodshareship<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "milkprodshareshiptot.csv")) %>%
   mutate(Val=format(round(Val, digits=8),nsmall=8)) 
 rownames(milkprodshareship)<-"Initial share of milk production shipped out:"
 colnames(milkprodshareship)<-NULL
-tau1<-(read.csv("Section 6.1/tau1.csv")[1,1]-1)*100
-deltamilkprodshareship1<-read.csv("Section 6.1/deltamilkprodshareshiptot1.csv") %>%
+
+tau1<-(read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "tau1.csv"))[1,1]-1)*100
+deltamilkprodshareship1<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "deltamilkprodshareshiptot1.csv")) %>%
   mutate(Val=format(round(Val, digits=8),nsmall=8)) 
 rownames(deltamilkprodshareship1)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau1,"%:")
 colnames(deltamilkprodshareship1)<-NULL
-tau2<-(read.csv("Section 6.1/tau2.csv")[1,1]-1)*100
-deltamilkprodshareship2<-read.csv("Section 6.1/deltamilkprodshareshiptot2.csv") %>%
+
+tau2<-(read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "tau2.csv"))[1,1]-1)*100
+deltamilkprodshareship2<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "deltamilkprodshareshiptot2.csv")) %>%
   mutate(Val=format(round(Val, digits=8),nsmall=8)) 
 rownames(deltamilkprodshareship2)<-paste("Change in the share of milk production shipped out when milk transportation costs increase by",tau2,"%:")
 colnames(deltamilkprodshareship2)<-NULL
 
-sink(file.path("Section 6.1/txt file","claim3.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.1", "txt file", "claim3.txt"))
 cat(claim2, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(milkprodshareship)
@@ -294,7 +284,7 @@ sink()
 claim2a<-"Claim: the protein price wedge is larger than one for 
 beverages, soft products and cheese in all FMMO regions."
 
-wedgesclaim<-read.csv("../MANUSCRIPT TABLES/Table 2/delta.csv") %>%
+wedgesclaim<-read.csv(here::here("MANUSCRIPT TABLES", "Table 2", "delta.csv")) %>%
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   dplyr::filter(!DOMI=="Unregulated") %>%
   dplyr::filter(!N %in% c("Butter-Powder")) %>%
@@ -307,11 +297,9 @@ wedgesclaim<-read.csv("../MANUSCRIPT TABLES/Table 2/delta.csv") %>%
 wedgesclaim<-reshape(wedgesclaim,idvar="DOMI",timevar="N",direction="wide") 
 colnames(wedgesclaim)<-c("Region","Beverages","Softs","Cheese")
 
-if (!dir.exists("Section 6.2/txt file")) {
-  dir.create("Section 6.2/txt file",recursive=T)
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.2", "txt file"))
 
-sink(file.path("Section 6.2/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.2", "txt file", "claim.txt"))
 cat(claim2a, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Price wedges for Protein (relative to Butter-Powder):","\n\n")
@@ -327,7 +315,7 @@ claim3a<-"Claim: Thus, the price of beverage products falls in all
 FMMO regions while softs, cheese, and butter-powder products 
 generally become more expensive."
 
-producerprices<-read.csv("Section 6.4/producerprices.csv") %>% 
+producerprices<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "producerprices.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
@@ -335,12 +323,9 @@ producerprices<-read.csv("Section 6.4/producerprices.csv") %>%
 producerprices<-reshape(producerprices,idvar="DOMI",timevar="N",direction="wide") 
 colnames(producerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
 
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.3", "txt file"))
 
-if (!dir.exists("Section 6.3/txt file")) {
-  dir.create("Section 6.3/txt file")
-}
-
-sink(file.path("Section 6.3/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.3", "txt file", "claim1.txt"))
 cat(claim3a, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Changes in regional producer prices of dairy products","\n\n")
@@ -353,14 +338,14 @@ production in the Southeast (+5.4%) coincides with more
 shipments of beverage products to Florida (+7.6%), the
 Pacific Northwest (+7.9%), and the Unregulated region (+9.0%)."
 
-southeastdeltabevship<-read.csv("Section 6.3/deltabevship.csv") %>% 
+southeastdeltabevship<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.3", "deltabevship.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=2),nsmall=2)) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(DOMI %in% c("Florida","Pacific Northwest","Unregulated")) 
 colnames(southeastdeltabevship) <- c("Region","Change in dairy beverage shipment from Southeast")
 
-sink(file.path("Section 6.3/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.3", "txt file", "claim2.txt"))
 cat(claim3b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(southeastdeltabevship,row.names = F)
@@ -384,7 +369,7 @@ regions) combined with a particularly high baseline expenditure
 share on butter-powder products (18.9%), the consumer price of 
 which rises by 1.8%."
 
-producerprices<-read.csv("Section 6.4/producerprices.csv") %>% 
+producerprices<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "producerprices.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
@@ -392,7 +377,7 @@ producerprices<-read.csv("Section 6.4/producerprices.csv") %>%
 producerprices<-reshape(producerprices,idvar="DOMI",timevar="N",direction="wide") 
 colnames(producerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
 
-consumerprices<-read.csv("Section 6.4/prindex.csv") %>% 
+consumerprices<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "prindex.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
@@ -400,7 +385,7 @@ consumerprices<-read.csv("Section 6.4/prindex.csv") %>%
 consumerprices<-reshape(consumerprices,idvar="DOMI",timevar="N",direction="wide") 
 colnames(consumerprices) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
 
-forconsumerprices<-read.csv("Section 6.4/prindexfor.csv") %>%
+forconsumerprices<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "prindexfor.csv")) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 forconsumerprices<-t(forconsumerprices)
@@ -413,17 +398,15 @@ colnames(forconsumerprices) <- colnames(consumerprices)
 
 consumerprices<-rbind(consumerprices,forconsumerprices)
 
-calbuttpowexpshare<-read.csv("Section 6.4/califbuttpowexpshare.csv") %>%
+calbuttpowexpshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "califbuttpowexpshare.csv")) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(calbuttpowexpshare) <-"Expenditure share on butter-powder products in California:"
 colnames(calbuttpowexpshare) <- NULL
 
-if (!dir.exists("Section 6.4/txt file")) {
-  dir.create("Section 6.4/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "txt file"))
 
-sink(file.path("Section 6.4/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "txt file", "claim1.txt"))
 cat(claim4, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Producer prices", "\n\n")
@@ -440,21 +423,21 @@ sourced locally as the expenditure share on local beverages
 reaches 85.5%. The beverage price index decreases by only 
 1.3% in California."
 
-calbevexpshare<-read.csv("Section 6.4/califbevlocexpshare.csv") %>%
+calbevexpshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "califbevlocexpshare.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(calbevexpshare) <-"Expenditure share on local beverages in California:"
 colnames(calbevexpshare) <- NULL
 
-calbevprindex<-read.csv("Section 6.4/califbevprindex.csv") %>%
+calbevprindex<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "califbevprindex.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(calbevprindex) <-"Change in beverages price index in California:"
 colnames(calbevprindex) <- NULL
 
-sink(file.path("Section 6.4/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "txt file", "claim2.txt"))
 cat(claim5, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(calbevexpshare,row.names = T)
@@ -469,7 +452,7 @@ effect in the Northeast is due to an unusually large share of
 cropland dedicated to dairy silage (22.4% as opposed to less 
 than 10%, and often less than 5%, in other regions)."
 
-silagepr<-read.csv("Section 6.4/silagepr.csv") %>% 
+silagepr<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "silagepr.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>% 
@@ -477,7 +460,7 @@ silagepr<-read.csv("Section 6.4/silagepr.csv") %>%
   mutate(Val=paste0(Val,"%")) 
 colnames(silagepr) <- c("Region","Change in silage price")
 
-silageareashare<-read.csv("Section 6.4/silageareashare.csv") %>% 
+silageareashare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "silageareashare.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>% 
@@ -485,7 +468,7 @@ silageareashare<-read.csv("Section 6.4/silageareashare.csv") %>%
   mutate(Val=paste0(Val,"%")) 
 colnames(silageareashare) <- c("Region","Baseline cropland share")
 
-sink(file.path("Section 6.4/txt file","claim3.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.4", "txt file", "claim3.txt"))
 cat(claim5a, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(silagepr,row.names = F)
@@ -502,27 +485,27 @@ claim5b<-"Claim: The decrease in total milk value is most sensitive
 to the value of varsigma^cheese as cheese represents the 
 most significant share of component value in many FMMO regions."
 
-deltamilkvaltots1<-read.csv("../MANUSCRIPT TABLES/Table E.1/deltamilkvaltot_s1.csv") %>% 
+deltamilkvaltots1<-read.csv(here::here("MANUSCRIPT TABLES", "Table E.1", "deltamilkvaltot_s1.csv")) %>% 
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 rownames(deltamilkvaltots1)<-c("Baseline:")
 
-deltamilkvaltots8<-read.csv("../MANUSCRIPT TABLES/Table E.1/deltamilkvaltot_s8.csv") %>% 
+deltamilkvaltots8<-read.csv(here::here("MANUSCRIPT TABLES", "Table E.1", "deltamilkvaltot_s8.csv")) %>% 
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 rownames(deltamilkvaltots8)<-c("Varsigma^bev X 2:")
 
-deltamilkvaltots9<-read.csv("../MANUSCRIPT TABLES/Table E.1/deltamilkvaltot_s9.csv") %>% 
+deltamilkvaltots9<-read.csv(here::here("MANUSCRIPT TABLES", "Table E.1", "deltamilkvaltot_s9.csv")) %>% 
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 rownames(deltamilkvaltots9)<-c("Varsigma^softs X 2:")
 
-deltamilkvaltots10<-read.csv("../MANUSCRIPT TABLES/Table E.1/deltamilkvaltot_s10.csv") %>% 
+deltamilkvaltots10<-read.csv(here::here("MANUSCRIPT TABLES", "Table E.1", "deltamilkvaltot_s10.csv")) %>% 
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 rownames(deltamilkvaltots10)<-c("Varsigma^cheese X 2:")
 
-deltamilkvaltots11<-read.csv("../MANUSCRIPT TABLES/Table E.1/deltamilkvaltot_s11.csv") %>% 
+deltamilkvaltots11<-read.csv(here::here("MANUSCRIPT TABLES", "Table E.1", "deltamilkvaltot_s11.csv")) %>% 
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%"))
 rownames(deltamilkvaltots11)<-c("Varsigma^b-p X 2:")
@@ -530,7 +513,7 @@ rownames(deltamilkvaltots11)<-c("Varsigma^b-p X 2:")
 deltamilkvaltotcomp<-rbind(deltamilkvaltots1,deltamilkvaltots8,deltamilkvaltots9,deltamilkvaltots10,deltamilkvaltots11)
 colnames(deltamilkvaltotcomp)<-c("Change in milk production value (%)")
 
-dairyprodcompvalshare<-read.csv("Section 6.5/dairyprodcompvalshare.csv") %>% 
+dairyprodcompvalshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.5", "dairyprodcompvalshare.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 4) %>%
   mutate(Val=100*Val) %>%
@@ -539,11 +522,9 @@ dairyprodcompvalshare<-read.csv("Section 6.5/dairyprodcompvalshare.csv") %>%
 dairyprodcompvalshare<-reshape(dairyprodcompvalshare,idvar="DOMI",timevar="N",direction="wide") 
 colnames(dairyprodcompvalshare) <-c("Region","Beverages","Softs","Cheese","Butter-Powder")
 
-if (!dir.exists("Section 6.5/txt file")) {
-  dir.create("Section 6.5/txt file",recursive=T)
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.5", "txt file"))
 
-sink(file.path("Section 6.5/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.5", "txt file", "claim.txt"))
 cat(claim5b, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(deltamilkvaltotcomp,row.names = T)
@@ -564,12 +545,12 @@ by 2.8%. In contrast, under the milk quotas domestic beverage
 prices only fall by 0.6–3.1% and the foreign price index rises
 by 1.0%."
 
-priceminwed<-read.csv("Section 6.6/pricechangeminwed.csv") %>%
+priceminwed<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "pricechangeminwed.csv")) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(N %in% c("Beverage","Butter-Powder"))
 
-pricemaxwed<-read.csv("Section 6.6/pricechangemaxwed.csv") %>%
+pricemaxwed<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "pricechangemaxwed.csv")) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(N %in% c("Beverage","Butter-Powder"))
@@ -577,20 +558,20 @@ pricemaxwed<-read.csv("Section 6.6/pricechangemaxwed.csv") %>%
 pricechangeswed<-merge(priceminwed,pricemaxwed,by="N")
 colnames(pricechangeswed) <- c("Product","Minimum change","Maximum change")
 
-forprindexwed<-read.csv("Section 6.6/forprindexchangewed.csv") %>%
+forprindexwed<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "forprindexchangewed.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(forprindexwed) <-"Change in foreign dairy price index:"
 colnames(forprindexwed) <- NULL
 
-priceminqu<-read.csv("Section 6.6/pricechangeminqu.csv") %>%
+priceminqu<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "pricechangeminqu.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) %>%
   filter(N %in% c("Beverage"))
 
-pricemaxqu<-read.csv("Section 6.6/pricechangemaxqu.csv") %>%
+pricemaxqu<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "pricechangemaxqu.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) %>%
@@ -599,18 +580,16 @@ pricemaxqu<-read.csv("Section 6.6/pricechangemaxqu.csv") %>%
 pricechangesqu<-merge(priceminqu,pricemaxqu,by="N")
 colnames(pricechangesqu) <- c("Product","Minimum change","Maximum change")
 
-forprindexqu<-read.csv("Section 6.6/forprindexchangequ.csv") %>%
+forprindexqu<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "forprindexchangequ.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(forprindexqu) <-"Change in foreign dairy price index:"
 colnames(forprindexqu) <- NULL
 
-if (!dir.exists("Section 6.6/txt file")) {
-  dir.create("Section 6.6/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file"))
 
-sink(file.path("Section 6.6/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file", "claim1.txt"))
 cat(claim6, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 cat("Ideal Wedges Counterfactual","\n\n")
@@ -629,12 +608,12 @@ claim7<-"Under the quotas, domestic beverage prices fall
 relative to the status quo, yet they are higher 
 than in competitive equilibrium."
 
-bevpricediff<-read.csv("Section 6.6/bevpricediff.csv") %>%
+bevpricediff<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "bevpricediff.csv")) %>%
   mutate(Val=format(round(Val*100, digits=3),nsmall=3)) %>%
   mutate(Val=paste0(Val,"%")) 
 colnames(bevpricediff)<-c("Region","Difference btw bev price under milk quotas and competition")
 
-sink(file.path("Section 6.6/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file", "claim2.txt"))
 cat(claim7, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(bevpricediff,row.names = F)
@@ -644,14 +623,14 @@ claim8<-"Claim: Indeed, our model implies that quota
 rents represent only 0.5% of the total value of milk. 
 (This claim is also made in Section 1.)"
 
-quotarentshare<-read.csv("Section 6.6/quotarentshare.csv") %>%
+quotarentshare<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "quotarentshare.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(quotarentshare) <-"Share of quota rent in total milk value:"
 colnames(quotarentshare) <- NULL
 
-sink(file.path("Section 6.6/txt file","claim3.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file", "claim3.txt"))
 cat(claim8, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(quotarentshare,row.names = T)
@@ -664,21 +643,21 @@ However, even if we increase epsilon_0 to a value of, say,
 100, the resulting derived demand for manufacturing milk
 is too small to make component pricing socially more efficient."
 
-cstotwed<-read.csv("Section 6.6/cstot100wed.csv") %>%
+cstotwed<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "cstot100wed.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(cstotwed) <-"Change in welfare with ideal wedges when epsilon_0=100:"
 colnames(cstotwed) <- NULL
 
-cstotqu<-read.csv("Section 6.6/cstot100qu.csv") %>%
+cstotqu<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "cstot100qu.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(cstotqu) <-"Change in welfare with milk quotas when epsilon_0=100:"
 colnames(cstotqu) <- NULL
 
-sink(file.path("Section 6.6/txt file","claim4.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file", "claim4.txt"))
 cat(claim9, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(cstotwed,row.names = T)
@@ -693,14 +672,14 @@ the aggregate land rent by only up to 0.35% relative
 to its baseline level without reducing domestic consumer
 surplus (and without reducing land rents in any region)."
 
-landrentmax<-read.csv("Section 6.6/landrentmax.csv") %>%
+landrentmax<-read.csv(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "landrentmax.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(landrentmax) <-"Maximum land rent increase (relative to baseline) that preserves domestic consumer surplus: "
 colnames(landrentmax) <- NULL
 
-sink(file.path("Section 6.6/txt file","claim5.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Section 6.6", "txt file", "claim5.txt"))
 cat(claim10, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(landrentmax,row.names = T)
@@ -718,12 +697,12 @@ value to the detriment of domestic consumers. However, the
 refinement is almost inconsequential in terms of aggregate 
 welfare measures."
 
-milkprocprice<-read.csv("Appendix F.3/milkprocprice.csv") %>% 
+milkprocprice<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "milkprocprice.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=5),nsmall=5)) %>%
   mutate(Val=paste0(Val,"%"))
 
-milkprocpricearb<-read.csv("Appendix F.3/milkprocpricearb.csv") %>% 
+milkprocpricearb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "milkprocpricearb.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate(Val=format(round(Val*100, digits=5),nsmall=5)) %>%
   mutate(Val=paste0(Val,"%"))
@@ -731,23 +710,23 @@ milkprocpricearb<-read.csv("Appendix F.3/milkprocpricearb.csv") %>%
 milkprocpricecomp<-merge(milkprocprice,milkprocpricearb,by="DOMI",sort=F)
 colnames(milkprocpricecomp) <- c("Region","Without Full Arbitrage (Preferred)","With Full Arbitrage")
 
-shadowvaluerent<-read.csv("Appendix F.3/shadowvalrent.csv") %>% 
+shadowvaluerent<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "shadowvalrent.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 0) 
 
-shadowvaluerentarb<-read.csv("Appendix F.3/shadowvalrentarb.csv") %>% 
+shadowvaluerentarb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "shadowvalrentarb.csv")) %>% 
   mutate(DOMI=gsub("-"," ",DOMI)) %>%
   mutate_if(is.numeric, round, digits = 0) 
 
 shadowvaluecomp<-merge(shadowvaluerent,shadowvaluerentarb,by="DOMI",sort=F)
 colnames(shadowvaluecomp) <- c("Region","Without Full Arbitrage (Preferred)","With Full Arbitrage")
 
-csdom<-read.csv("Appendix F.3/csdom.csv") %>%
+csdom<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "csdom.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
 
-csdomarb<-read.csv("Appendix F.3/csdomarb.csv") %>%
+csdomarb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "csdomarb.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
@@ -756,12 +735,12 @@ csdomcomp<-cbind(csdom,csdomarb)
 rownames(csdomcomp) <-"Change in domestic consumer surplus:"
 colnames(csdomcomp) <-c("Without Full Arbitrage (Preferred)","With Full Arbitrage")
 
-csfor<-read.csv("Appendix F.3/csfor.csv") %>%
+csfor<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "csfor.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
 
-csforarb<-read.csv("Appendix F.3/csforarb.csv") %>%
+csforarb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "csforarb.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
@@ -770,12 +749,12 @@ csforcomp<-cbind(csfor,csforarb)
 rownames(csforcomp) <-"Change in foreign consumer surplus:"
 colnames(csforcomp) <-c("Without Full Arbitrage (Preferred)","With Full Arbitrage")
 
-cstot<-read.csv("Appendix F.3/cstot.csv") %>%
+cstot<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "cstot.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
 
-cstotarb<-read.csv("Appendix F.3/cstotarb.csv") %>%
+cstotarb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "cstotarb.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
@@ -784,12 +763,12 @@ cstotcomp<-cbind(cstot,cstotarb)
 rownames(cstotcomp) <-"Change in total consumer surplus:"
 colnames(cstotcomp) <-c("Without Full Arbitrage (Preferred)","With Full Arbitrage")
 
-pstot<-read.csv("Appendix F.3/prodrenttot.csv") %>%
+pstot<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "prodrenttot.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
 
-pstotarb<-read.csv("Appendix F.3/prodrenttotarb.csv") %>%
+pstotarb<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "prodrenttotarb.csv")) %>%
   mutate_if(is.numeric, round, digits = 7) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%"))
@@ -800,11 +779,9 @@ colnames(pstotcomp) <-c("Without Full Arbitrage (Preferred)","With Full Arbitrag
 
 welfarecomp<-rbind(csdomcomp,csforcomp,cstotcomp,pstotcomp)
 
-if (!dir.exists("Appendix F.3/txt file")) {
-  dir.create("Appendix F.3/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "txt file"))
 
-sink(file.path("Appendix F.3/txt file","claim.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Appendix F.3", "txt file", "claim.txt"))
 cat(claim11, "\n\n")
 cat(rep("-",80), sep="", "\n\n")
 cat("Regional Milk Processing Prices","\n\n")
@@ -831,18 +808,16 @@ sink()
 claim12<-"Claim: our data imply that the component value
 share of beverage products is 19.7%."
 
-compsharebev<-read.csv("Appendix G/sharebev.csv") %>%
+compsharebev<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "sharebev.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(compsharebev) <-"Share of beverages in total milk component value: "
 colnames(compsharebev) <- NULL
 
-if (!dir.exists("Appendix G/txt file")) {
-  dir.create("Appendix G/txt file")
-}
+fs::dir_create(here::here("MANUSCRIPT CLAIMS", "Appendix G", "txt file"))
 
-sink(file.path("Appendix G/txt file","claim1.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Appendix G", "txt file", "claim1.txt"))
 cat(claim12, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(compsharebev,row.names = T)
@@ -855,17 +830,17 @@ and other uses, respectively. The values of
 epsilon_1 and epsilon_2 are consistent with values 
 simulated using the demand-side of our model."
 
-elascompusebev<-read.csv("Appendix G/elascompusebevtot.csv") %>%
+elascompusebev<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "elascompusebevtot.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) 
 rownames(elascompusebev) <-"Aggregate milk component demand elasticity for beverages: "
 colnames(elascompusebev) <- NULL
 
-elascompuseother<-read.csv("Appendix G/elascompusemantot.csv") %>%
+elascompuseother<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "elascompusemantot.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) 
 rownames(elascompuseother) <-"Aggregate milk component demand elasticity for other dairy products: "
 colnames(elascompuseother) <- NULL
 
-sink(file.path("Appendix G/txt file","claim2.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Appendix G", "txt file", "claim2.txt"))
 cat(claim13, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(elascompusebev,row.names = T)
@@ -887,34 +862,34 @@ than the quota would require, in addition to setting
 epsilon_2 = 1.64, that eta be made less than one, for
 instance."
 
-elascompuseother100<-read.csv("Appendix G/elascompusemantot100.csv") %>%
+elascompuseother100<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "elascompusemantot100.csv")) %>%
   mutate_if(is.numeric, round, digits = 5) 
 rownames(elascompuseother100) <-"Component demand elasticity for non-beverage dairy products when epsilon_0=100:"
 colnames(elascompuseother100) <- NULL
 
-equationg4<-read.csv("Appendix G/result_eta3.csv", header=F) %>%
+equationg4<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "result_eta3.csv"), header=F) %>%
   mutate_if(is.numeric, round, digits = 6) 
 rownames(equationg4) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=3:"
 colnames(equationg4) <- NULL
 
-sharemanfor<-read.csv("Appendix G/sharemanfor.csv") %>%
+sharemanfor<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "sharemanfor.csv")) %>%
   mutate_if(is.numeric, round, digits = 6) %>%
   mutate(Val=100*Val) %>%
   mutate(Val=paste0(Val,"%")) 
 rownames(sharemanfor) <-"Foreign share of total consumption value of non-beverage dairy products:"
 colnames(sharemanfor) <- NULL
 
-equationg4eta1<-read.csv("Appendix G/result_eta1.csv", header=F) %>%
+equationg4eta1<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "result_eta1.csv"), header=F) %>%
   mutate_if(is.numeric, round, digits = 6) 
 rownames(equationg4eta1) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=1:"
 colnames(equationg4eta1) <- NULL
 
-equationg4eta05<-read.csv("Appendix G/result_eta0.5.csv", header=F) %>%
+equationg4eta05<-read.csv(here::here("MANUSCRIPT CLAIMS", "Appendix G", "result_eta0.5.csv"), header=F) %>%
   mutate_if(is.numeric, round, digits = 5) 
 rownames(equationg4eta05) <-"Value of LHS of Equation (G.4) with epsilon_2=1.64 and eta=0.5:"
 colnames(equationg4eta05) <- NULL
 
-sink(file.path("Appendix G/txt file","claim3.txt"))
+sink(here::here("MANUSCRIPT CLAIMS", "Appendix G", "txt file", "claim3.txt"))
 cat(claim14, "\n\n")
 cat(rep("-",60), sep="", "\n\n")
 print(elascompuseother100,row.names = T)
