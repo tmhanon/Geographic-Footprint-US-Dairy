@@ -19,13 +19,41 @@ echo "=== Creating GAMS Data Files ==="
 #----------------------------------------------------
 
 Rscript "R CODE/Data-Processing/0_Data_Processing_Run_All.R"
-
+ 
 
 echo "=== Starting Analysis ==="
 
 #---------------------------
 # GAMS RUNS
 #---------------------------
+
+echo "Creating Directories"
+
+mkdir -p "../MANUSCRIPT CLAIMS/Table 1"
+mkdir -p "../MANUSCRIPT TABLES/Table 2"
+mkdir -p "../MANUSCRIPT TABLES/Table 3"
+mkdir -p "../MANUSCRIPT TABLES/Table 4"
+mkdir -p "../MANUSCRIPT TABLES/Table 5"
+mkdir -p "../MANUSCRIPT TABLES/Table 6"
+mkdir -p "../MANUSCRIPT TABLES/Table 7"
+mkdir -p "../MANUSCRIPT TABLES/Table D.1"
+mkdir -p "../MANUSCRIPT TABLES/Table D.2"
+mkdir -p "../MANUSCRIPT TABLES/Table D.3"
+mkdir -p "../MANUSCRIPT TABLES/Table D.4"
+mkdir -p "../MANUSCRIPT TABLES/Table E.1"
+
+mkdir -p "../MANUSCRIPT CLAIMS/Section 1"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 5.6"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 5.7"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 5.8"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 6.3"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 6.4"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 6.5"
+mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
+mkdir -p "../MANUSCRIPT CLAIMS/Appendix F.3"
+mkdir -p "../MANUSCRIPT CLAIMS/Appendix G"
+
 
 echo "Processing GAMS runs"
 cd "GAMS CODE"

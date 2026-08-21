@@ -488,7 +488,7 @@ parameters       CS(DOMI)        "regional change in consumer surplus relative t
 *THIS PART OF THE CODE ALSO SUBSTANTIATES THE CLAIM THAT THE SHARE OF FARM MILK IN TOTAL DAIRY PRODUCT VALUE IS 18% (SECTION 1)
 
 $if not set run_section1 $goto skip_section1
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 1"
+
 execute_unload "../MANUSCRIPT CLAIMS/Section 1/output_ex.gdx", PSI ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 1/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 1/milkshareofdairydollar.csv" symb=PSI' ;
 $label skip_section1
@@ -522,7 +522,6 @@ MILKSUPPLYTOT = sum(DOMI, MILKSUPPLY(DOMI) * MU1(DOMI)) ;
 
 display MILKSUPPLY, MILKSUPPLYTOT ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 1"
 execute_unload "../MANUSCRIPT TABLES/Table 1/output_ex.gdx", MILKSUPPLY, MILKSUPPLYTOT ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 1/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 1/milksupply.csv" symb=MILKSUPPLY' ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 1/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 1/milksupplytot.csv" symb=MILKSUPPLYTOT' ;
@@ -534,7 +533,6 @@ parameter LANDSHARESILREV(DOMI)    "regional land share of silage revenue"
 LANDSHARESILREV(DOMI) = VARPHI2(DOMI,"Silage") ;
 SILFEEDSHARE(DOMI) = XI2(DOMI,"Silage") ;      
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 5.7"
 execute_unload "../MANUSCRIPT CLAIMS/Section 5.7/output_ex.gdx", MILKSUPPLY, LANDSHARESILREV, PHI1, SILFEEDSHARE ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.7/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.7/milksupply.csv" symb=MILKSUPPLY' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.7/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.7/landsharesilrev.csv" symb=LANDSHARESILREV' ;
@@ -557,7 +555,6 @@ ELASDEMFOR(SUBN) = (KAPPA0 - EPSILON0) * B2("ROW", SUBN) - KAPPA0 ;
 
 display ELASDEMDOM, ELASDEMFOR ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table D.1"
 execute_unload "../MANUSCRIPT TABLES/Table D.1/output_ex.gdx", ELASDEMDOM, ELASDEMFOR ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.1/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.1/elasdemdom.csv" symb=ELASDEMDOM' ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.1/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.1/elasdemfor.csv" symb=ELASDEMFOR' ;
@@ -573,7 +570,6 @@ ELASFEED(DOMI, SUBL) = RHO * XI2(DOMI, SUBL) - RHO ;
 
 display ELASFEED ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table D.2"
 execute_unload "../MANUSCRIPT TABLES/Table D.2/output_ex.gdx", ELASFEED ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.2/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.2/elasfeed.csv" symb=ELASFEED' ;
 
@@ -588,7 +584,6 @@ ELASCROP(DOMI, L)$(VARPHI2(DOMI, L) > 0) = (THETA-1) * (1 - PI(DOMI, L)) / VARPH
 
 display ELASCROP ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table D.3"
 execute_unload "../MANUSCRIPT TABLES/Table D.3/output_ex.gdx", ELASCROP ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.3/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.3/elascrop.csv" symb=ELASCROP' ;
 
@@ -599,7 +594,6 @@ parameter OILSEEDAREASHARE(DOMI)    "regional cropland share of oilseeds"
 OILSEEDAREASHARE(DOMI)  = PI(DOMI, "Oilseeds") ;
 ELASCROPAREA(DOMI, L)$(VARPHI2(DOMI, L) > 0) = THETA * (1 - PI(DOMI, L)) / VARPHI2(DOMI, L) ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 5.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 5.6/output_ex.gdx", OILSEEDAREASHARE, ELASCROPAREA ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.6/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.6/oilseedareashare.csv" symb=OILSEEDAREASHARE' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.6/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.6/elascroparea.csv" symb=ELASCROPAREA' ;
@@ -636,7 +630,6 @@ LOOP ((DOMII, O),
 
 display  ELASCOMPDEMAND ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table D.4"
 execute_unload "../MANUSCRIPT TABLES/Table D.4/output_ex.gdx", ELASCOMPDEMAND ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table D.4/output_ex" format=csv output="../MANUSCRIPT TABLES/Table D.4/elascompdemand.csv" symb=ELASCOMPDEMAND' ;
 
@@ -647,7 +640,6 @@ COMPBUTPOWCOSTSHARE(DOMI) =  PSI2(DOMI, "Butter-powder")  ;
 
 display COMPBUTPOWCOSTSHARE ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 5.8"
 execute_unload "../MANUSCRIPT CLAIMS/Section 5.8/output_ex.gdx", COMPBUTPOWCOSTSHARE ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 5.8/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 5.8/compbutpowcostshare.csv" symb=COMPBUTPOWCOSTSHARE' ;
 
@@ -668,7 +660,6 @@ $if not set run_table2 $goto skip_table2
 
 display DELTA ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 2"
 execute_unload "../MANUSCRIPT TABLES/Table 2/output_ex.gdx", DELTA ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 2/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 2/delta.csv" symb=DELTA' ;
 
@@ -737,7 +728,6 @@ DELTAMILKUSESHARESHIP(DOMI)$(MILKUSESHARESHIP(DOMI) > 0) = MILKUSESHARESHIPPRIME
 display DELTAMILKVALTOT, DELTAMILKPRICETOT, DELTAMILKPRODTOT, DELTAMILKUSETOT, MILKPRODSHARESHIPTOT,
         DELTAMILKPRODSHARESHIPTOT ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 3"
 execute_unload "../MANUSCRIPT TABLES/Table 3/output_ex.gdx", DELTAMILKVAL, MU1, DELTAMILKVALTOT, DELTAMILKPRICE, DELTAMILKPRICETOT,
                                 DELTAMILKPROD, DELTAMILKPRODTOT, DELTAMILKUSE, DELTAMILKUSETOT,
                                 MILKPRODSHARESHIP, MILKPRODSHARESHIPTOT, DELTAMILKPRODSHARESHIP, DELTAMILKPRODSHARESHIPTOT,
@@ -768,7 +758,6 @@ MILKSHIP(DOMI, DOMJ) = MSHIP.L(DOMI, DOMJ) - 1 ;
 DELTAFEEDCROPUSE(DOMI, SUBL) = MQUANT.L(DOMI) * WINDEX1.L(DOMI)**RHO * W.L(DOMI, SUBL)**(-RHO) -1 ;
 display A, MILKSHIP, DELTAFEEDCROPUSE ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex.gdx", MILKSHIP, DELTAFEEDCROPUSE ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/milkship.csv" symb=MILKSHIP' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/deltafeedcropuse.csv" symb=DELTAFEEDCROPUSE' ;
@@ -786,7 +775,6 @@ COMPCOSTINDEX(DOMI, N) = VINDEX.L(DOMI, N) - 1 ;
 
 display COMPPRICE, COMPCOSTINDEX ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 4"
 execute_unload "../MANUSCRIPT TABLES/Table 4/output_ex.gdx", COMPPRICE, COMPCOSTINDEX ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 4/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 4/compprice.csv" symb=COMPPRICE' ;
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 4/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 4/compcostindex.csv" symb=COMPCOSTINDEX' ;
@@ -804,7 +792,6 @@ DAIRYEXPTOT = PINDEX10.L ** (1 - EPSILON0) - 1 ;
 
 display DAIRYVALTOT, DAIRYEXPTOT ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 5"
 execute_unload "../MANUSCRIPT TABLES/Table 5/output_ex.gdx", DAIRYQUANT, DAIRYVAL, DAIRYVALTOT, A1, DAIRYEXP, DAIRYEXPTOT, DAIRYEXPSHARE ;
 
 execute 'gdxdump "../MANUSCRIPT TABLES/Table 5/output_ex" format=csv output="../MANUSCRIPT TABLES/Table 5/dairyquant.csv" symb=DAIRYQUANT' ;
@@ -821,7 +808,6 @@ parameter DELTABEVSHIP(DOMI)     "change in shipment of beverages from the South
 DELTABEVSHIP(DOMI) = C.L("Southeast",DOMI,"Beverage") - 1 ;
 display DELTABEVSHIP ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.3"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.3/output_ex.gdx", DELTABEVSHIP ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.3/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.3/deltabevship.csv" symb=DELTABEVSHIP' ;
 
@@ -851,7 +837,6 @@ WELFVAL(DOMI)  = CSVAL(DOMI) + PSVAL(DOMI)   ;
 WELFDOMVAL     = sum(DOMI, WELFVAL(DOMI)) ;   
 WELFTOTVAL     = WELFDOMVAL + CSFORVAL   ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 6"
 execute_unload "../MANUSCRIPT TABLES/Table 6/output_ex.gdx", CS, CSDOM, CSFOR, CSTOT, PS, PSDOM, PSTOT, WELF, WELFDOM, WELFFOR, WELFTOT,
                                 CSVAL, PSVAL, WELFVAL, CSDOMVAL, CSFORVAL, CSTOTVAL, PSDOMVAL, WELFDOMVAL, WELFTOTVAL ;
 
@@ -901,7 +886,6 @@ SILAGEAREASHARE(DOMI) = PI(DOMI, "Silage") ;
 
 display PRODUCERPRICES, CALIFBUTTPOWEXPSHARE, CALIFBEVLOCEXPSHARE, CALIFBEVPRINDEX ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.4"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.4/output_ex.gdx", PRODUCERPRICES, PRINDEX, PRINDEXFOR, CALIFBUTTPOWEXPSHARE, CALIFBEVLOCEXPSHARE, CALIFBEVPRINDEX,
                                                                               SILAGEPR, SILAGEAREASHARE ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.4/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.4/producerprices.csv" symb=PRODUCERPRICES' ;
@@ -1043,7 +1027,6 @@ WELFDOM    = sum(DOMI, WELF(DOMI)) ;
 CSFOR     =  (1 - PINDEX10.L ** (1 - EPSILON0)) / (1 - EPSILON0) ;
 WELFFOR    = B1("ROW") * CSFOR ;
         
-$call mkdir -p "../MANUSCRIPT TABLES/Table E.1"
 execute_unload "../MANUSCRIPT TABLES/Table E.1/output_ex.gdx", DELTAMILKVALTOT, DELTAMILKPRODSHARESHIPTOT,DAIRYVALTOT,
                                 DAIRYEXPTOT, CSDOM, PSDOM, WELFDOM, CSFOR, WELFFOR ;
  
@@ -1084,7 +1067,6 @@ THETATILDE(DOMI, N) = sum(K, THETA2(DOMI, K) * THETA3(DOMI, N, K)) ;
 
 display THETATILDE;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.5"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.5/output_ex.gdx",  THETATILDE ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.5/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.5/dairyprodcompvalshare.csv" symb=THETATILDE' ;
 
@@ -1142,7 +1124,6 @@ CSTOTVAL       = CSDOMVAL + CSFORVAL ;
 
 display DELTAMILKVALTOT, DAIRYVALTOT, DAIRYEXPTOT, CSDOM, CSFOR, CSTOT, CSDOMVAL, CSFORVAL, CSTOTVAL ; 
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 7"
 execute_unload "../MANUSCRIPT TABLES/Table 7/output1_ex.gdx", DELTAMILKVALTOT, DAIRYVALTOT, DAIRYEXPTOT
                                 CSDOM, CSFOR, CSTOT, CSDOMVAL, CSFORVAL, CSTOTVAL  ;
 
@@ -1172,7 +1153,6 @@ FORPRINDEXCHANGEWED = PINDEX10.L - 1 ;
 
 display  PRICECHANGEminWED, PRICECHANGEmaxWED, FORPRINDEXCHANGEWED ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.6/output1_ex.gdx", PRICECHANGEminWED, PRICECHANGEmaxWED, FORPRINDEXCHANGEWED ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/pricechangeminwed.csv" symb=PRICECHANGEminWED' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/pricechangemaxwed.csv" symb=PRICECHANGEmaxWED' ;
@@ -1239,7 +1219,6 @@ CSDOMVAL       = sum(DOMI, CSVAL(DOMI)) ;
 CSFORVAL       = CSFOR * B1("ROW") * PC ;
 CSTOTVAL       = CSDOMVAL + CSFORVAL ;
 
-$call mkdir -p "../MANUSCRIPT TABLES/Table 7"
 execute_unload "../MANUSCRIPT TABLES/Table 7/output2_ex.gdx", DELTAMILKVALTOTQUOTA, DAIRYVALTOT, DAIRYEXPTOT
                                 CSDOM, CSFOR, CSTOT, CSDOMVAL, CSFORVAL, CSTOTVAL  ;
                                 
@@ -1284,7 +1263,6 @@ BEVPRICEDIFF(DOMI) = PRICECHANGEQU(DOMI, "Beverage") - BEVPRICECOMPEQ(DOMI) ;
 
 display PRICECHANGEQU, BEVPRICEDIFF ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.6/output2_ex.gdx", QUOTARENTSHARE, PRICECHANGEminQU, PRICECHANGEmaxQU, FORPRINDEXCHANGEQU, BEVPRICEDIFF ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/quotarentshare.csv" symb=QUOTARENTSHARE' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/pricechangeminqu.csv" symb=PRICECHANGEminQU' ;
@@ -1345,7 +1323,6 @@ DELTAMILKPRODSHARESHIPTOT = MILKPRODSHARESHIPTOTPRIME - MILKPRODSHARESHIPTOT ;
 
 display MILKPRODSHARESHIPTOT, DELTAMILKPRODSHARESHIPTOT ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex.gdx", TAU1, MILKPRODSHARESHIPTOT, DELTAMILKPRODSHARESHIPTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/TAU1.csv" symb=TAU1' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/milkprodshareshiptot.csv" symb=MILKPRODSHARESHIPTOT' ;
@@ -1365,7 +1342,6 @@ DELTAMILKPRODSHARESHIPTOT = MILKPRODSHARESHIPTOTPRIME - MILKPRODSHARESHIPTOT ;
 
 display MILKPRODSHARESHIPTOT, DELTAMILKPRODSHARESHIPTOT ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.1"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.1/output3_ex.gdx", TAU2, DELTAMILKPRODSHARESHIPTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output3_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/TAU2.csv" symb=TAU2' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.1/output3_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.1/deltamilkprodshareshiptot2.csv" symb=DELTAMILKPRODSHARESHIPTOT' ;
@@ -1415,7 +1391,6 @@ parameter LANDRENTMAX ;
 LANDRENTMAX = TRANSFER.L ;
 display LANDRENTMAX ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.6/output3_ex.gdx", LANDRENTMAX ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output3_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/landrentmax.csv" symb=LANDRENTMAX' ;
 
@@ -1460,7 +1435,6 @@ CSTOT      = sum(DOMI, B1(DOMI) * CS(DOMI)) + B1("ROW") * CSFOR  ;
 
 display CSTOT ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.6/output4_ex.gdx", CSTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output4_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/cstot100wed.csv" symb=CSTOT' ;
 
@@ -1496,7 +1470,6 @@ CSTOT      = sum(DOMI, B1(DOMI) * CS(DOMI)) + B1("ROW") * CSFOR  ;
 
 display CSTOT ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Section 6.6"
 execute_unload "../MANUSCRIPT CLAIMS/Section 6.6/output5_ex.gdx", CSTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Section 6.6/output5_ex" format=csv output="../MANUSCRIPT CLAIMS/Section 6.6/cstot100qu.csv" symb=CSTOT' ;
 
@@ -1561,7 +1534,6 @@ PRODRENTTOT = sum(DOMI, PRODRENT(DOMI)) ;
 
 display MILKPROCPRICE, SHADOWVALRENT, CSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Appendix F.3"
 execute_unload "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex.gdx", MILKPROCPRICE, SHADOWVALRENT, CSDOM, PSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/milkprocpricearb.csv" symb=MILKPROCPRICE' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/shadowvalrentarb.csv" symb=SHADOWVALRENT' ;
@@ -1704,7 +1676,6 @@ ELASCOMPUSEMANTOT100 = (sum((DOMI, SUBN), A1(DOMI)*A2(DOMI,SUBN)*PSI2(DOMI,SUBN)
 
 display ELASCOMPUSEBEVTOT, ELASCOMPUSEMANTOT, SHAREBEV, SHAREMANFOR, ELASCOMPUSEMANTOT100, PSI ;
 
-$call mkdir -p "../MANUSCRIPT CLAIMS/Appendix G"
 execute_unload "../MANUSCRIPT CLAIMS/Appendix G/output_ex.gdx", ELASCOMPUSEBEVTOT, ELASCOMPUSEMANTOT, SHAREBEV, SHAREMANFOR, ELASCOMPUSEMANTOT100 ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix G/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix G/sharebev.csv" symb=SHAREBEV' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix G/output_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix G/sharemanfor.csv" symb=SHAREMANFOR' ;

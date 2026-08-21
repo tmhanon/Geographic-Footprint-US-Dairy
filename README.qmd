@@ -521,6 +521,7 @@ We used R version 4.5.2 and the packages listed in @tbl-packages running in RStu
 List of Necessary Software:
 
 - R 4.5.2
+- [Rtools 4.5](https://cran.r-project.org/bin/windows/Rtools/rtools45/rtools.html)
 - RStudio 2026.07.1+147
 - GAMS Studio Version 1.25.5
   - `CONOPT3` solver

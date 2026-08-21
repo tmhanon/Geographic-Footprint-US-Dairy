@@ -294,7 +294,7 @@ crop_value_adjusted <- crop_value_aggregate %>%
 #   5_Process_Feed_Use_Data.R. If that script was recently run, the data may
 #   already be available in memory, but this step ensures it will be loaded.
 state_fcaus <- read_csv(
-  here("Data", "Processed", "State_FCAUs.csv")
+  here("Data", "Processed", "State_FCAU_Shares.csv")
 )
 
 # Load Crop Feed Use Shares
