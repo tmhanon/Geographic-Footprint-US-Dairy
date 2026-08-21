@@ -1534,7 +1534,7 @@ PRODRENTTOT = sum(DOMI, PRODRENT(DOMI)) ;
 
 display MILKPROCPRICE, SHADOWVALRENT, CSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 
-execute_unload "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex.gdx", MILKPROCPRICE, SHADOWVALRENT, CSDOM, PSDOM, CSFOR, CSTOT, PRODRENTTOT ;
+execute_unload "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex.gdx", MILKPROCPRICE, SHADOWVALRENT, CSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/milkprocpricearb.csv" symb=MILKPROCPRICE' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/shadowvalrentarb.csv" symb=SHADOWVALRENT' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output1_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/csdomarb.csv" symb=CSDOM' ;
@@ -1584,7 +1584,7 @@ PRODRENTTOT = sum(DOMI, PRODRENT(DOMI)) ;
 
 display MILKPROCPRICE, SHADOWVALRENT, CSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 
-execute_unload "../MANUSCRIPT CLAIMS/Appendix F.3/output2_ex.gdx", MILKPROCPRICE, SHADOWVALRENT, CSDOM, PSDOM, CSFOR, CSTOT, PRODRENTTOT ;
+execute_unload "../MANUSCRIPT CLAIMS/Appendix F.3/output2_ex.gdx", MILKPROCPRICE, SHADOWVALRENT, CSDOM, CSFOR, CSTOT, PRODRENTTOT ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/milkprocprice.csv" symb=MILKPROCPRICE' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/shadowvalrent.csv" symb=SHADOWVALRENT' ;
 execute 'gdxdump "../MANUSCRIPT CLAIMS/Appendix F.3/output2_ex" format=csv output="../MANUSCRIPT CLAIMS/Appendix F.3/csdom.csv" symb=CSDOM' ;

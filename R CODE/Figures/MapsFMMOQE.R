@@ -9,6 +9,8 @@ options(dplyr.summarise.inform= FALSE)
 suppressPackageStartupMessages({library(tidyverse)
                                 library(sf) })
 
+here::i_am("R CODE/Figures/MapsFMMOQE.R")
+
 
 FO1STATES<-c("09","10","25","33","34","44","50","11")
 FO1MARYMINUS<-c("Allegany","Garrett")
@@ -132,7 +134,7 @@ FO126STATES<-c("35","48")
 
 NYORKCOUNTIES<-c("36101","36011","36123")
 
-pcounties<- read_sf(dsn = "Shape files/cb_2014_us_county_500k", layer = "cb_2014_us_county_500k")
+pcounties<- read_sf(dsn = here::here("R CODE", "Figures", "Shape files", "cb_2014_us_county_500k"), layer = "cb_2014_us_county_500k")
 
 pcountiescontinental<-pcounties %>%
   mutate(STATEFIPS=as.numeric(STATEFP)) %>%
@@ -157,7 +159,7 @@ F01NEWYCITIESMINUS<-c("3610103342","3610104770","3610107740","3610112265","36101
 
 F01NEWY3COUNTYFP<-c("101","011","123")
 
-pnewyorkstate<- read_sf(dsn="Shape files/New_York_State_Municipal_Civil_Boundaries", layer = "New_York_State_Municipal_Civil_Boundaries")
+pnewyorkstate<- read_sf(dsn = here::here("R CODE", "Figures", "Shape files", "New_York_State_Municipal_Civil_Boundaries"), layer = "New_York_State_Municipal_Civil_Boundaries")
 pnewyork3counties<-pnewyorkstate %>%
   filter(COUNTY %in% c("Cayuga","Steuben","Yates")) %>%
   mutate(GEOID=FIPS_CODE) %>%
@@ -252,8 +254,9 @@ fmmoregions<-ggplot(data = pregionsFMMOreorder) +
 if (!dir.exists("../../MANUSCRIPT FIGURES/Figure A.1")) {
   dir.create("../../MANUSCRIPT FIGURES/Figure A.1")
 }
+fs::dir_create(here::here("MANUSCRIPT FIGURES", "Figure A.1"))
 
-ggsave(filename = "../../MANUSCRIPT FIGURES/Figure A.1/fmmoregions.png",plot = fmmoregions)
+ggsave(filename = here::here("MANUSCRIPT FIGURES", "Figure A.1", "fmmoregions.png"), plot = fmmoregions)
 
 
 ############################################
@@ -302,6 +305,6 @@ fmmoapproximations<-ggplot(data = pregionsapproxreorder) +
   geom_sf(data=pstates, fill=NA,color="black") +
   theme_void()
 
-ggsave(filename = "../../MANUSCRIPT FIGURES/Figure A.1/fmmoapproximations.png",plot = fmmoapproximations)
+ggsave(filename = here::here("MANUSCRIPT FIGURES", "Figure A.1", "fmmoapproximations.png"), plot = fmmoapproximations)
 
 

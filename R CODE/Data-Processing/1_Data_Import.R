@@ -13,6 +13,9 @@ here::i_am("R CODE/Data-Processing/1_Data_Import.R")
 library(here)
 library(tidyverse)
 
+# Set option to suppress read_csv messages:
+options(readr.show_col_types = FALSE)
+
 
 ##### Useful Vectors/Lists #####################################################
 
@@ -139,12 +142,14 @@ class1_diffs <- read_csv(
 
 # Load 2017 Milk Movement Data
 milk_by_state_raw <- read_csv(
-  here("Data", "Raw", "MilkAndMilkPooledByState2017.csv")
+  here("Data", "Raw", "MilkAndMilkPooledByState2017.csv"),
+  name_repair = "unique_quiet"
 )
 
 # Load 2019 Milk Movement Data
 milk_by_state_2019 <- read_csv(
-  here("Data", "Raw", "MilkAndMilkPooledByState2019.csv")
+  here("Data", "Raw", "MilkAndMilkPooledByState2019.csv"),
+  name_repair = "unique_quiet"
 )
 
 
