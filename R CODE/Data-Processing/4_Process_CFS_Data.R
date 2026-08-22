@@ -639,30 +639,28 @@ cfs_dairy_supply_demand <- full_join(
     Missing_Demand = US_to_Div - Sum_Demand,
     Excess_Supply = Missing_Supply - Sum_Intra_Sup,
     Excess_Demand = Missing_Demand - Sum_Intra_Dem,
-    Sup_Milk_Share = case_when(
-      sum(Milk_Prod * StoUS_Miss, na.rm = T) == 0 ~ 0,
-      TRUE ~ (Milk_Prod * StoUS_Miss) / sum(Milk_Prod * StoUS_Miss, na.rm = T)
-    ),
-    Dem_Pop_Share = case_when(
-      sum(Population * UStoS_Miss, na.rm = T) == 0 ~ 0,
-      TRUE ~ (Population * UStoS_Miss) / sum(Population * UStoS_Miss, na.rm = T)
-    ),
+    Milk_Share_Raw = (Milk_Prod * StoUS_Miss) /
+      sum(Milk_Prod * StoUS_Miss, na.rm = T),
+    Sup_Milk_Share = replace_values(Milk_Share_Raw, NaN ~ 0),
+    Pop_Share_Raw = (Population * UStoS_Miss) /
+      sum(Population * UStoS_Miss, na.rm = T),
+    Dem_Pop_Share = replace_values(Pop_Share_Raw, NaN ~ 0),
     Imputed_Supply = case_when(
       is.na(Intra_Known) ~ Sup_Milk_Share * Excess_Supply,
-      TRUE ~ Sup_Milk_Share * Excess_Supply + Intra_Known
+      .default = Sup_Milk_Share * Excess_Supply + Intra_Known
     ),
     Imputed_Demand = case_when(
       is.na(Intra_Known) ~ Dem_Pop_Share * Excess_Demand,
-      TRUE ~ Dem_Pop_Share * Excess_Demand + Intra_Known
+      .default = Dem_Pop_Share * Excess_Demand + Intra_Known
     ),
-    Supply = case_when(StoUS_Miss == 1 ~ Imputed_Supply, TRUE ~ State_to_US),
-    Demand = case_when(UStoS_Miss == 1 ~ Imputed_Demand, TRUE ~ US_to_State),
-    Sup_Check = sum(Supply),
-    Sup_Diff = Sup_Check - Div_to_US,
-    Dem_Check = sum(Demand),
-    Dem_Diff = Dem_Check - US_to_Div,
-    Sup_lt_Intra = Supply - Intra_Known,
-    Dem_lt_Intra = Demand - Intra_Known
+    Supply = case_when(
+      StoUS_Miss == 1 ~ Imputed_Supply,
+      .default = State_to_US
+    ),
+    Demand = case_when(
+      UStoS_Miss == 1 ~ Imputed_Demand,
+      .default = US_to_State
+    )
   ) %>%
   group_by(COMM) %>%
   mutate(

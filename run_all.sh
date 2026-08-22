@@ -54,6 +54,14 @@ mkdir -p "MANUSCRIPT CLAIMS/Section 6.6"
 mkdir -p "MANUSCRIPT CLAIMS/Appendix F.3"
 mkdir -p "MANUSCRIPT CLAIMS/Appendix G"
 
+mkdir -p "MANUSCRIPT FIGURES/Figure 1"
+mkdir -p "MANUSCRIPT FIGURES/Figure A.1"
+mkdir -p "MANUSCRIPT FIGURES/Figure G.1"
+mkdir -p "MANUSCRIPT FIGURES/Figure G.2"
+mkdir -p "MANUSCRIPT FIGURES/Figure G.3"
+mkdir -p "MANUSCRIPT FIGURES/Figure G.4"
+mkdir -p "MANUSCRIPT FIGURES/Figure G.5"
+
 
 echo "Processing GAMS runs"
 cd "GAMS CODE"
@@ -102,42 +110,47 @@ gams FMMO_Model_QE.gms --run_aggregatecompdemand=1 lo=0
 
 cd ..
 
-echo "=== Starting Formatting Tables ==="
 
 #-----------------------------
 # MANUSCRIPT TABLES
 #-----------------------------
 
+echo "=== Starting Formatting Tables ==="
+
 echo "Processing Manuscript Tables"
 Rscript "R CODE/Tables/TablesQE.R"
 
-echo "=== Starting Creating Figures ==="
+
 
 #-------------------------------------------
 # FIGURE A.1 (MAPS)
 #-------------------------------------------
 
+echo "=== Starting Creating Figures ==="
+
 echo "Processing Maps"
 Rscript "R CODE/Figures/MapsFMMOQE.R"
+
 
 #--------------------------------------------------------
 # MATHEMATICA FIGURES AND APPENDIX G SIMULATION CLAIMS
 #--------------------------------------------------------
 
-echo "Processing Mathematica Figures and Simulation Claims"
+echo "=== Processing Mathematica Figures and Simulation Claims ==="
+
 cd "MATHEMATICA CODE"
 wolframscript -file FMMOQE.wls
 cd ..
 
-echo "=== Starting Substantiating Claims and Standalone Text Numbers ==="
 
 #----------------------------------------
 # MANUSCRIPT CLAIMS
 #----------------------------------------
 
+echo "=== Starting Substantiating Claims and Standalone Text Numbers ==="
+
 echo "Processing Manuscript Text Numbers and Claims"
-cd "R CODE/Claims"
-Rscript TextClaimsQE.R
+Rscript "R CODE/Claims/TextClaimsQE.R"
 
-cd ..
 
+echo "=== Replication Completed Successfully ==="
