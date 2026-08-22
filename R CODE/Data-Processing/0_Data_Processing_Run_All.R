@@ -13,6 +13,9 @@ renv::restore()
 here::i_am("R CODE/Data-Processing/0_Data_Processing_Run_All.R")
 library(here)
 
+# Create destination folder for intermediate data:
+fs::dir_create(here("Data", "Processed"))
+
 # Create destination folder for analysis files:
 fs::dir_create(here("GAMS CODE", "CSV DATA FILES"))
 

@@ -12,20 +12,10 @@ fi
 #Exit immediately if any individual script fails
 set -e
 
-echo "=== Creating GAMS Data Files ==="
 
-#----------------------------------------------------
-# R CODE TO CREATE CSV FILES FOR GAMS FROM RAW DATA
-#----------------------------------------------------
-
-Rscript "R CODE/Data-Processing/0_Data_Processing_Run_All.R"
- 
-
-echo "=== Starting Analysis ==="
-
-#---------------------------
-# GAMS RUNS
-#---------------------------
+#-------------------------------
+# CREATE DIRECTORIES
+#-------------------------------
 
 echo "Creating Directories"
 
@@ -62,6 +52,21 @@ mkdir -p "MANUSCRIPT FIGURES/Figure G.3"
 mkdir -p "MANUSCRIPT FIGURES/Figure G.4"
 mkdir -p "MANUSCRIPT FIGURES/Figure G.5"
 
+
+#----------------------------------------------------
+# R CODE TO CREATE CSV FILES FOR GAMS FROM RAW DATA
+#----------------------------------------------------
+
+echo "=== Creating GAMS Data Files ==="
+
+Rscript "R CODE/Data-Processing/0_Data_Processing_Run_All.R"
+ 
+
+#---------------------------
+# GAMS RUNS
+#---------------------------
+
+echo "=== Starting Analysis ==="
 
 echo "Processing GAMS runs"
 cd "GAMS CODE"
@@ -119,7 +124,6 @@ echo "=== Starting Formatting Tables ==="
 
 echo "Processing Manuscript Tables"
 Rscript "R CODE/Tables/TablesQE.R"
-
 
 
 #-------------------------------------------
