@@ -1,12 +1,12 @@
 # README
 Tristan M. Hanon, Pierre Mérel, Daniel A. Sumner
-2026-08-19
+August 23, 2026
 
 ## Overview
 
-The code in this package allows one to replicate the results in “The
-Geographic Footprint of U.S. Dairy Policy” (*Quantitative Economics*) by
-Hanon, Mérel, and Sumner.
+The code and data contained in this package allow one to replicate the
+results in “The Geographic Footprint of U.S. Dairy Policy”
+(*Quantitative Economics*) by Hanon, Mérel, and Sumner.
 
 The package contains R code to construct the data files needed to run
 the main GAMS code from the raw data files, the GAMS code itself, and
@@ -26,7 +26,13 @@ sections of the main text and the Supplemental Appendix and that are not
 part of a table. It also produces numbers that are used to substantiate
 various claims regarding results not directly reported in a table.
 
-The replication package runs in approximately two minutes.
+The code is executed using a single shell script, `run_all.sh`. This
+script includes code that will automatically install all necessary R
+packages using the `{renv}` package. As a result, the first run of the
+code will take longer than subsequent runs. When last run on a computer
+running Windows, the code took approximately 3 minutes to execute. When
+last run on a computer running Mac OS, the code took approximately 10
+minutes to execute.
 
 ### Description of Package Contents
 
@@ -35,7 +41,8 @@ The top-level directory of this package, titled
 following files:
 
 - This `README` file (in both `.pdf` and `.md` format).
-- `README.qmd`, a Quarto file used to generate this `README`.
+- `README.qmd`, a Quarto file used to generate this `README` (which also
+  uses some files in the `.quarto` subfolder)
 - `LICENSE.txt`, which contains the text of the Apache 2.0 license used
   for the code in this replication package and the Open Data Commons
   Public Domain Dedication and License v1.0 used for the data in this
@@ -57,15 +64,13 @@ following files:
 
 The subfolders contained within the top-level directory include:
 
-- `Data`: Includes raw data in `Raw` subfolder, intermediate data in
-  `Processed` subfolder, `Lookup_Tables` subfolder, and `Other_Sources`
-  subfolder with PDF copies of specific data sources.
+- `Data`: Includes raw data in `Raw` subfolder, `Lookup_Tables`
+  subfolder, and `Other_Sources` subfolder with PDF copies of specific
+  data sources. Additionally, some data are saved in a `Processed`
+  subfolder created during data processing.
 - `GAMS CODE`: Contains the main model code to be executed in GAMS
   Studio. Final data for use in the model are saved in a subfolder
   called `CSV DATA FILES` during processing.
-- `MANUSCRIPT CLAIMS`, `MANUSCRIPT FIGURES`, and `MANUSCRIPT TABLES`:
-  Folders to contain the finished tables, figures, and in-text numerical
-  claims.
 - `MATHEMATICA CODE`: Contains the code for Wolfram Mathematica used to
   produce figures.
 - `R CODE`: Contains R code used for processing raw data for use in the
@@ -86,22 +91,12 @@ directory.
     ├── Data
     │   ├── Lookup_Tables
     │   ├── Other_Sources
-    │   ├── Processed
     │   └── Raw
     ├── GAMS CODE
-    │   ├── CSV DATA FILES
     │   ├── FMMO_Model_QE.gms
     │   └── FMMO_Model_QE.gsp
     ├── Geographic-Footprint-US-Dairy.Rproj
     ├── LICENSE.txt
-    ├── MANUSCRIPT CLAIMS
-    ├── MANUSCRIPT FIGURES
-    ├── MANUSCRIPT TABLES
-    │   ├── Table_C2.txt
-    │   ├── Table_C3.txt
-    │   ├── Table_C4.txt
-    │   ├── Table_C5.txt
-    │   └── Table_C6.txt
     ├── MATHEMATICA CODE
     │   ├── FMMOQE.nb
     │   └── FMMOQE.wls
@@ -113,7 +108,6 @@ directory.
     ├── README.md
     ├── README.pdf
     ├── README.qmd
-    ├── README.rmarkdown
     ├── References
     │   ├── data-citations.bib
     │   ├── econometrica.csl
@@ -124,6 +118,10 @@ directory.
     │   └── settings.json
     ├── renv.lock
     └── run_all.sh
+
+Additionally, several folders are created in the top-level directory to
+contain the finished tables, figures, and in-text numerical claims:
+`MANUSCRIPT CLAIMS`, `MANUSCRIPT FIGURES`, and `MANUSCRIPT TABLES`.
 
 ## Data Availability Statements
 
@@ -161,7 +159,7 @@ found at: <http://opendatacommons.org/licenses/pddl/1.0/>
 
 See `LICENSE.txt` for details.
 
-### Agricultural Marketing Service Data
+### USDA Agricultural Marketing Service Data
 
 We used Federal Milk Marketing Order (FMMO) data from the USDA
 Agricultural Marketing Service (AMS). We accessed and downloaded most of
@@ -196,8 +194,8 @@ Type to Include”, check the boxes for Receipts, Butterfat, Protein, and
 Other Solids (alternatively, uncheck the boxes for NFS and SomCell).
 Under Report Year, switch the dropdown menu from “All” to “Equal To” and
 enter 2017 in the box that appears. Click “Continue”. Select CSV as the
-file format and click “Generate Report” (Agricultural Marketing Service
-(2017b)).
+file format and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017b)).
 
 #### Class I Utilization of Producer Milk
 
@@ -211,8 +209,8 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 “Utilization Reports” and “Class I Utilization of Producer Milk”. Under
 Report Year, switch the dropdown menu from “All” to “Equal To” and enter
 2017 in the box that appears. Click “Continue”. Select CSV as the file
-format and click “Generate Report” (Agricultural Marketing Service
-(2017c)).
+format and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017c)).
 
 #### Class II Utilization of Producer Milk
 
@@ -226,7 +224,8 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 “Sub Report Type to Include”, uncheck the box for Milk. Under Report
 Year, switch the dropdown menu from “All” to “Equal To” and enter 2017
 in the box that appears. Click “Continue”. Select CSV as the file format
-and click “Generate Report” (Agricultural Marketing Service (2017d)).
+and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017d)).
 
 #### Class III Utilization of Producer Milk
 
@@ -241,8 +240,8 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 Under “Sub Report Type to Include”, uncheck the box for Milk. Under
 Report Year, switch the dropdown menu from “All” to “Equal To” and enter
 2017 in the box that appears. Click “Continue”. Select CSV as the file
-format and click “Generate Report” (Agricultural Marketing Service
-(2017e)).
+format and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017e)).
 
 #### Class IV Utilization of Producer Milk
 
@@ -256,7 +255,8 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 “Sub Report Type to Include”, uncheck the box for Milk. Under Report
 Year, switch the dropdown menu from “All” to “Equal To” and enter 2017
 in the box that appears. Click “Continue”. Select CSV as the file format
-and click “Generate Report” (Agricultural Marketing Service (2017f)).
+and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017f)).
 
 #### Advanced Prices
 
@@ -269,8 +269,8 @@ Under Report Year, switch the dropdown menu from “All” to “Equal To” and
 enter 2017 in the box that appears. Click “Continue”. Uncheck all fields
 on the next screen and select “Base Class 1 Price”, “Base Skim Milk
 Class 1 Price”, and “Advanced Butterfat Factor”. Select CSV as the file
-format and click “Generate Report” (Agricultural Marketing Service
-(2017a)).
+format and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2017a)).
 
 #### Class Prices
 
@@ -285,7 +285,8 @@ on the next screen and select “Class 2 Price”, “Class 2 Butterfat
 Price”, “Class 3 Price”, “Class 3 Skim Milk Price”, “Class 4 Price”,
 “Class 4 Skim Milk Price”, “Butterfat Price”, “Nonfat Solids Price”,
 “Protein Price”, and “Other Solids Price”. Select CSV as the file format
-and click “Generate Report” (Agricultural Marketing Service (2018)).
+and click “Generate Report” (U.S. Department of Agriculture,
+Agricultural Marketing Service (2018)).
 
 ### Milk Pooling Data from State Sources
 
@@ -340,13 +341,14 @@ website](https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017
 
 The National Agricultural Statistics Service (NASS) data we used fall
 into two general categories: Census data and Survey data. We used Census
-data from the 2017 Census of Agriculture (National Agricultural
-Statistics Service (2019)). When specific data series were unavailable
-in the 2017 Census, or when data from years other than 2017 were needed,
-we used data from NASS survey reports. Those survey reports are cited
-individually below. In all cases, we used the [NASS Quick
-Stats](https://quickstats.nass.usda.gov/) service to download data. The
-steps to access each raw data file are outlined below.
+data from the 2017 Census of Agriculture (U.S. Department of
+Agriculture, National Agricultural Statistics Service (2019)). When
+specific data series were unavailable in the 2017 Census, or when data
+from years other than 2017 were needed, we used data from NASS survey
+reports. Those survey reports are cited individually below. In all
+cases, we used the [NASS Quick Stats](https://quickstats.nass.usda.gov/)
+service to download data. The steps to access each raw data file are
+outlined below.
 
 #### Milk Production
 
@@ -354,12 +356,12 @@ steps to access each raw data file are outlined below.
   - `NASS_Milk_Production_2017.csv`
 
 We used survey data on state-level milk production volumes from the
-*Milk Production* report (National Agricultural Statistics Service
-(2018c)). To download these data from Quick Stats, select “MILK” from
-the Commodity box; select “PRODUCTION” from the Category box; select
-“MILK - PRODUCTION, MEASURED IN LB” from the Data Item box; select
-“STATE” from the Geographic Level box; select 2017 from the Year box;
-select “ANNUAL” from the Period Type box.
+*Milk Production* report (U.S. Department of Agriculture, National
+Agricultural Statistics Service (2018a)). To download these data from
+Quick Stats, select “MILK” from the Commodity box; select “PRODUCTION”
+from the Category box; select “MILK - PRODUCTION, MEASURED IN LB” from
+the Data Item box; select “STATE” from the Geographic Level box; select
+2017 from the Year box; select “ANNUAL” from the Period Type box.
 
 #### Dairy Products
 
@@ -367,13 +369,14 @@ select “ANNUAL” from the Period Type box.
   - `NASS_Dairy_Products_2017.csv`
 
 We used survey data on state and multi-state regional dairy product
-production volumes from the *Dairy Products Annual Summary* report
-(National Agricultural Statistics Service (2018d)). To download these
-data from Quick Stats, select “SURVEY” from the Program box; select
-“ANIMALS & PRODUCTS” from the Sector box; select “DAIRY” from the Group
-box; select “BUTTER”, “CHEESE”, “CREAM”, “ICE CREAM”, “MILK”, “SHERBET”,
-“WHEY”, and “YOGURT” from the Commodity box; select “PRODUCTION” from
-the Category box; select all of the following from the Data Item box:
+production volumes from the *Dairy Products Annual Summary* report (U.S.
+Department of Agriculture, National Agricultural Statistics Service
+(2018b)). To download these data from Quick Stats, select “SURVEY” from
+the Program box; select “ANIMALS & PRODUCTS” from the Sector box; select
+“DAIRY” from the Group box; select “BUTTER”, “CHEESE”, “CREAM”, “ICE
+CREAM”, “MILK”, “SHERBET”, “WHEY”, and “YOGURT” from the Commodity box;
+select “PRODUCTION” from the Category box; select all of the following
+from the Data Item box:
 
 - BUTTER - PRODUCTION, MEASURED IN LB
 - CHEESE - PRODUCTION, MEASURED IN LB
@@ -404,10 +407,10 @@ select 2017 from the Year box; select “ANNUAL” from the Period Type box.
   - `NASS_All_Cropland_Harvested_2017.csv`
 
 We used 2017 Census data on total cropland acreage and harvested
-cropland acreage (National Agricultural Statistics Service (2019)). To
-download these data from Quick Stats, for both files select “CENSUS”
-from the Program box; select “AG LAND” from the Commodity box; select
-“AREA” from the Category box.
+cropland acreage (U.S. Department of Agriculture, National Agricultural
+Statistics Service (2019)). To download these data from Quick Stats, for
+both files select “CENSUS” from the Program box; select “AG LAND” from
+the Commodity box; select “AREA” from the Category box.
 
 For the file `NASS_All_Cropland_2017.csv`, select “AG LAND, CROPLAND -
 ACRES” and “AG LAND, CROPLAND, PASTURED ONLY - ACRES” from the Data Item
@@ -421,14 +424,14 @@ Geographic Level box; select 2017 from the Year box.
 - Files:
   - `NASS_Census_Feed_Crop_Acreage_2017.csv`
 
-We used 2017 Census data on feed crop acres harvested (National
-Agricultural Statistics Service (2019)). To download these data from
-Quick Stats, select “CENSUS” from the Program box; select “FIELD CROPS”
-from the Group box; select “BARLEY”, “BUCKWHEAT”, “CANOLA”, “CORN”,
-“COTTON”, “FLAXSEED”, “HAY”, “HAYLAGE”, “MILLET”, “OATS”, “RICE”, “RYE”,
-“SORGHUM”, “SOYBEANS”, and “WHEAT” from the Commodity box; select “AREA
-HARVESTED” from the Category box; select all of the following from the
-Data Item box:
+We used 2017 Census data on feed crop acres harvested (U.S. Department
+of Agriculture, National Agricultural Statistics Service (2019)). To
+download these data from Quick Stats, select “CENSUS” from the Program
+box; select “FIELD CROPS” from the Group box; select “BARLEY”,
+“BUCKWHEAT”, “CANOLA”, “CORN”, “COTTON”, “FLAXSEED”, “HAY”, “HAYLAGE”,
+“MILLET”, “OATS”, “RICE”, “RYE”, “SORGHUM”, “SOYBEANS”, and “WHEAT” from
+the Commodity box; select “AREA HARVESTED” from the Category box; select
+all of the following from the Data Item box:
 
 - BARLEY - ACRES HARVESTED
 - BUCKWHEAT - ACRES HARVESTED
@@ -456,16 +459,16 @@ Level box; select 2017 from the Year box.
 - Files:
   - `NASS_Census_Other_Crop_Acreage_2017.csv`
 
-We used 2017 Census data on other crop acres harvested (National
-Agricultural Statistics Service (2019)). To download these data from
-Quick Stats, select “CENSUS” from the Program box; select “FIELD CROPS”,
-“FRUIT & TREE NUTS”, and “VEGETABLES” from the Group box; select
-“BEANS”, “BERRY TOTALS”, “CHICKPEAS”, “GRASSES & LEGUMES TOTALS”,
-“HOPS”, “LENTILS”, “MINT”, “ORCHARDS”, “PEANUTS”, “PEAS”, “POPCORN”,
-“SAFFLOWER”, “SUGARBEETS”, “SUGARCANE”, “SUNFLOWER”, “TOBACCO”, and
-“VEGETABLE TOTALS” from the Commodity box; select “AREA BEARING &
-NON-BEARING”, “AREA GROWN”, and “AREA HARVESTED” from the Category box;
-select all of the following from the Data Item box:
+We used 2017 Census data on other crop acres harvested (U.S. Department
+of Agriculture, National Agricultural Statistics Service (2019)). To
+download these data from Quick Stats, select “CENSUS” from the Program
+box; select “FIELD CROPS”, “FRUIT & TREE NUTS”, and “VEGETABLES” from
+the Group box; select “BEANS”, “BERRY TOTALS”, “CHICKPEAS”, “GRASSES &
+LEGUMES TOTALS”, “HOPS”, “LENTILS”, “MINT”, “ORCHARDS”, “PEANUTS”,
+“PEAS”, “POPCORN”, “SAFFLOWER”, “SUGARBEETS”, “SUGARCANE”, “SUNFLOWER”,
+“TOBACCO”, and “VEGETABLE TOTALS” from the Commodity box; select “AREA
+BEARING & NON-BEARING”, “AREA GROWN”, and “AREA HARVESTED” from the
+Category box; select all of the following from the Data Item box:
 
 - BEANS, DRY EDIBLE, (EXCL CHICKPEAS & LIMA) - ACRES HARVESTED
 - BEANS, DRY EDIBLE, LIMA - ACRES HARVESTED
@@ -496,15 +499,15 @@ Level box; select 2017 from the Year box.
   - `NASS_Crop_Sales_2017.csv`
 
 We used 2017 Census data on total crop sales and individual crop sales
-(National Agricultural Statistics Service (2019)). Four commodities do
-not have sales reported in the Census of Agriculture, and therefore we
-used survey data on the value of production for these commodities: hay,
-peanuts, sugarbeets, and sugarcane. Quick Stats contains records for
-“PRODUCTION, MEASURED IN \$” that are a combination of production
-volumes reported in the *Crop Production Annual Summary* report and
-prices received reported in the *Agricultural Prices* report (National
-Agricultural Statistics Service (2018a); National Agricultural
-Statistics Service (2018b)).
+(U.S. Department of Agriculture, National Agricultural Statistics
+Service (2019)). Four commodities do not have sales reported in the
+Census of Agriculture, and therefore we used survey data on the value of
+production for these commodities: hay, peanuts, sugarbeets, and
+sugarcane. Quick Stats contains records for “PRODUCTION, MEASURED IN \$”
+that are a combination of production volumes reported in the *Crop
+Production Annual Summary* report and prices received reported in the
+*Agricultural Prices* report (National Agricultural Statistics Service
+(2018a); National Agricultural Statistics Service (2018b)).
 
 To download the data in the file `NASS_Total_Crop_Sales_2017.csv` from
 Quick Stats, select “CENSUS” from the Program box; select “CROP TOTALS”
@@ -551,13 +554,15 @@ Level box; select 2017 from the Year box.
 
 We used survey data on silage and haylage production quantities from the
 2017 Census and prices received from the *Agricultural Prices* report to
-compute silage and haylage production values for 2017 (National
-Agricultural Statistics Service (2019); National Agricultural Statistics
-Service (2018b)). We also used a range of silage and haylage data from
-2015-2019 for the regression analysis described in Appendix C. These
-data came from the *Crop Production Annual Summary* report and
-*Agricultural Prices* report. (National Agricultural Statistics Service
-(2015a); National Agricultural Statistics Service (2015b)).
+compute silage and haylage production values for 2017 (U.S. Department
+of Agriculture, National Agricultural Statistics Service (2019);
+National Agricultural Statistics Service (2018b)). We also used a range
+of silage and haylage data from 2015-2019 for the regression analysis
+described in Appendix C. These data came from the *Crop Production
+Annual Summary* report and *Agricultural Prices* report. (U.S.
+Department of Agriculture, National Agricultural Statistics Service
+(2015a); U.S. Department of Agriculture, National Agricultural
+Statistics Service (2015b)).
 
 To download the data in the file `NASS_Silage_Data_2017.csv` from Quick
 Stats, select “FIELD CROPS” from the Group box; select “CORN” and
@@ -590,13 +595,13 @@ Period Type box.
   - `NASS_Livestock_Data_1519.csv`
 
 We used a combination of livestock inventory data from the 2017 Census
-and survey data from the *Cattle* report National Agricultural
-Statistics Service ((2015c)). For the regression analysis of silage use
-by dairy cattle in the `4_Silage_Regression.R` script, we use the survey
-data from the *Cattle* report for 2015 through 2019. That way the data
-are all from a consistent source. The 2017 Census data and survey data
-on the number of milk replacement heifers in 2017 are used in the
-`6_Process_Feed_Use_Data.R` script.
+and survey data from the *Cattle* report U.S. Department of Agriculture,
+National Agricultural Statistics Service ((2015c)). For the regression
+analysis of silage use by dairy cattle in the `4_Silage_Regression.R`
+script, we use the survey data from the *Cattle* report for 2015 through
+2019. That way the data are all from a consistent source. The 2017
+Census data and survey data on the number of milk replacement heifers in
+2017 are used in the `6_Process_Feed_Use_Data.R` script.
 
 To download these data from Quick Stats, *do not* make a selection from
 the Program box; select “ANIMALS & PRODUCTS” from the Sector box; select
@@ -632,8 +637,9 @@ from 2015 to 2019, but these data are not used in the analysis.
   - `CroplandRentState.csv`
 
 We used cropland acreage data from the 2017 Census and cropland rent
-data from the NASS *Cash Rents* survey from 2015 through 2019 (National
-Agricultural Statistics Service (2019); National Agricultural Statistics
+data from the NASS *Cash Rents* survey from 2015 through 2019 (U.S.
+Department of Agriculture, National Agricultural Statistics Service
+(2019); U.S. Department of Agriculture, National Agricultural Statistics
 Service (2015d)).
 
 To download the data in the file `CroplandAcresState.csv` from Quick
@@ -656,24 +662,180 @@ by increasing value of the State ANSI variable. *Note:* this search
 returns data for 2010-2023, but we only used data from 2015-2019 in the
 analysis.
 
+### Commodity Flow Survey and Freight Analysis Framework Data
+
+- Files:
+  - `Special Tab 10.txt`
+  - `Special Tab 10 UC Davis_Read_Me.pdf`
+  - `FAF_Shipments_All_2017.csv`
+
+We used data from the Commodity Flow Survey and Freight Analysis
+Framework to calculate dairy product shipments between regions (United
+States Department of Transportation, Bureau of Transportation
+Statistics: Office of Survey Programs (2020); United States Department
+of Transportation: Office of the Secretary of Transportation and Bureau
+of Transportation Statistics: Office of Statistical and Economic
+Analysis (2017)). While the public use microdata file is available
+through the [Bureau of Transportation Statistics
+repository](https://doi.org/10.21949/1522584), we requested a special
+tabulation from the Bureau of Transportation Statistics that includes
+commodity group observations at the [5-digit Standard Classification of
+Transported Goods
+(SCTG)](https://www2.census.gov/programs-surveys/cfs/technical-documentation/code-list/CFS-1200_17.pdf)
+commodity code level (United States Department of Transportation, Bureau
+of Transportation Statistics (2022)). We include the README file
+prepared for the special tabulation in the `Other_Sources` subfolder.
+The Freight Analysis Framework data are avaible to download from the
+[Bureau of Transportation Statistics
+repository](https://doi.org/10.21949/1529116).
+
+### United States Census Bureau Data
+
+We used data from the U.S. Census Bureau on state population and imports
+and exports of dairy products and feed crops.
+
+#### Vintage 2019 Population Estimates
+
+- Files:
+  - `Census_Population_2017.csv`
+
+We used state-level population data for 2017 from the Vintage 2019
+Population Estimates (United States Department of Commerce, U.S. Census
+Bureau (2019)). These data are most easily accessed directly through the
+[Census Bureau’s FTP
+server](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/).
+We used Table 1. Annual Estimates of the Resident Population for the
+United States, Regions, States, and Puerto Rico: April 1, 2010 to July
+1, 2019 (NST-EST2019-01). The data are also available through the
+[Census
+API](https://www.census.gov/data/developers/data-sets/popest-popproj/popest.Vintage_2019.html).
+We edited the CSV file included in this replication package to include
+only the state name, corresponding FMMO region, and 2017 population
+estimate.
+
+#### Import and Export Data
+
+- Files:
+  - `Census_Dairy_Product_Exports_2017.csv`
+  - `Census_Dairy_Product_Imports_2017.csv`
+  - `GATS_Crop_Exports_1519.csv`
+
+We used state-level data on dairy product imports and exports and U.S.
+total feed crop exports published by the U.S. Census Bureau (United
+States Department of Commerce, U.S. Census Bureau (2018)). While these
+data are a Census Bureau product, we accessed the data through the USDA
+Foreign Agricultural Service [Global Agricultural Trade System
+(GATS)](https://apps.fas.usda.gov/gats/default.aspx).
+
+To download the state-level dairy product export data, start from the
+GATS homepage and select “Standard Query”; under Data Source, change the
+dropdown to “U.S. States”; under the Product Groups dropdown select “Ag
+Sectors (HS-6)-\*”; under Reporters select “United States” and “All
+States”; under Partners select “World Total”; under Products select
+“Dairy Products-\*” and click “List HS6 Codes”; select all products
+listed in the box that appears; under Statistics, change the measure of
+Value from Thousands to Dollars; under Dates select Annual, Jan-Dec,
+2017, and Dec for End Month; under Settings change Precedence to “US
+State/Product/Partner”, change Order By to “Code”, and change
+Calculation to “(None)”; click Retrieve Data, then click Create CSV
+File. To download the state-level dairy product import data, keep the
+same selections but change the Product Type dropdown to “Imports”.
+
+To download the U.S. total feed crop export data, start from the GATS
+homepage and select “Standard Query”; under the Product Groups dropdown
+select “Harmonized (HS-6)”; under Partners select “World Total”; under
+Products select “10 - Cereals-\*” and “12 - Oil Seeds and Oleaginous
+Fruits-\*” and click List Selected Chapters; select all of the following
+harmonized codes:
+
+- 100119 - Durum Wheat
+- 100199 - Wheat, except Durum
+- 100290 - Rye
+- 100390 - Barley
+- 100490 - Oats
+- 100590 - Corn (Maize), except Seed
+- 100610 - Rice in the Husk
+- 100620 - Rice, Husked (Brown)
+- 100630 - Rice, Semi-Milled
+- 100640 - Rice, Broken
+- 100790 - Grain Sorghum
+- 100810 - Buckwheat
+- 100829 - Millet
+- 100840 - Fonio
+- 100850 - Quinoa
+- 100860 - Triticale
+- 100890 - Cereals Nesoi, Including Wild Rice
+- 120190 - Soybeans
+- 120400 - Flaxseed (linseed)
+- 120510 - Rapeseed, Low Erucic Acid
+- 120590 - Rapeseed, Nesoi
+- 120729 - Cottonseed
+- 120799 - Oilseeds Nesoi
+- 121410 - Alfalfa Meal & Pellets
+- 121490 - Forage Products (Hay, Clover, etc.)
+
+Under Statistics, change the measure of Value from Thousands to Dollars;
+under Dates select Annual, Jan-Dec, 2015-2019, and Dec for End Month;
+under Settings change Order By to “Code” and change Calculation to
+“(None)”; click Retrieve Data, then click Create CSV File.
+
+### USDA Economic Research Service Data
+
+#### Feed Grains Database, Oil Crops Yearbook, and U.S. Bioenergy Statistics
+
+- Files:
+  - `feed-grains-yearbook-all-years.csv`
+  - `OilCropsAllTables.csv`
+  - `us-bioenergy-statistics.csv`
+
+We used data from the ERS Feed Grains Database Yearbook Tables, the Oil
+Crops Yearbook, and the U.S. Bioenergy Statistics (U.S. Department of
+Agriculture, Economic Research Service (2026c); U.S. Department of
+Agriculture, Economic Research Service (2026a); U.S. Department of
+Agriculture, Economic Research Service (2026b)). To access the Feed
+Grains Database, go to the [Feed Grains
+Database](https://www.ers.usda.gov/data-products/feed-grains-database/feed-grains-yearbook-tables)
+website and download the CSV version of the file “Feed Grains Yearbook
+Tables - All years”. We used tables 4-7 and 30.
+
+To access the Oil Crops Yearbook data, go to the [Oil Crops
+Yearbook](https://www.ers.usda.gov/data-products/oil-crops-yearbook)
+website and download the CSV version of the file “All Tables - Oil Crops
+Yearbook”. We used tables 3-5, 18-20, 22-27, and 29-31.
+
+To access the U.S. Bioenergy Statistics data, go to the [U.S. Bioenergy
+Statistics](https://www.ers.usda.gov/data-products/us-bioenergy-statistics)
+website and download the CSV version of the file “U.S. Bioenergy
+Statistics”. We used tables 8.1, 8.2, and 8.3.
+
+#### Dairy Data
+
+- Files:
+  - `selected-dairy-products-percapita.csv`
+  - `ERS_Component_Conversions.csv`
+
+We used data from the ERS Dairy Data database on per capita consumption
+of beverage milk products and component conversion factors for dairy
+products (U.S. Department of Agriculture, Economic Research Service
+(2026d)). To access the per capita consumption data, go to the [Dairy
+Data](https://www.ers.usda.gov/data-products/dairy-data) website, click
+on “Current dairy data”, and download the CSV version of the file “Dairy
+products: Per capita consumption, United States (Annual)”. To access the
+component conversions data, go to the [Dairy Data
+Documentation](https://www.ers.usda.gov/data-products/dairy-data/documentation)
+website, scroll to the section titled “Dairy Data Documentation
+Supporting Files”, and download the file
+“Supply-allocation-conversion.csv”. The CSV file included in this
+replication package was edited by the authors to eliminate unnecessary
+information before use.
+
 ### Lookup Tables
 
-The data include several lookup tables that were created by the authors
-to facilitate matching values between different data sets. For example,
-matching states to FMMO regions. The lookup tables are located in the
-“Lookup Tables” subfolder within the “Data” folder.
-
-- `State_Region_Match_Table.csv`
-  - Source: Created by the Authors
-  - Format: `.csv`
-  - Provided: Yes
-  - Notes: Federal Milk Marketing Order regions were assigned to each
-    state based primarily on geography and the quantity of milk pooled.
-    In most cases, a given state is clearly geographically aligned with
-    a FMMO marketing area. In cases where a state is either split
-    between to FMMO marketing areas or is partially covered by a
-    marketing area and partially unregulated, a determination was made
-    about which region to assign.
+We created several lookup tables to facilitate matching values between
+different datasets. For example, matching state names to FMMO regions.
+These lookup tables are located in the “Lookup_Tables subfolder within
+the”Data” folder. The contents of the folder are listed in
+<a href="#tbl-lookup-tables" class="quarto-xref">Table 2</a>.
 
 ## Dataset List
 
@@ -713,12 +875,13 @@ Table 1: List of Files in Data/Raw Folder
 | Data/Raw/Datamart-Export_FM_Producer_Components-Protein_2017.csv | 783 | USDA-AMS | TRUE |
 | Data/Raw/Datamart-Export_FM_Producer_Receipts_2017.csv | 1.29K | USDA-AMS | TRUE |
 | Data/Raw/ERS_Component_Conversions.csv | 323 | USDA-ERS | TRUE |
-| Data/Raw/ERS_FCAU_Data.csv | 9.66K | USDA-ERS | TRUE |
 | Data/Raw/FAF_Shipments_All_2017.csv | 578.45K | U.S. Census Bureau | TRUE |
 | Data/Raw/feed-grains-yearbook-all-years.csv | 16.22M | USDA-ERS | TRUE |
 | Data/Raw/GATS_Crop_Exports_1519.csv | 2.54K | USDA-FAS | TRUE |
 | Data/Raw/MilkAndMilkPooledByState2017.csv | 4.25K | USDA-AMS | TRUE |
+| Data/Raw/MilkAndMilkPooledByState2017.xlsx | 25.11K | USDA-AMS | TRUE |
 | Data/Raw/MilkAndMilkPooledByState2019.csv | 4.46K | USDA-AMS | TRUE |
+| Data/Raw/MilkAndMilkPooledByState2019.xlsx | 25.61K | USDA-AMS | TRUE |
 | Data/Raw/NASS_All_Cropland_2017.csv | 12.36K | USDA-NASS | TRUE |
 | Data/Raw/NASS_All_Cropland_Harvested_2017.csv | 6.48K | USDA-NASS | TRUE |
 | Data/Raw/NASS_Census_Feed_Crop_Acreage_2017.csv | 62.2K | USDA-NASS | TRUE |
@@ -735,8 +898,10 @@ Table 1: List of Files in Data/Raw Folder
 | Data/Raw/OilCropsAllTables.csv | 7.65M | USDA-ERS | TRUE |
 | Data/Raw/selected-dairy-products-percapita.csv | 69.9K | USDA-ERS | TRUE |
 | Data/Raw/Special Tab 10.txt | 148.8M | U.S. Census Bureau | TRUE |
+| Data/Raw/State_Region_Match_Table.csv | 1.17K | NA | TRUE |
 | Data/Raw/us-bioenergy-statistics.csv | 3.32M | USDA-ERS | TRUE |
 | Data/Raw/Western_New_York_Data_2017.csv | 175 | NYDAM | TRUE |
+| Data/Raw/Western_New_York_Utilization_2017.csv | 92 | NYDAM | TRUE |
 
 </div>
 
@@ -773,7 +938,8 @@ Table 3: List of Files in Data/Other_Sources Folder
 | File Path | Size | Source | Provided |
 |:---|---:|:---|:---|
 | Data/Other_Sources/California_Dairy_Statistics_Annual_2017.pdf | 5.58M | CDFA | TRUE |
-| Data/Other_Sources/Western_New_York_Annual_Statistical_Report_2017.pdf | 538.42K | NYDAM | TRUE |
+| Data/Other_Sources/Special Tab 10 UC Davis_Read_Me.pdf | 129.63K | BTS | TRUE |
+| Data/Other_Sources/Western_New_York_Statistics_Annual_2017.pdf | 538.42K | NYDAM | TRUE |
 
 </div>
 
@@ -785,20 +951,32 @@ We used R version 4.5.2 and the packages listed in
 <a href="#tbl-packages" class="quarto-xref">Table 4</a> running in
 RStudio version 2026.7.1+147 to process the raw data contained in
 `Data/Raw` for analysis (R Core Team (2025); Posit team (2026)). We used
-GAMS Studio version 1.25.5 and the `CONOPT3` solver for the main model.
-We used R to process the results from the main model to produce the
-tables in the manuscript and two figures in the supplemental material.
+GAMS version 54.2.1 and the `CONOPT3` solver for the main model. We used
+R to process the results from the main model to produce the tables in
+the manuscript and two figures in the supplemental material.
 Additionally, we used Wolfram Mathematica version 12.2.0.0 to produce
 the figures in the manuscript and additional figures in the supplemental
 material.
 
+The `run_all.sh` script can be executed in the Terminal on a computer
+running Mac OS, but some additional setup is required on a computer
+running Windows. We used Git Bash to execute the `run_all.sh` script on
+a computer running Windows. Git Bash is installed with Git for Windows,
+so it is included in the list of necessary software below.
+
 List of Necessary Software:
 
 - R 4.5.2
-- RStudio 2026.07.1+147
-- GAMS Studio Version 1.25.5
+  - [R for
+    Windows](https://cloud.r-project.org/bin/windows/base/old/4.5.2)
+  - [R for MacOS](https://cloud.r-project.org/bin/macosx/)
+- RStudio 2026.07.1+147 (Optional)
+- GAMS Version 54.2.1
   - `CONOPT3` solver
+- GAMS Studio Version 1.25.2 (Optional)
 - Wolfram Mathematica Version Number 12.2.0.0
+- Necessary Software for Windows Systems:
+  - [Git for Windows](https://git-scm.com/install/windows)
 
 <div id="tbl-packages">
 
@@ -831,7 +1009,13 @@ Table 4: R Packages Used
 Approximate time needed to reproduce the analyses on a standard 2026
 desktop machine:
 
-Approximate storage space needed: 638 MB
+- Windows: 3 minutes
+- MacOS: 10 minutes
+
+Approximate storage space needed:
+
+- 233 MB (when initially unzipped)
+- 302 MB (with necessary R packages installed)
 
 #### Details
 
@@ -842,7 +1026,108 @@ running Windows 11 version 25H2.
 The main model code was last run on a 14-inch 2021 Apple Macbook Pro
 with an Apple M1 chip and 32 GB of RAM running Mac OS Sonoma 14.7.
 
+When the `run_all.sh` script is executed, the
+`0_Data_Processing_Run_All.R` script will load R, execute the code in
+the `renv/activate.R` script, and run a `renv::restore()` command to
+install all necessary R packages. The cod in the `renv/activate.R`
+script will bootstrap `{renv}`, then `renv::restore()` will install the
+packages listed in the `renv.lock` file. On a Windows computer, this
+process takes approximately 2 minutes since all packages are able to be
+installed from binary files. On MacOS, the process takes approximately
+10 minutes since some packages need to be installed and compiled from
+source. After the first time `run_all.sh` is run, the `renv::restore()`
+command will not need to install packages so the execution time will be
+faster.
+
 ## Description of Code Script Files
+
+### R Code
+
+#### Data Processing
+
+- `0_Data_Processing_Run_All.R`
+  - Runs `renv::restore()` to install necessary R packages; creates
+    destination folders for intermediate and analysis data files; uses
+    the `source()` function to run all other R scripts in the
+    `Data-Processing` subfolder.
+- `1_Data_Import.R`
+  - Imports all data in the `Data/Raw` folder and creates two vectors of
+    continental state names and FMMO region names.
+- `2_Process_Milk_Shipments.R`
+  - Processes the milk utilization by state of origin data.
+  - Output:
+    - `GAMS CODE/CSV DATA FILES/Milk_Shipments.csv`
+    - `Data/Processed/Milk_Production.csv`
+    - `Data/Processed/Milk_Utilization.csv`
+    - `Data/Processed/Milk_Not_Pooled.csv`
+- `3_Process_Component_Values_Volumes.R`
+  - Processes data on milk utilization by class to calculate the volumes
+    and values of milk component by class.
+  - Output:
+    - `GAMS CODE/CSV DATA FILES/Comp_Quantity_for_GAMS.csv`
+    - `GAMS CODE/CSV DATA FILES/Comp_Quantity_for_GAMS.csv`
+- `4_Process_CFS_Data.R`
+  - Processes the Commodity Flow Survey data.
+  - Output:
+    - `GAMS CODE/CSV DATA FILES/CFS_Dairy_for_GAMS_Gravity.csv`
+- `5_Silage_Regressions.R`
+  - Estimates regional regressions for silage use by dairy cattle and
+    cattle on feed to calculate the share of silage used by dairy
+    cattle.
+  - Output:
+    - `Data/Processed/Dairy_Silage_Share.csv`
+- `6_Process_Feed_Use_Data.R`
+  - Uses data from the ERS Feed Grains Database, Oil Crops Yearbook, and
+    U.S. Bioenergy Statistics to calculate the share of each feed crop
+    used by the dairy sector.
+  - Output:
+    - `Data/Processed/State_FCAU_Shares.csv`
+    - `Data/Processed/Crop_Feed_Shares.csv`
+- `7_Process_NASS_Crop_Data.csv`
+  - Processes the cropland acreage and production value for each feed
+    crop and calculates the share utilized by the dairy sector.
+  - Output:
+    - `GAMS CODE/CSV DATA FILES/Crop_Areas.csv`
+    - `GAMS CODE/CSV DATA FILES/Crop_Prod_Values.csv`
+    - `GAMS CODE/CSV DATA FILES/Dairy_Crop_Cons_Values.csv`
+- `8_CroplandRentQE.R`
+  - Calculates the cropland rent for each FMMO region.
+  - Output:
+    - `GAMS CODE/CSV DATA FILES/Cropland_Rent.csv`
+
+#### Tables
+
+- `TablesQE.R`
+  - Uses the output from the GAMS model to produce the tables for the
+    manuscript and supplemental material.
+  - See <a href="#tbl-tables-figures" class="quarto-xref">Table 5</a>
+    for the tables produced by this file.
+
+#### Figures
+
+- `MapsFMMOQE.R`
+  - Produces two maps of FMMO regions, one depicting the actual regional
+    boundaries and one depicting the approximations uses in this
+    analysis, included in the supplemental material.
+
+#### Claims
+
+- `TextClaimsQE.R`
+  - Uses the output from the GAMS model to support the in-text claims in
+    the manuscript and supplemental material.
+
+### GAMS Code
+
+- `FMMO_Model_QE.gms`
+  - Contains the main analysis model used to determine the results under
+    the main and alternative counterfactual scenarios.
+
+### Mathematica Code
+
+- `FMMOQE.wls`
+  - Produces figures in the manuscript and the supplemental material.
+    <a href="#tbl-tables-figures" class="quarto-xref">Table 5</a> lists
+    the specific figures produced by this code.
 
 ### License for Code
 
@@ -852,6 +1137,33 @@ Apache 2.0 license. A copy of the license may be obtained at
 more information.
 
 ## Instructions to Replicators
+
+The code for data processing, analysis, and table/figure creation is all
+executed through a shell script called `run_all.sh`. The following steps
+explain how to execute the `run_all.sh` script.
+
+1.  Install all necessary software.
+2.  Unzip the `Geographic-Footprint-US-Dairy.zip` folder in a designated
+    location.
+3.  Open a Terminal or Git Bash instance:
+    1.  On Windows, use Windows Explorer to navigate to the
+        `Geographic-Footprint-US-Dairy` folder. Right click within the
+        folder and select “Open Git Bash here” (this may be listed under
+        the “Show more options” menu in Windows 11).
+    2.  On MacOS, open Terminal then use the `cd` command to change the
+        working directory to the `Geographic-Footprint-US-Dairy` folder.
+4.  Execute the command `bash run_all.sh`.
+
+We believe the execution instructions for MacOS would also apply for a
+Linux system, but we did not have an opportunity to test the code on a
+computer running Linux.
+
+Once the `run_all.sh` script has successfully executed, the main folder
+will contain three new subfolders, MANUSCRIPT CLAIMS, MANUSCRIPT
+FIGURES, and MANUSCRIPT TABLES, that will contain the replicated tables,
+figures, and in-text claims from the manuscript. The specific code file
+that creates each table or figure is listed in
+<a href="#tbl-tables-figures" class="quarto-xref">Table 5</a>.
 
 ## List of Tables and Figures and Associated Code Files
 
@@ -893,60 +1205,6 @@ Table 5: Code Files to Generate Tables and Figures in Manuscript
 </div>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-AdvancedPrices" class="csl-entry">
-
-<span class="smallcaps">Agricultural Marketing Service</span>. (2017a):
-“[Advanced Prices and Pricing
-Factors](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
-
-</div>
-
-<div id="ref-ProducerMilkComponents" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017b): “[Producer Milk
-Components](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\FMMOS\%20Utilization%20Reports\Producer%20Milk%20Components),”
-
-</div>
-
-<div id="ref-Class1Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017c): “[Class I Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20I%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-Class2Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017d): “[Class II Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20II%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-Class3Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017e): “[Class III Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20III%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-Class4Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017f): “[Class IV Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20IV%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-ClassPrices" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2018): “[Class and Component
-Prices](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
-
-</div>
 
 <div id="ref-rmarkdown2026" class="csl-entry">
 
@@ -992,42 +1250,10 @@ Files](https://here.r-lib.org/)*,.
 
 </div>
 
-<div id="ref-CropProduction1519" class="csl-entry">
-
-<span class="smallcaps">National Agricultural Statistics Service</span>.
-(2015a): “[Crop Production Annual
-Summary](https://esmis.nal.usda.gov/publication/crop-production-annual-summary),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-AgPrices1519" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2015b): “[Agricultural
-Prices](https://esmis.nal.usda.gov/publication/agricultural-prices),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-Cattle1519" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2015c):
-“[Cattle](https://esmis.nal.usda.gov/publication/cattle),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-CashRents" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2015d): “[Cash
-Rents](https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Cash_Rents_by_County/),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
 <div id="ref-CropProduction" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2018a): “[Crop Production Annual
+<span class="smallcaps">National Agricultural Statistics Service</span>.
+(2018a): “[Crop Production Annual
 Summary](https://esmis.nal.usda.gov/publication/crop-production-annual-summary?date=2018-01),”Washington,
 DC: U.S. Department of Agriculture.
 
@@ -1037,30 +1263,6 @@ DC: U.S. Department of Agriculture.
 
 <span class="smallcaps">---</span>. (2018b): “[Agricultural
 Prices](https://esmis.nal.usda.gov/publication/agricultural-prices?date=2018-01),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-MilkProd" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2018c): “[Milk
-Production](https://esmis.nal.usda.gov/publication/milk-production?date=2018-02),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-DairyProducts" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2018d): “[Dairy Products Annual
-Summary](https://esmis.nal.usda.gov/publication/dairy-products-annual-summary?date=2018-04),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-AgCensus" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2019): “[2017 Census of
-Agriculture](https://www.nass.usda.gov/Publications/AgCensus/2017/index.php),”Washington,
 DC: U.S. Department of Agriculture.
 
 </div>
@@ -1094,7 +1296,7 @@ R</span>](https://doi.org/10.1201/9780429459016)*, Chapman and Hall/CRC.
 <div id="ref-rstudio" class="csl-entry">
 
 <span class="smallcaps">Posit team</span>. (2026): “[RStudio: Integrated
-Development Environment for R](http://www.posit.co/),”Boston, MA: Posit
+Development Environment for r](http://www.posit.co/),”Boston, MA: Posit
 Software, PBC.
 
 </div>
@@ -1112,6 +1314,192 @@ Vienna, Austria: R Foundation for Statistical Computing.
 <span class="smallcaps">Rodriguez-Sanchez, F., and C. P. Jackson</span>.
 (2025): *[<span class="nocase">grateful</span>: Facilitate Citation of R
 Packages](https://pakillo.github.io/grateful/)*,.
+
+</div>
+
+<div id="ref-CensusTrade" class="csl-entry">
+
+<span class="smallcaps">United States Department of Commerce, U.S.
+Census Bureau</span>. (2018): “[State and Metropolitan Area Trade
+Data](https://www.census.gov/foreign-trade/statistics/state/index.html),”
+
+</div>
+
+<div id="ref-CensusPopEst" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2019): “[Vintage 2019 Population
+Estimates](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/),”
+
+</div>
+
+<div id="ref-CFSSpecialTab" class="csl-entry">
+
+<span class="smallcaps">United States Department of Transportation,
+Bureau of Transportation Statistics</span>. (2022): “SPC01 - CF1700A21,
+Geographic Area Series: Shipment Characteristics by Origin Geography by
+Destination Geography by Selected 5-Digit Commodity by Mode \[Custom
+Tabulations\],”Bureau of Transportation Statistics.
+
+</div>
+
+<div id="ref-CFS" class="csl-entry">
+
+<span class="smallcaps">United States Department of Transportation,
+Bureau of Transportation Statistics: Office of Survey Programs</span>.
+(2020): “[Commodity Flow Survey 2017
+\[Datasets\]](https://doi.org/10.21949/1522565),”Bureau of
+Transportation Statistics.
+
+</div>
+
+<div id="ref-FAF" class="csl-entry">
+
+<span class="smallcaps">United States Department of Transportation:
+Office of the Secretary of Transportation, and Bureau of Transportation
+Statistics: Office of Statistical and Economic Analysis</span>. (2017):
+“[Freight Analysis Framework (FAF) FAF5: HiLoForecasts \[Supporting
+Datasets\]](https://doi.org/10.21949/1529116),”Bureau of Transportation
+Statistics.
+
+</div>
+
+<div id="ref-AdvancedPrices" class="csl-entry">
+
+<span class="smallcaps">U.S. Department of Agriculture, Agricultural
+Marketing Service</span>. (2017a): “[Advanced Prices and Pricing
+Factors](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
+
+</div>
+
+<div id="ref-Class4Util" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2017f): “[Class IV Utilization of
+Producer
+Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20IV%20Utilization%20of%20Producer%20Milk),”
+
+</div>
+
+<div id="ref-Class3Util" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2017e): “[Class III Utilization of
+Producer
+Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20III%20Utilization%20of%20Producer%20Milk),”
+
+</div>
+
+<div id="ref-Class2Util" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2017d): “[Class II Utilization of
+Producer
+Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20II%20Utilization%20of%20Producer%20Milk),”
+
+</div>
+
+<div id="ref-Class1Util" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2017c): “[Class i Utilization of
+Producer
+Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20I%20Utilization%20of%20Producer%20Milk),”
+
+</div>
+
+<div id="ref-ProducerMilkComponents" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2017b): “[Producer Milk
+Components](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\FMMOS\%20Utilization%20Reports\Producer%20Milk%20Components),”
+
+</div>
+
+<div id="ref-ClassPrices" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2018): “[Class and Component
+Prices](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
+
+</div>
+
+<div id="ref-ERSOilCrops" class="csl-entry">
+
+<span class="smallcaps">U.S. Department of Agriculture, Economic
+Research Service</span>. (2026a): “[Oil Crops
+Yearbook](https://www.ers.usda.gov/data-products/oil-crops-yearbook),”
+
+</div>
+
+<div id="ref-ERSBioenergy" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2026b): “[U.s. Bioenergy
+Statistics](https://www.ers.usda.gov/data-products/us-bioenergy-statistics),”
+
+</div>
+
+<div id="ref-ERSFeedGrains" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2026c): “[Feed Grains
+Database](https://www.ers.usda.gov/data-products/feed-grains-database/feed-grains-yearbook-tables),”
+
+</div>
+
+<div id="ref-ERSDairy" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2026d): “[Dairy
+Data](https://www.ers.usda.gov/data-products/dairy-data),”
+
+</div>
+
+<div id="ref-CashRents" class="csl-entry">
+
+<span class="smallcaps">U.S. Department of Agriculture, National
+Agricultural Statistics Service</span>. (2015d): “[Cash
+Rents](https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Cash_Rents_by_County/),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-Cattle1519" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2015c):
+“[Cattle](https://esmis.nal.usda.gov/publication/cattle),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-AgPrices1519" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2015b): “[Agricultural
+Prices](https://esmis.nal.usda.gov/publication/agricultural-prices),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-CropProduction1519" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2015a): “[Crop Production Annual
+Summary](https://esmis.nal.usda.gov/publication/crop-production-annual-summary),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-MilkProd" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2018a): “[Milk
+Production](https://esmis.nal.usda.gov/publication/milk-production?date=2018-02),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-DairyProducts" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2018b): “[Dairy Products Annual
+Summary](https://esmis.nal.usda.gov/publication/dairy-products-annual-summary?date=2018-04),”Washington,
+DC: U.S. Department of Agriculture.
+
+</div>
+
+<div id="ref-AgCensus" class="csl-entry">
+
+<span class="smallcaps">---</span>. (2019): “[2017 Census of
+Agriculture](https://www.nass.usda.gov/Publications/AgCensus/2017/index.php),”Washington,
+DC: U.S. Department of Agriculture.
 
 </div>
 
