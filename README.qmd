@@ -30,7 +30,7 @@ format:
 bibliography: 
   - References/data-citations.bib
   - References/grateful-refs.bib
-csl: References/econometrica.csl
+csl: References/chicago-author-date-access-dates.csl
 ---
 
 
@@ -52,6 +52,12 @@ csl: References/econometrica.csl
 #show figure: set block(breakable: true)
 #show bibliography: set bibliography(title: "References")
 ```
+
+
+
+::: {.content-visible when-format="gfm"}
+[![Code License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Data License: PPDL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)](https://opendatacommons.org/licenses/pddl/)
+:::
 
 
 
@@ -608,7 +614,7 @@ fs::dir_info(path = "Data/Other_Sources") |>
 
 ## Computational Requirements
 
-We used R version 4.5.2 and the packages listed in @tbl-packages running in RStudio version 2026.7.1+147 to process the raw data contained in `Data/Raw` for analysis [@base; @rstudio]. We used GAMS version 54.2.1 and the `CONOPT3` solver for the main model. We used R to process the results from the main model to produce the tables in the manuscript and two figures in the supplemental material. Additionally, we used Wolfram Mathematica version 12.2.0.0 to produce the figures in the manuscript and additional figures in the supplemental material. 
+We used R version 4.5.2 and the packages listed in @tbl-packages running in RStudio version 2026.7.1+147 to process the raw data contained in `Data/Raw` for analysis [@base; @rstudio]. We used GAMS version 54.2.1 and the `CONOPT3` solver for the main model [@GAMS]. We used R to process the results from the main model to produce the tables in the manuscript and two figures in the supplemental material. Additionally, we used Wolfram Mathematica version 12.2.0.0 to produce the figures in the manuscript and additional figures in the supplemental material [@Mathematica]. 
 
 The `run_all.sh` script can be executed in the Terminal on a computer running Mac OS, but some additional setup is required on a computer running Windows. We used Git Bash to execute the `run_all.sh` script on a computer running Windows. Git Bash is installed with Git for Windows, so it is included in the list of necessary software below. 
 
@@ -797,7 +803,9 @@ tibble::tribble(
 ```
 
 
-
+::: {.content-visible when-format="gfm"}
+## References
+:::
 
 
 

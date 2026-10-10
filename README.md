@@ -1,6 +1,11 @@
 # README
 Tristan M. Hanon, Pierre Mérel, Daniel A. Sumner
-August 23, 2026
+August 25, 2026
+
+[![Code
+License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Data License:
+PPDL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)](https://opendatacommons.org/licenses/pddl/)
 
 ## Overview
 
@@ -109,8 +114,8 @@ directory.
     ├── README.pdf
     ├── README.qmd
     ├── References
+    │   ├── chicago-author-date-access-dates.csl
     │   ├── data-citations.bib
-    │   ├── econometrica.csl
     │   └── grateful-refs.bib
     ├── renv
     │   ├── activate.R
@@ -195,7 +200,7 @@ Other Solids (alternatively, uncheck the boxes for NFS and SomCell).
 Under Report Year, switch the dropdown menu from “All” to “Equal To” and
 enter 2017 in the box that appears. Click “Continue”. Select CSV as the
 file format and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017b)).
+Agricultural Marketing Service 2017f).
 
 #### Class I Utilization of Producer Milk
 
@@ -210,7 +215,7 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 Report Year, switch the dropdown menu from “All” to “Equal To” and enter
 2017 in the box that appears. Click “Continue”. Select CSV as the file
 format and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017c)).
+Agricultural Marketing Service 2017b).
 
 #### Class II Utilization of Producer Milk
 
@@ -225,7 +230,7 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 Year, switch the dropdown menu from “All” to “Equal To” and enter 2017
 in the box that appears. Click “Continue”. Select CSV as the file format
 and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017d)).
+Agricultural Marketing Service 2017c).
 
 #### Class III Utilization of Producer Milk
 
@@ -241,7 +246,7 @@ Under “Sub Report Type to Include”, uncheck the box for Milk. Under
 Report Year, switch the dropdown menu from “All” to “Equal To” and enter
 2017 in the box that appears. Click “Continue”. Select CSV as the file
 format and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017e)).
+Agricultural Marketing Service 2017d).
 
 #### Class IV Utilization of Producer Milk
 
@@ -256,7 +261,7 @@ From Datamart homepage select “FMMOS” from the Commodity menu. Click
 Year, switch the dropdown menu from “All” to “Equal To” and enter 2017
 in the box that appears. Click “Continue”. Select CSV as the file format
 and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017f)).
+Agricultural Marketing Service 2017e).
 
 #### Advanced Prices
 
@@ -270,7 +275,7 @@ enter 2017 in the box that appears. Click “Continue”. Uncheck all fields
 on the next screen and select “Base Class 1 Price”, “Base Skim Milk
 Class 1 Price”, and “Advanced Butterfat Factor”. Select CSV as the file
 format and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2017a)).
+Agricultural Marketing Service 2017a).
 
 #### Class Prices
 
@@ -286,7 +291,7 @@ Price”, “Class 3 Price”, “Class 3 Skim Milk Price”, “Class 4 Price�
 “Class 4 Skim Milk Price”, “Butterfat Price”, “Nonfat Solids Price”,
 “Protein Price”, and “Other Solids Price”. Select CSV as the file format
 and click “Generate Report” (U.S. Department of Agriculture,
-Agricultural Marketing Service (2018)).
+Agricultural Marketing Service 2018).
 
 ### Milk Pooling Data from State Sources
 
@@ -313,10 +318,10 @@ We obtained data on milk volumes and utilization of components by class
 in the California State Milk Marketing Order from the California Dairy
 Statistics Annual report for 2017 published by the California Department
 of Food and Agriculture (California Department of Food and Agriculture
-(2017)). We created two CSV files with data from a PDF copy of the
-report, which itself is included in the `Data/Other_Sources` folder. The
-report is no longer accessible through the CDFA website, but can be
-accessed through the *Internet Archive*. An archival URL is included.
+2017). We created two CSV files with data from a PDF copy of the report,
+which itself is included in the `Data/Other_Sources` folder. The report
+is no longer accessible through the CDFA website, but can be accessed
+through the *Internet Archive*. An archival URL is included.
 
 #### Western New York Milk Pooling Data
 
@@ -331,10 +336,10 @@ We obtained data on milk volumes and utilization of components by class
 in the Western New York Milk Marketing Area from the Western New York
 Milk Marketing Area Annual Statistical Report 2017 published by the New
 York Department of Agriculture and Markets (New York Department of
-Agriculture and Markets (2017)). We create a CSV file with data from a
-PDF copy of the report, which itself is included in the
-`Data/Other_Sources` folder and can be accessed through the [New York
-Department of Agriculture and Markets
+Agriculture and Markets 2017). We create a CSV file with data from a PDF
+copy of the report, which itself is included in the `Data/Other_Sources`
+folder and can be accessed through the [New York Department of
+Agriculture and Markets
 website](https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017.pdf).
 
 ### National Agricultural Statistics Service Data
@@ -342,7 +347,7 @@ website](https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017
 The National Agricultural Statistics Service (NASS) data we used fall
 into two general categories: Census data and Survey data. We used Census
 data from the 2017 Census of Agriculture (U.S. Department of
-Agriculture, National Agricultural Statistics Service (2019)). When
+Agriculture, National Agricultural Statistics Service 2019). When
 specific data series were unavailable in the 2017 Census, or when data
 from years other than 2017 were needed, we used data from NASS survey
 reports. Those survey reports are cited individually below. In all
@@ -357,7 +362,7 @@ outlined below.
 
 We used survey data on state-level milk production volumes from the
 *Milk Production* report (U.S. Department of Agriculture, National
-Agricultural Statistics Service (2018a)). To download these data from
+Agricultural Statistics Service 2018d). To download these data from
 Quick Stats, select “MILK” from the Commodity box; select “PRODUCTION”
 from the Category box; select “MILK - PRODUCTION, MEASURED IN LB” from
 the Data Item box; select “STATE” from the Geographic Level box; select
@@ -371,7 +376,7 @@ the Data Item box; select “STATE” from the Geographic Level box; select
 We used survey data on state and multi-state regional dairy product
 production volumes from the *Dairy Products Annual Summary* report (U.S.
 Department of Agriculture, National Agricultural Statistics Service
-(2018b)). To download these data from Quick Stats, select “SURVEY” from
+2018c). To download these data from Quick Stats, select “SURVEY” from
 the Program box; select “ANIMALS & PRODUCTS” from the Sector box; select
 “DAIRY” from the Group box; select “BUTTER”, “CHEESE”, “CREAM”, “ICE
 CREAM”, “MILK”, “SHERBET”, “WHEY”, and “YOGURT” from the Commodity box;
@@ -408,7 +413,7 @@ select 2017 from the Year box; select “ANNUAL” from the Period Type box.
 
 We used 2017 Census data on total cropland acreage and harvested
 cropland acreage (U.S. Department of Agriculture, National Agricultural
-Statistics Service (2019)). To download these data from Quick Stats, for
+Statistics Service 2019). To download these data from Quick Stats, for
 both files select “CENSUS” from the Program box; select “AG LAND” from
 the Commodity box; select “AREA” from the Category box.
 
@@ -425,7 +430,7 @@ Geographic Level box; select 2017 from the Year box.
   - `NASS_Census_Feed_Crop_Acreage_2017.csv`
 
 We used 2017 Census data on feed crop acres harvested (U.S. Department
-of Agriculture, National Agricultural Statistics Service (2019)). To
+of Agriculture, National Agricultural Statistics Service 2019). To
 download these data from Quick Stats, select “CENSUS” from the Program
 box; select “FIELD CROPS” from the Group box; select “BARLEY”,
 “BUCKWHEAT”, “CANOLA”, “CORN”, “COTTON”, “FLAXSEED”, “HAY”, “HAYLAGE”,
@@ -460,7 +465,7 @@ Level box; select 2017 from the Year box.
   - `NASS_Census_Other_Crop_Acreage_2017.csv`
 
 We used 2017 Census data on other crop acres harvested (U.S. Department
-of Agriculture, National Agricultural Statistics Service (2019)). To
+of Agriculture, National Agricultural Statistics Service 2019). To
 download these data from Quick Stats, select “CENSUS” from the Program
 box; select “FIELD CROPS”, “FRUIT & TREE NUTS”, and “VEGETABLES” from
 the Group box; select “BEANS”, “BERRY TOTALS”, “CHICKPEAS”, “GRASSES &
@@ -500,14 +505,14 @@ Level box; select 2017 from the Year box.
 
 We used 2017 Census data on total crop sales and individual crop sales
 (U.S. Department of Agriculture, National Agricultural Statistics
-Service (2019)). Four commodities do not have sales reported in the
-Census of Agriculture, and therefore we used survey data on the value of
+Service 2019). Four commodities do not have sales reported in the Census
+of Agriculture, and therefore we used survey data on the value of
 production for these commodities: hay, peanuts, sugarbeets, and
 sugarcane. Quick Stats contains records for “PRODUCTION, MEASURED IN \$”
 that are a combination of production volumes reported in the *Crop
 Production Annual Summary* report and prices received reported in the
-*Agricultural Prices* report (National Agricultural Statistics Service
-(2018a); National Agricultural Statistics Service (2018b)).
+*Agricultural Prices* report (U.S. Department of Agriculture, National
+Agricultural Statistics Service 2018b, 2018a).
 
 To download the data in the file `NASS_Total_Crop_Sales_2017.csv` from
 Quick Stats, select “CENSUS” from the Program box; select “CROP TOTALS”
@@ -555,14 +560,12 @@ Level box; select 2017 from the Year box.
 We used survey data on silage and haylage production quantities from the
 2017 Census and prices received from the *Agricultural Prices* report to
 compute silage and haylage production values for 2017 (U.S. Department
-of Agriculture, National Agricultural Statistics Service (2019);
-National Agricultural Statistics Service (2018b)). We also used a range
-of silage and haylage data from 2015-2019 for the regression analysis
-described in Appendix C. These data came from the *Crop Production
-Annual Summary* report and *Agricultural Prices* report. (U.S.
-Department of Agriculture, National Agricultural Statistics Service
-(2015a); U.S. Department of Agriculture, National Agricultural
-Statistics Service (2015b)).
+of Agriculture, National Agricultural Statistics Service 2019, 2018a).
+We also used a range of silage and haylage data from 2015-2019 for the
+regression analysis described in Appendix C. These data came from the
+*Crop Production Annual Summary* report and *Agricultural Prices*
+report. (U.S. Department of Agriculture, National Agricultural
+Statistics Service 2015d, 2015a).
 
 To download the data in the file `NASS_Silage_Data_2017.csv` from Quick
 Stats, select “FIELD CROPS” from the Group box; select “CORN” and
@@ -596,7 +599,7 @@ Period Type box.
 
 We used a combination of livestock inventory data from the 2017 Census
 and survey data from the *Cattle* report U.S. Department of Agriculture,
-National Agricultural Statistics Service ((2015c)). For the regression
+National Agricultural Statistics Service (2015c). For the regression
 analysis of silage use by dairy cattle in the `4_Silage_Regression.R`
 script, we use the survey data from the *Cattle* report for 2015 through
 2019. That way the data are all from a consistent source. The 2017
@@ -639,8 +642,7 @@ from 2015 to 2019, but these data are not used in the analysis.
 We used cropland acreage data from the 2017 Census and cropland rent
 data from the NASS *Cash Rents* survey from 2015 through 2019 (U.S.
 Department of Agriculture, National Agricultural Statistics Service
-(2019); U.S. Department of Agriculture, National Agricultural Statistics
-Service (2015d)).
+2019, 2015b).
 
 To download the data in the file `CroplandAcresState.csv` from Quick
 Stats, select “CENSUS” from the Program box; select “ECONOMICS” from the
@@ -672,22 +674,21 @@ analysis.
 We used data from the Commodity Flow Survey and Freight Analysis
 Framework to calculate dairy product shipments between regions (United
 States Department of Transportation, Bureau of Transportation
-Statistics: Office of Survey Programs (2020); United States Department
-of Transportation: Office of the Secretary of Transportation and Bureau
-of Transportation Statistics: Office of Statistical and Economic
-Analysis (2017)). While the public use microdata file is available
-through the [Bureau of Transportation Statistics
+Statistics: Office of Survey Programs 2020; United States Department of
+Transportation: Office of the Secretary of Transportation and Bureau of
+Transportation Statistics: Office of Statistical and Economic Analysis
+2017). While the public use microdata file is available through the
+[Bureau of Transportation Statistics
 repository](https://doi.org/10.21949/1522584), we requested a special
 tabulation from the Bureau of Transportation Statistics that includes
 commodity group observations at the [5-digit Standard Classification of
 Transported Goods
 (SCTG)](https://www2.census.gov/programs-surveys/cfs/technical-documentation/code-list/CFS-1200_17.pdf)
 commodity code level (United States Department of Transportation, Bureau
-of Transportation Statistics (2022)). We include the README file
-prepared for the special tabulation in the `Other_Sources` subfolder.
-The Freight Analysis Framework data are avaible to download from the
-[Bureau of Transportation Statistics
-repository](https://doi.org/10.21949/1529116).
+of Transportation Statistics 2022). We include the README file prepared
+for the special tabulation in the `Other_Sources` subfolder. The Freight
+Analysis Framework data are avaible to download from the [Bureau of
+Transportation Statistics repository](https://doi.org/10.21949/1529116).
 
 ### United States Census Bureau Data
 
@@ -701,7 +702,7 @@ and exports of dairy products and feed crops.
 
 We used state-level population data for 2017 from the Vintage 2019
 Population Estimates (United States Department of Commerce, U.S. Census
-Bureau (2019)). These data are most easily accessed directly through the
+Bureau 2019). These data are most easily accessed directly through the
 [Census Bureau’s FTP
 server](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/).
 We used Table 1. Annual Estimates of the Resident Population for the
@@ -722,7 +723,7 @@ estimate.
 
 We used state-level data on dairy product imports and exports and U.S.
 total feed crop exports published by the U.S. Census Bureau (United
-States Department of Commerce, U.S. Census Bureau (2018)). While these
+States Department of Commerce, U.S. Census Bureau 2018). While these
 data are a Census Bureau product, we accessed the data through the USDA
 Foreign Agricultural Service [Global Agricultural Trade System
 (GATS)](https://apps.fas.usda.gov/gats/default.aspx).
@@ -790,10 +791,8 @@ under Settings change Order By to “Code” and change Calculation to
 
 We used data from the ERS Feed Grains Database Yearbook Tables, the Oil
 Crops Yearbook, and the U.S. Bioenergy Statistics (U.S. Department of
-Agriculture, Economic Research Service (2026c); U.S. Department of
-Agriculture, Economic Research Service (2026a); U.S. Department of
-Agriculture, Economic Research Service (2026b)). To access the Feed
-Grains Database, go to the [Feed Grains
+Agriculture, Economic Research Service 2026b, 2026c, 2026d). To access
+the Feed Grains Database, go to the [Feed Grains
 Database](https://www.ers.usda.gov/data-products/feed-grains-database/feed-grains-yearbook-tables)
 website and download the CSV version of the file “Feed Grains Yearbook
 Tables - All years”. We used tables 4-7 and 30.
@@ -817,7 +816,7 @@ Statistics”. We used tables 8.1, 8.2, and 8.3.
 We used data from the ERS Dairy Data database on per capita consumption
 of beverage milk products and component conversion factors for dairy
 products (U.S. Department of Agriculture, Economic Research Service
-(2026d)). To access the per capita consumption data, go to the [Dairy
+2026a). To access the per capita consumption data, go to the [Dairy
 Data](https://www.ers.usda.gov/data-products/dairy-data) website, click
 on “Current dairy data”, and download the CSV version of the file “Dairy
 products: Per capita consumption, United States (Annual)”. To access the
@@ -950,13 +949,13 @@ Table 3: List of Files in Data/Other_Sources Folder
 We used R version 4.5.2 and the packages listed in
 <a href="#tbl-packages" class="quarto-xref">Table 4</a> running in
 RStudio version 2026.7.1+147 to process the raw data contained in
-`Data/Raw` for analysis (R Core Team (2025); Posit team (2026)). We used
-GAMS version 54.2.1 and the `CONOPT3` solver for the main model. We used
-R to process the results from the main model to produce the tables in
-the manuscript and two figures in the supplemental material.
-Additionally, we used Wolfram Mathematica version 12.2.0.0 to produce
-the figures in the manuscript and additional figures in the supplemental
-material.
+`Data/Raw` for analysis (R Core Team 2025; Posit team 2026). We used
+GAMS version 54.2.1 and the `CONOPT3` solver for the main model (GAMS
+Development Corporation 2026). We used R to process the results from the
+main model to produce the tables in the manuscript and two figures in
+the supplemental material. Additionally, we used Wolfram Mathematica
+version 12.2.0.0 to produce the figures in the manuscript and additional
+figures in the supplemental material (Wolfram Research, Inc. 2020).
 
 The `run_all.sh` script can be executed in the Terminal on a computer
 running Mac OS, but some additional setup is required on a computer
@@ -986,17 +985,17 @@ Table 4: R Packages Used
 
 | Package | Version | Citation |
 |:---|:---|:---|
-| base | 4.5.2 | R Core Team ((2025)) |
-| fs | 2.1.0 | Hester, Wickham, and Csárdi ((2026)) |
-| grateful | 0.3.0 | Rodriguez-Sanchez and Jackson ((2025)) |
-| here | 1.0.2 | Müller ((2025)) |
-| knitr | 1.51 | Xie ((2014)); Xie ((2015)); Xie ((2025)) |
-| plyr | 1.8.9 | Wickham ((2011)) |
-| renv | 1.2.4 | Ushey and Wickham ((2026)) |
-| rmarkdown | 2.31 | Xie, Allaire, and Grolemund ((2018)); Xie, Dervieux, and Riederer ((2020)); Allaire et al. ((2026)) |
-| sf | 1.1.2 | Pebesma ((2018)); Pebesma and Bivand ((2023)) |
-| stargazer | 5.2.3 | Hlavac ((2022)) |
-| tidyverse | 2.0.0 | Wickham et al. ((2019)) |
+| base | 4.5.2 | R Core Team (2025) |
+| fs | 2.1.0 | Hester et al. (2026) |
+| grateful | 0.3.0 | Rodriguez-Sanchez and Jackson (2025) |
+| here | 1.0.2 | Müller (2025) |
+| knitr | 1.51 | Xie (2014); Xie (2015); Xie (2025) |
+| plyr | 1.8.9 | Wickham (2011) |
+| renv | 1.2.4 | Ushey and Wickham (2026) |
+| rmarkdown | 2.31 | Xie et al. (2018); Xie et al. (2020); Allaire et al. (2026) |
+| sf | 1.1.2 | Pebesma (2018); Pebesma and Bivand (2023) |
+| stargazer | 5.2.3 | Hlavac (2022) |
+| tidyverse | 2.0.0 | Wickham et al. (2019) |
 
 </div>
 
@@ -1204,372 +1203,383 @@ Table 5: Code Files to Generate Tables and Figures in Manuscript
 
 </div>
 
+## References
+
 <div id="refs" class="references csl-bib-body hanging-indent">
 
 <div id="ref-rmarkdown2026" class="csl-entry">
 
-<span class="smallcaps">Allaire, J., Y. Xie, C. Dervieux, J. McPherson,
-J. Luraschi, K. Ushey, A. Atkins, et al.</span> (2026):
-*[<span class="nocase">rmarkdown</span>: Dynamic Documents for
-r](https://github.com/rstudio/rmarkdown)*,.
+Allaire, JJ, Yihui Xie, Christophe Dervieux, et al. 2026.
+*<span class="nocase">rmarkdown</span>: Dynamic Documents for r*.
+<https://github.com/rstudio/rmarkdown>.
 
 </div>
 
 <div id="ref-CDFA" class="csl-entry">
 
-<span class="smallcaps">California Department of Food and
-Agriculture</span>. (2017): [California Dairy Statistics
-2017](https://web.archive.org/web/20181130220414/https://www.cdfa.ca.gov/dairy/pdf/Annual/2017/2017_Statistics_Annual.pdf),.
+California Department of Food and Agriculture. 2017. *California Dairy
+Statistics 2017*. Sacramento, CA. Accessed February 8, 2026.
+<https://web.archive.org/web/20181130220414/https://www.cdfa.ca.gov/dairy/pdf/Annual/2017/2017_Statistics_Annual.pdf>.
+
+</div>
+
+<div id="ref-GAMS" class="csl-entry">
+
+GAMS Development Corporation. 2026. *General Algebraic Modeling System
+(GAMS)*. Fairfax, VA. <https://www.gams.com/>.
 
 </div>
 
 <div id="ref-fs" class="csl-entry">
 
-<span class="smallcaps">Hester, J., H. Wickham, and G. Csárdi</span>.
-(2026): *[<span class="nocase">fs</span>: Cross-Platform File System
-Operations Based on
-“<span class="nocase">libuv</span>”](https://fs.r-lib.org)*,.
+Hester, Jim, Hadley Wickham, and Gábor Csárdi. 2026.
+*<span class="nocase">fs</span>: Cross-Platform File System Operations
+Based on “<span class="nocase">libuv</span>”*. <https://fs.r-lib.org>.
 
 </div>
 
 <div id="ref-stargazer" class="csl-entry">
 
-<span class="smallcaps">Hlavac, M.</span> (2022):
-*[<span class="nocase">stargazer</span>: Well-Formatted Regression and
-Summary Statistics
-Tables](https://CRAN.R-project.org/package=stargazer)*, Bratislava,
-Slovakia: Social Policy Institute.
+Hlavac, Marek. 2022. *<span class="nocase">stargazer</span>:
+Well-Formatted Regression and Summary Statistics Tables*. Social Policy
+Institute. <https://CRAN.R-project.org/package=stargazer>.
 
 </div>
 
 <div id="ref-here" class="csl-entry">
 
-<span class="smallcaps">Müller, K.</span> (2025):
-*[<span class="nocase">here</span>: A Simpler Way to Find Your
-Files](https://here.r-lib.org/)*,.
-
-</div>
-
-<div id="ref-CropProduction" class="csl-entry">
-
-<span class="smallcaps">National Agricultural Statistics Service</span>.
-(2018a): “[Crop Production Annual
-Summary](https://esmis.nal.usda.gov/publication/crop-production-annual-summary?date=2018-01),”Washington,
-DC: U.S. Department of Agriculture.
-
-</div>
-
-<div id="ref-AgPrices" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2018b): “[Agricultural
-Prices](https://esmis.nal.usda.gov/publication/agricultural-prices?date=2018-01),”Washington,
-DC: U.S. Department of Agriculture.
+Müller, Kirill. 2025. *<span class="nocase">here</span>: A Simpler Way
+to Find Your Files*. <https://here.r-lib.org/>.
 
 </div>
 
 <div id="ref-NYReport" class="csl-entry">
 
-<span class="smallcaps">New York Department of Agriculture and
-Markets</span>. (2017): [Western New York Milk Marketing Area 2017
-Annual Statistics
-Report](https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017.pdf),.
+New York Department of Agriculture and Markets. 2017. *Western New York
+Milk Marketing Area 2017 Annual Statistics Report*. Buffalo, NY.
+Accessed August 10, 2026.
+<https://agriculture.ny.gov/system/files/documents/2019/06/WNYAnnual2017.pdf>.
 
 </div>
 
 <div id="ref-sf2018" class="csl-entry">
 
-<span class="smallcaps">Pebesma, E.</span> (2018):
-“[<span class="nocase">Simple Features for R: Standardized Support for
-Spatial Vector Data</span>](https://doi.org/10.32614/RJ-2018-009),” *The
-R Journal*, 10, 439–46.
+Pebesma, Edzer. 2018. “<span class="nocase">Simple Features for R:
+Standardized Support for Spatial Vector Data</span>.” *The R Journal* 10
+(1): 439–46. <https://doi.org/10.32614/RJ-2018-009>.
 
 </div>
 
 <div id="ref-sf2023" class="csl-entry">
 
-<span class="smallcaps">Pebesma, E., and R. Bivand</span>. (2023):
-*[<span class="nocase">Spatial Data Science: With applications in
-R</span>](https://doi.org/10.1201/9780429459016)*, Chapman and Hall/CRC.
+Pebesma, Edzer, and Roger Bivand. 2023. *<span class="nocase">Spatial
+Data Science: With applications in R</span>*. Chapman and Hall/CRC.
+<https://doi.org/10.1201/9780429459016>.
 
 </div>
 
 <div id="ref-rstudio" class="csl-entry">
 
-<span class="smallcaps">Posit team</span>. (2026): “[RStudio: Integrated
-Development Environment for r](http://www.posit.co/),”Boston, MA: Posit
-Software, PBC.
+Posit team. 2026. *RStudio: Integrated Development Environment for R*.
+Posit Software, PBC. <http://www.posit.co/>.
 
 </div>
 
 <div id="ref-base" class="csl-entry">
 
-<span class="smallcaps">R Core Team</span>. (2025): *[R: A Language and
-Environment for Statistical Computing](https://www.R-project.org/)*,
-Vienna, Austria: R Foundation for Statistical Computing.
+R Core Team. 2025. *R: A Language and Environment for Statistical
+Computing*. R Foundation for Statistical Computing.
+<https://www.R-project.org/>.
 
 </div>
 
 <div id="ref-grateful" class="csl-entry">
 
-<span class="smallcaps">Rodriguez-Sanchez, F., and C. P. Jackson</span>.
-(2025): *[<span class="nocase">grateful</span>: Facilitate Citation of R
-Packages](https://pakillo.github.io/grateful/)*,.
+Rodriguez-Sanchez, Francisco, and Connor P. Jackson. 2025.
+*<span class="nocase">grateful</span>: Facilitate Citation of R
+Packages*. <https://pakillo.github.io/grateful/>.
 
 </div>
 
 <div id="ref-CensusTrade" class="csl-entry">
 
-<span class="smallcaps">United States Department of Commerce, U.S.
-Census Bureau</span>. (2018): “[State and Metropolitan Area Trade
-Data](https://www.census.gov/foreign-trade/statistics/state/index.html),”
+United States Department of Commerce, U.S. Census Bureau. 2018. *State
+and Metropolitan Area Trade Data*. Accessed August 25, 2022.
+<https://www.census.gov/foreign-trade/statistics/state/index.html>.
 
 </div>
 
 <div id="ref-CensusPopEst" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2019): “[Vintage 2019 Population
-Estimates](https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/),”
+United States Department of Commerce, U.S. Census Bureau. 2019. *Vintage
+2019 Population Estimates*. Accessed November 27, 2022.
+<https://www2.census.gov/programs-surveys/popest/tables/2010-2019/state/totals/>.
 
 </div>
 
 <div id="ref-CFSSpecialTab" class="csl-entry">
 
-<span class="smallcaps">United States Department of Transportation,
-Bureau of Transportation Statistics</span>. (2022): “SPC01 - CF1700A21,
-Geographic Area Series: Shipment Characteristics by Origin Geography by
-Destination Geography by Selected 5-Digit Commodity by Mode \[Custom
-Tabulations\],”Bureau of Transportation Statistics.
+United States Department of Transportation, Bureau of Transportation
+Statistics. 2022. *SPC01 - CF1700A21, Geographic Area Series: Shipment
+Characteristics by Origin Geography by Destination Geography by Selected
+5-Digit Commodity by Mode \[Custom Tabulations\]*. Bureau of
+Transportation Statistics.
 
 </div>
 
 <div id="ref-CFS" class="csl-entry">
 
-<span class="smallcaps">United States Department of Transportation,
-Bureau of Transportation Statistics: Office of Survey Programs</span>.
-(2020): “[Commodity Flow Survey 2017
-\[Datasets\]](https://doi.org/10.21949/1522565),”Bureau of
-Transportation Statistics.
+United States Department of Transportation, Bureau of Transportation
+Statistics: Office of Survey Programs. 2020. *Commodity Flow Survey 2017
+\[Datasets\]*. Bureau of Transportation Statistics. Accessed August 23,
+2026. <https://doi.org/10.21949/1522565>.
 
 </div>
 
 <div id="ref-FAF" class="csl-entry">
 
-<span class="smallcaps">United States Department of Transportation:
-Office of the Secretary of Transportation, and Bureau of Transportation
-Statistics: Office of Statistical and Economic Analysis</span>. (2017):
-“[Freight Analysis Framework (FAF) FAF5: HiLoForecasts \[Supporting
-Datasets\]](https://doi.org/10.21949/1529116),”Bureau of Transportation
-Statistics.
+United States Department of Transportation: Office of the Secretary of
+Transportation, and Bureau of Transportation Statistics: Office of
+Statistical and Economic Analysis. 2017. *Freight Analysis Framework
+(FAF) FAF5: HiLoForecasts \[Supporting Datasets\]*. Bureau of
+Transportation Statistics. Accessed August 23, 2026.
+<https://doi.org/10.21949/1529116>.
 
 </div>
 
 <div id="ref-AdvancedPrices" class="csl-entry">
 
-<span class="smallcaps">U.S. Department of Agriculture, Agricultural
-Marketing Service</span>. (2017a): “[Advanced Prices and Pricing
-Factors](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
-
-</div>
-
-<div id="ref-Class4Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017f): “[Class IV Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20IV%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-Class3Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017e): “[Class III Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20III%20Utilization%20of%20Producer%20Milk),”
-
-</div>
-
-<div id="ref-Class2Util" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2017d): “[Class II Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20II%20Utilization%20of%20Producer%20Milk),”
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017a.
+*Advanced Prices and Pricing Factors*. Accessed August 13, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\\DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly).
 
 </div>
 
 <div id="ref-Class1Util" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2017c): “[Class i Utilization of
-Producer
-Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20I%20Utilization%20of%20Producer%20Milk),”
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017b.
+*Class I Utilization of Producer Milk*. Accessed July 20, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\\20Utilization%20Reports\Class%20I%20Utilization%20of%20Producer%20Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20I%20Utilization%20of%20Producer%20Milk).
+
+</div>
+
+<div id="ref-Class2Util" class="csl-entry">
+
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017c.
+*Class II Utilization of Producer Milk*. Accessed July 20, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\\20Utilization%20Reports\Class%20II%20Utilization%20of%20Producer%20Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20II%20Utilization%20of%20Producer%20Milk).
+
+</div>
+
+<div id="ref-Class3Util" class="csl-entry">
+
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017d.
+*Class III Utilization of Producer Milk*. Accessed July 20, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\\20Utilization%20Reports\Class%20III%20Utilization%20of%20Producer%20Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20III%20Utilization%20of%20Producer%20Milk).
+
+</div>
+
+<div id="ref-Class4Util" class="csl-entry">
+
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017e.
+*Class IV Utilization of Producer Milk*. Accessed July 20, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\\20Utilization%20Reports\Class%20IV%20Utilization%20of%20Producer%20Milk](https://mpr.datamart.ams.usda.gov/menu.do?path=\Products\FMMOS\%20Utilization%20Reports\Class%20IV%20Utilization%20of%20Producer%20Milk).
 
 </div>
 
 <div id="ref-ProducerMilkComponents" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2017b): “[Producer Milk
-Components](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\FMMOS\%20Utilization%20Reports\Producer%20Milk%20Components),”
+U.S. Department of Agriculture, Agricultural Marketing Service. 2017f.
+*Producer Milk Components*. Accessed August 10, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=Products\FMMOS\\20Utilization%20Reports\Producer%20Milk%20Components](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\FMMOS\%20Utilization%20Reports\Producer%20Milk%20Components).
 
 </div>
 
 <div id="ref-ClassPrices" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2018): “[Class and Component
-Prices](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly),”
-
-</div>
-
-<div id="ref-ERSOilCrops" class="csl-entry">
-
-<span class="smallcaps">U.S. Department of Agriculture, Economic
-Research Service</span>. (2026a): “[Oil Crops
-Yearbook](https://www.ers.usda.gov/data-products/oil-crops-yearbook),”
-
-</div>
-
-<div id="ref-ERSBioenergy" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2026b): “[U.s. Bioenergy
-Statistics](https://www.ers.usda.gov/data-products/us-bioenergy-statistics),”
-
-</div>
-
-<div id="ref-ERSFeedGrains" class="csl-entry">
-
-<span class="smallcaps">---</span>. (2026c): “[Feed Grains
-Database](https://www.ers.usda.gov/data-products/feed-grains-database/feed-grains-yearbook-tables),”
+U.S. Department of Agriculture, Agricultural Marketing Service. 2018.
+*Class and Component Prices*. Accessed August 13, 2026.
+[https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\\DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly](https://mpr.datamart.ams.usda.gov/menu.do?path=Products\Dairy\All%20Dairy\(DY_CL102)%20National%20Dairy%20Products%20Prices%20-%20Monthly).
 
 </div>
 
 <div id="ref-ERSDairy" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2026d): “[Dairy
-Data](https://www.ers.usda.gov/data-products/dairy-data),”
+U.S. Department of Agriculture, Economic Research Service. 2026a. *Dairy
+Data*. Accessed August 10, 2026.
+<https://www.ers.usda.gov/data-products/dairy-data>.
 
 </div>
 
-<div id="ref-CashRents" class="csl-entry">
+<div id="ref-ERSFeedGrains" class="csl-entry">
 
-<span class="smallcaps">U.S. Department of Agriculture, National
-Agricultural Statistics Service</span>. (2015d): “[Cash
-Rents](https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Cash_Rents_by_County/),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, Economic Research Service. 2026b. *Feed
+Grains Database*. Accessed August 10, 2026.
+<https://www.ers.usda.gov/data-products/feed-grains-database/feed-grains-yearbook-tables>.
 
 </div>
 
-<div id="ref-Cattle1519" class="csl-entry">
+<div id="ref-ERSOilCrops" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2015c):
-“[Cattle](https://esmis.nal.usda.gov/publication/cattle),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, Economic Research Service. 2026c. *Oil
+Crops Yearbook*. Accessed August 10, 2026.
+<https://www.ers.usda.gov/data-products/oil-crops-yearbook>.
+
+</div>
+
+<div id="ref-ERSBioenergy" class="csl-entry">
+
+U.S. Department of Agriculture, Economic Research Service. 2026d. *U.S.
+Bioenergy Statistics*. Accessed August 10, 2026.
+<https://www.ers.usda.gov/data-products/us-bioenergy-statistics>.
 
 </div>
 
 <div id="ref-AgPrices1519" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2015b): “[Agricultural
-Prices](https://esmis.nal.usda.gov/publication/agricultural-prices),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2015a. *Agricultural Prices*. U.S. Department of Agriculture.
+Accessed August 4, 2024.
+<https://esmis.nal.usda.gov/publication/agricultural-prices>.
+
+</div>
+
+<div id="ref-CashRents" class="csl-entry">
+
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2015b. *Cash Rents*. U.S. Department of Agriculture. Accessed
+April 5, 2024.
+<https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Cash_Rents_by_County/>.
+
+</div>
+
+<div id="ref-Cattle1519" class="csl-entry">
+
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2015c. *Cattle*. U.S. Department of Agriculture. Accessed
+August 8, 2026. <https://esmis.nal.usda.gov/publication/cattle>.
 
 </div>
 
 <div id="ref-CropProduction1519" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2015a): “[Crop Production Annual
-Summary](https://esmis.nal.usda.gov/publication/crop-production-annual-summary),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2015d. *Crop Production Annual Summary*. U.S. Department of
+Agriculture. Accessed August 4, 2024.
+<https://esmis.nal.usda.gov/publication/crop-production-annual-summary>.
 
 </div>
 
-<div id="ref-MilkProd" class="csl-entry">
+<div id="ref-AgPrices" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2018a): “[Milk
-Production](https://esmis.nal.usda.gov/publication/milk-production?date=2018-02),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2018a. *Agricultural Prices*. U.S. Department of Agriculture.
+Accessed September 12, 2022.
+<https://esmis.nal.usda.gov/publication/agricultural-prices?date=2018-01>.
+
+</div>
+
+<div id="ref-CropProduction" class="csl-entry">
+
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2018b. *Crop Production Annual Summary*. U.S. Department of
+Agriculture. Accessed September 12, 2022.
+<https://esmis.nal.usda.gov/publication/crop-production-annual-summary?date=2018-01>.
 
 </div>
 
 <div id="ref-DairyProducts" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2018b): “[Dairy Products Annual
-Summary](https://esmis.nal.usda.gov/publication/dairy-products-annual-summary?date=2018-04),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2018c. *Dairy Products Annual Summary*. U.S. Department of
+Agriculture. Accessed September 14, 2022.
+<https://esmis.nal.usda.gov/publication/dairy-products-annual-summary?date=2018-04>.
+
+</div>
+
+<div id="ref-MilkProd" class="csl-entry">
+
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2018d. *Milk Production*. U.S. Department of Agriculture.
+Accessed September 13, 2022.
+<https://esmis.nal.usda.gov/publication/milk-production?date=2018-02>.
 
 </div>
 
 <div id="ref-AgCensus" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2019): “[2017 Census of
-Agriculture](https://www.nass.usda.gov/Publications/AgCensus/2017/index.php),”Washington,
-DC: U.S. Department of Agriculture.
+U.S. Department of Agriculture, National Agricultural Statistics
+Service. 2019. *2017 Census of Agriculture*. U.S. Department of
+Agriculture. Accessed August 8, 2026.
+<https://www.nass.usda.gov/Publications/AgCensus/2017/index.php>.
 
 </div>
 
 <div id="ref-renv" class="csl-entry">
 
-<span class="smallcaps">Ushey, K., and H. Wickham</span>. (2026):
-*[<span class="nocase">renv</span>: Project
-Environments](https://rstudio.github.io/renv/)*,.
+Ushey, Kevin, and Hadley Wickham. 2026.
+*<span class="nocase">renv</span>: Project Environments*.
+<https://rstudio.github.io/renv/>.
 
 </div>
 
 <div id="ref-plyr" class="csl-entry">
 
-<span class="smallcaps">Wickham, H.</span> (2011): “[The
-split-apply-combine strategy for data
-analysis](https://www.jstatsoft.org/v40/i01/),” *Journal of Statistical
-Software*, 40, 1–29.
+Wickham, Hadley. 2011. “The Split-Apply-Combine Strategy for Data
+Analysis.” *Journal of Statistical Software* 40 (1): 1–29.
+<https://www.jstatsoft.org/v40/i01/>.
 
 </div>
 
 <div id="ref-tidyverse" class="csl-entry">
 
-<span class="smallcaps">Wickham, H., M. Averick, J. Bryan, W. Chang, L.
-D. McGowan, R. François, G. Grolemund, et al.</span> (2019): “[Welcome
-to the
-<span class="nocase">tidyverse</span>](https://doi.org/10.21105/joss.01686),”
-*Journal of Open Source Software*, 4, 1686.
+Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. “Welcome to
+the <span class="nocase">tidyverse</span>.” *Journal of Open Source
+Software* 4 (43): 1686. <https://doi.org/10.21105/joss.01686>.
+
+</div>
+
+<div id="ref-Mathematica" class="csl-entry">
+
+Wolfram Research, Inc. 2020. *Mathematica*. Champaign, Illinois.
+<https://www.wolfram.com/mathematica>.
 
 </div>
 
 <div id="ref-knitr2014" class="csl-entry">
 
-<span class="smallcaps">Xie, Y.</span> (2014):
-“<span class="nocase">knitr</span>: A Comprehensive Tool for
-Reproducible Research in R,” in *Implementing reproducible computational
-research*, ed. by Stodden, V., F. Leisch, and R. D. Peng. Chapman;
-Hall/CRC.
+Xie, Yihui. 2014. “<span class="nocase">knitr</span>: A Comprehensive
+Tool for Reproducible Research in R.” In *Implementing Reproducible
+Computational Research*, edited by Victoria Stodden, Friedrich Leisch,
+and Roger D. Peng. Chapman; Hall/CRC.
 
 </div>
 
 <div id="ref-knitr2015" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2015): *[Dynamic Documents with R
-and Knitr](https://yihui.org/knitr/)*, 2nd ed.Boca Raton, Florida:
-Chapman; Hall/CRC.
+Xie, Yihui. 2015. *Dynamic Documents with R and Knitr*. 2nd ed. Chapman;
+Hall/CRC. <https://yihui.org/knitr/>.
 
 </div>
 
 <div id="ref-knitr2025" class="csl-entry">
 
-<span class="smallcaps">---</span>. (2025):
-*[<span class="nocase">knitr</span>: A General-Purpose Package for
-Dynamic Report Generation in R](https://yihui.org/knitr/)*,.
+Xie, Yihui. 2025. *<span class="nocase">knitr</span>: A General-Purpose
+Package for Dynamic Report Generation in R*. <https://yihui.org/knitr/>.
 
 </div>
 
 <div id="ref-rmarkdown2018" class="csl-entry">
 
-<span class="smallcaps">Xie, Y., J. J. Allaire, and G. Grolemund</span>.
-(2018): *[R Markdown: The Definitive
-Guide](https://yihui.org/rmarkdown/)*, Boca Raton, Florida: Chapman;
-Hall/CRC.
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. *R Markdown: The
+Definitive Guide*. Chapman; Hall/CRC. <https://yihui.org/rmarkdown/>.
 
 </div>
 
 <div id="ref-rmarkdown2020" class="csl-entry">
 
-<span class="smallcaps">Xie, Y., C. Dervieux, and E. Riederer</span>.
-(2020): *[R Markdown Cookbook](https://yihui.org/rmarkdown-cookbook)*,
-Boca Raton, Florida: Chapman; Hall/CRC.
+Xie, Yihui, Christophe Dervieux, and Emily Riederer. 2020. *R Markdown
+Cookbook*. Chapman; Hall/CRC. <https://yihui.org/rmarkdown-cookbook>.
 
 </div>
 
